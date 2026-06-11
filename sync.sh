@@ -1,10 +1,10 @@
 repo=$HOME/workpc
-dot_files="al  .bashrc  .spectrwm.conf .vimrc .xinitrc"
+dot_files="al  .bashrc  .spectrwm.conf .vimrc .xinitrc .config/sxhkd/"
 aptpath="/var/log/apt"
 
 for file in $dot_files
 do
-	cp -v $HOME/$file $repo/
+	cp -vr $HOME/$file $repo/
 done
 
 cp -rv $aptpath $repo/
