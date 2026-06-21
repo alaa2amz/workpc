@@ -228,3 +228,124 @@ Commandline: apt install dvtm
 Requested-By: alaad13 (1000)
 Install: dvtm:amd64 (0.15+40.g311a8c0-2)
 End-Date: 2026-06-11  12:07:37
+
+Start-Date: 2026-06-14  13:31:17
+Commandline: apt install vim-ale
+Requested-By: alaad13 (1000)
+Install: vim-ale:amd64 (4.0.0-2)
+End-Date: 2026-06-14  13:31:22
+
+Start-Date: 2026-06-14  13:47:15
+Commandline: apt remove nodejs npm nodejs-doc
+Requested-By: alaad13 (1000)
+Remove: node-picocolors:amd64 (1.0.0-4), node-tap-mocha-reporter:amd64 (5.0.3+~2.0.2-3), libnode115:amd64 (20.19.2+dfsg-1+deb13u2), node-postcss:amd64 (8.4.49+~cs9.2.32-1), node-acorn:amd64 (8.8.1+ds+~cs25.17.7-2), node-esrecurse:amd64 (4.3.0-2), node-regjsparser:amd64 (0.9.1+ds-2), node-envinfo:amd64 (7.11.0+~cs14.3.0-3), node-deep-equal:amd64 (2.2.3+~cs43.15.94-1), node-core-js-compat:amd64 (3.33.2-1), node-copy-concurrently:amd64 (1.0.5-9), node-enhanced-resolve:amd64 (5.15.0-1), node-globby:amd64 (13.1.3+~cs16.25.40-3), node-anymatch:amd64 (3.1.3+~cs4.6.1-2), terser:amd64 (5.38.0-1), node-es6-error:amd64 (4.1.1-5), node-file-entry-cache:amd64 (6.0.1+~3.0.4+~2.0.0+~1.0.0+~2.0.1-1), node-lcov-parse:amd64 (1.0.0+20170612git80d039574ed9-6), node-babel7:amd64 (7.20.15+ds1+~cs214.269.168-8), node-is-glob:amd64 (4.0.3-2), node-tap-parser:amd64 (13.0.1+~cs4.1.3-3), npm:amd64 (9.2.0~ds1-3), node-eslint-scope:amd64 (7.1.1+~3.7.4-1), node-cli-truncate:amd64 (2.1.0-5), node-jsesc:amd64 (3.0.2+~3.0.1-1), node-js-yaml:amd64 (4.1.0+dfsg+~4.0.5-7), node-semver:amd64 (7.6.1+~7.5.8-2), node-https-proxy-agent:amd64 (7.0.4~0~2024040606-6+deb13u1), node-schema-utils:amd64 (4.2.0~ds-3), libjs-util:amd64 (0.12.5+~1.0.10-1), node-es-abstract:amd64 (1.20.4+~cs26.27.47-2), node-json5:amd64 (2.2.3+dfsg-1), node-object-assign:amd64 (4.1.1-7), node-cli-table:amd64 (0.3.11+~cs0.13.4-3), node-set-value:amd64 (4.1.0+~4.0.1-2), node-rimraf:amd64 (3.0.2-2), node-npmlog:amd64 (7.0.1+~4.1.4-1), node-normalize-package-data:amd64 (4.0.1+~2.4.1-1), node-jest-debbundle:amd64 (29.6.2~ds1+~cs73.45.28-5), node-coveralls:amd64 (3.1.1-4), node-ms:amd64 (2.1.3+~cs0.7.31-3), node-ws:amd64 (8.18.1+~cs14.18.2-1), node-debbundle-es-to-primitive:amd64 (1.2.1+~cs9.7.25-2), node-browserslist:amd64 (4.25.0+~cs6.3.22-1), node-postcss-modules-extract-imports:amd64 (3.0.0-2), node-css-selector-tokenizer:amd64 (0.8.0+~cs4.8.3-1), node-babel-plugin-lodash:amd64 (3.3.4+~cs2.0.1-7), node-union-value:amd64 (2.0.1-4), handlebars:amd64 (3:4.7.7+~4.1.0-1), node-corepack:amd64 (0.24.0-5), node-base:amd64 (3.0.0-3), node-define-properties:amd64 (1.2.1+~cs2.2.3-1), node-mkdirp:amd64 (2.1.6+~cs5.2.1-2), node-webassemblyjs:amd64 (1.11.4+dfsg+~cs10.11.17-2), node-babel-plugin-polyfill-corejs2:amd64 (0.3.3~0~20220913+ds1-1), node-babel-plugin-polyfill-corejs3:amd64 (0.6.0~0~20220913+ds1-1), node-unique-filename:amd64 (1.1.1+ds-2), node-debug:amd64 (4.3.4+~cs4.1.7-1), node-for-in:amd64 (1.0.2-4), node-strip-json-comments:amd64 (4.0.0-4), node-clone-deep:amd64 (4.0.1+~cs7.0.2-1), node-lodash:amd64 (4.17.21+dfsg+~cs8.31.198.20210220-9), node-write:amd64 (2.0.0~6.0.1+~3.0.4+~2.0.0+~1.0.0+~2.0.1-1), node-yargs:amd64 (16.2.0+~16.0.4-7), node-mime:amd64 (3.0.0+dfsg+~cs6.97.2-2), node-istanbul:amd64 (0.4.5+repack10+~cs98.25.59-3), node-css-loader:amd64 (6.8.1+~cs14.0.17-1), node-postcss-modules-values:amd64 (4.0.0+~4.0.0-1), node-glob-parent:amd64 (6.0.2+~5.1.1-2), eslint:amd64 (6.4.0~dfsg+~6.1.9-12), node-ajv:amd64 (8.12.0~ds+~2.1.1-5), node-read-pkg:amd64 (5.2.0-2), node-del:amd64 (7.1.0-1), node-espree:amd64 (9.4.1~dfsg-2), node-braces:amd64 (3.0.3+~3.0.5-1), node-readdirp:amd64 (3.6.0-1), node-wide-align:amd64 (1.1.3-4), node-widest-line:amd64 (3.1.0-2), node-icss-utils:amd64 (5.1.0+~5.1.0-1), node-v8-compile-cache:amd64 (2.4.0-2), nodejs:amd64 (20.19.2+dfsg-1+deb13u2), node-gyp:amd64 (11.1.0+~5.0.0-1), node-source-map-support:amd64 (0.5.21+ds+~0.5.10-1), node-builtins:amd64 (5.0.1-1), node-functional-red-black-tree:amd64 (1.0.1+20181105-7), node-cache-base:amd64 (4.0.2-1), node-defined:amd64 (1.0.1+~1.0.0-1), node-re2:amd64 (1.21.4+~cs2.13.13-2+b2), node-progress:amd64 (2.0.3-2), node-tap:amd64 (16.3.7+ds3+~cs49.5.20-1), node-tar:amd64 (6.2.1+~cs7.0.8-1+deb13u1), node-which:amd64 (2.0.2+~cs1.3.2-3), node-for-own:amd64 (1.0.0-3), node-regexpu-core:amd64 (5.2.2-3), node-yargs-parser:amd64 (21.1.1+~21.0.0-4), node-babel-helper-define-polyfill-provider:amd64 (0.3.3~0~20220913+ds1-1), node-http-proxy-agent:amd64 (7.0.2~0~2024040606-6+deb13u1), node-nopt:amd64 (5.0.0-4), node-npm-bundled:amd64 (2.0.1-2), node-chokidar:amd64 (3.6.0-3), node-strip-ansi:amd64 (6.0.1-2), node-tape:amd64 (5.6.1+~cs8.20.19-3), node-neo-async:amd64 (2.6.2+~cs3.0.0-3), node-archy:amd64 (1.0.0-6), node-cliui:amd64 (7.0.4+repack+1+~cs1.4.2-2), node-is-path-inside:amd64 (3.0.3-2), node-log-driver:amd64 (1.2.7+git+20180219+bba1761737-7), webpack:amd64 (5.97.1+dfsg1+~cs11.18.27-3), node-ajv-keywords:amd64 (5.1.0-4), node-fill-range:amd64 (7.1.1+~7.0.3-1), node-regenerate:amd64 (1.4.2-3), node-regenerate-unicode-properties:amd64 (10.1.0+ds-1), node-parse-json:amd64 (5.2.0+~cs5.1.7-2), node-esprima:amd64 (4.0.1+ds+~4.0.3-2), node-move-concurrently:amd64 (1.0.1-5), node-wrap-ansi:amd64 (8.0.1+~8.0.1-3), libnode-dev:amd64 (20.19.2+dfsg-1+deb13u2), node-memory-fs:amd64 (0.5.0+~0.3.3-2), node-read-package-json:amd64 (5.0.2+~2.0.0-2), node-npm-package-arg:amd64 (10.0.0+~3.0.0-2), node-assert:amd64 (2.0.0+~cs3.9.8-2), node-make-dir:amd64 (3.1.0-3), node-columnify:amd64 (1.6.0+~1.5.1-1), nodejs-doc:amd64 (20.19.2+dfsg-1+deb13u2), node-watchpack:amd64 (2.4.0+~cs2.8.1-1), node-unicode-match-property-ecmascript:amd64 (2.0.0-2), node-string-width:amd64 (4.2.3+~cs13.2.3-1), node-validate-npm-package-name:amd64 (5.0.0+~4.0.0-1), node-is-extendable:amd64 (1.0.1-3), node-normalize-path:amd64 (3.0.0+~3.0.0-1), node-to-regex-range:amd64 (5.0.1-4), node-opener:amd64 (1.5.2+~1.4.0-1), node-ansi-escapes:amd64 (5.0.0+really.4.3.1-1), node-doctrine:amd64 (3.0.0-4), node-argparse:amd64 (2.0.1-2), node-is-primitive:amd64 (3.0.1-3), node-flat-cache:amd64 (3.0.4~6.0.1+~3.0.4+~2.0.0+~1.0.0+~2.0.1-1), node-gauge:amd64 (4.0.4-2), node-errno:amd64 (1.0.0-3), node-is-number:amd64 (7.0.0-4), node-chalk:amd64 (5.3.0-1), node-execa:amd64 (8.0.1+dfsg1+~cs12.0.0-1), node-ignore:amd64 (5.2.1-1), node-find-cache-dir:amd64 (3.3.2+~3.2.1-1), node-agent-base:amd64 (7.1.1~0~2024040606-6+deb13u1), node-mime-types:amd64 (2.1.35-2), node-micromatch:amd64 (4.0.7+~4.0.9-1), node-cacache:amd64 (17.0.3+~cs10.3.7-2), node-mixin-deep:amd64 (2.0.1-3), node-util:amd64 (0.12.5+~1.0.10-1), node-decamelize:amd64 (4.0.0-2), node-sellside-emitter:amd64 (1.2.1-3), node-jest-worker:amd64 (29.6.2~ds1+~cs73.45.28-5), node-escodegen:amd64 (2.1.0+dfsg+~0.0.8-1), node-babel-plugin-polyfill-regenerator:amd64 (0.4.1~0~20220913+ds1-1)
+End-Date: 2026-06-14  13:48:50
+
+Start-Date: 2026-06-14  13:49:17
+Commandline: apt autoremove
+Requested-By: alaad13 (1000)
+Remove: node-source-map:amd64 (0.7.0++dfsg2+really.0.6.1-15), libjs-prettify:amd64 (2015.12.04+dfsg-1.1), node-util-deprecate:amd64 (1.0.2-3), node-commondir:amd64 (1.0.1+~1.0.0-1), node-is-stream:amd64 (3.0.0-4), node-path-exists:amd64 (5.0.0-8), node-resolve:amd64 (1.22.8+~cs5.34.15-2), libjs-is-typedarray:amd64 (1.0.0-4), node-spdx-expression-parse:amd64 (3.0.1+~3.0.1-1), libjs-sprintf-js:amd64 (1.1.2+ds1+~1.1.2-1), node-is-buffer:amd64 (2.0.5-2), node-serialize-javascript:amd64 (6.0.2-1), node-json-buffer:amd64 (3.0.1+~3.0.0-1), node-has-unicode:amd64 (2.0.1-5), node-require-from-string:amd64 (2.0.2+~1.2.1-1), node-minimist:amd64 (1.2.8+~cs5.3.5-1), node-process-nextick-args:amd64 (2.0.1-3), node-is-binary-path:amd64 (2.1.0-5), node-path-type:amd64 (4.0.0-3), node-regenerator-runtime:amd64 (0.15.2+~0.10.8-1), node-stack-utils:amd64 (2.0.6+~2.0.1-1), node-lodash-packages:amd64 (4.17.21+dfsg+~cs8.31.198.20210220-9), node-unset-value:amd64 (2.0.1-1), node-pascalcase:amd64 (1.0.0-1), node-function-bind:amd64 (1.1.2+~cs2.1.14-1), node-write-file-atomic:amd64 (4.0.2+~4.0.0-2), gyp:amd64 (0.16.2-2), node-spdx-correct:amd64 (3.1.1-2), node-isexe:amd64 (2.0.0+~2.0.1-5), node-color-convert:amd64 (2.0.1+~cs2.0.0-2), node-terser:amd64 (5.38.0-1), node-resumer:amd64 (0.0.0-6), node-slash:amd64 (4.0.0-3), node-ansi-regex:amd64 (5.0.1-1), node-lru-cache:amd64 (10.0.1-3), node-get-value:amd64 (1:3.0.1-4), node-source-list-map:amd64 (2.0.1+dfsg+~0.1.2-1), node-minimatch:amd64 (9.0.3-6), node-negotiator:amd64 (0.6.3+~0.6.1-1), node-promzard:amd64 (0.3.0-2), node-abbrev:amd64 (1.1.1+~1.1.2-1), node-fast-levenshtein:amd64 (2.0.6+ds-3), node-webpack-sources:amd64 (3.2.3+~3.2.0-2), node-path-is-absolute:amd64 (2.0.0-2), node-escape-string-regexp:amd64 (4.0.0-2), node-kind-of:amd64 (6.0.3+dfsg-2), node-levn:amd64 (0.4.1+dfsg-2), node-typedarray-to-buffer:amd64 (4.0.0-2), node-unicode-match-property-value-ecmascript:amd64 (2.1.0+ds-1), node-loader-runner:amd64 (4.3.0-1), node-esutils:amd64 (2.0.3+~2.0.0-1), node-camelcase:amd64 (7.0.0-3), node-auto-bind:amd64 (4.0.0-2), node-wcwidth.js:amd64 (1.0.2-2), node-rechoir:amd64 (0.8.0+~0.6.1-2), libuv1-dev:amd64 (1.50.0-2), node-mute-stream:amd64 (0.0.8+~0.0.1-3), node-shebang-command:amd64 (2.0.0-1), node-ip:amd64 (2.0.1+~1.1.3-3), node-n3:amd64 (1.16.3+~1.2.3+~1.10.4-1), node-is-plain-object:amd64 (5.0.0-7), node-spdx-license-ids:amd64 (3.0.12-1), node-shell-quote:amd64 (1.7.4+~1.7.1-1+deb13u1), node-lowercase-keys:amd64 (2.0.0-2), node-repeat-string:amd64 (1.6.1+repack-1), node-cjs-module-lexer:amd64 (1.2.3+dfsg-1), node-esquery:amd64 (1.4.2~ds-1), node-caniuse-lite:amd64 (1.0.30001723+dfsg+~1.0.5-1), node-eslint-utils:amd64 (3.0.0-3), node-y18n:amd64 (5.0.8+~5.0.0-3), node-are-we-there-yet:amd64 (3.0.1+~1.1.0-1), node-object-inspect:amd64 (1.12.2+~cs1.8.1-1), node-jsonify:amd64 (0.0.1-1), node-brace-expansion:amd64 (2.0.1+~1.1.0-2), node-ampproject-remapping:amd64 (2.2.0+~cs5.15.37-1), node-randombytes:amd64 (2.1.0+~2.0.0-2), node-read:amd64 (1.0.7-5), node-p-locate:amd64 (6.0.0-12), node-osenv:amd64 (0.1.5+~0.1.1-1), node-path-dirname:amd64 (1.0.2-2), node-concat-stream:amd64 (2.0.0+~2.0.0-2), node-cli-boxes:amd64 (3.0.0-1), node-glob:amd64 (8.1.0+~cs8.5.15-1), node-sprintf-js:amd64 (1.1.2+ds1+~1.1.2-1), node-core-js-pure:amd64 (3.33.2-1), node-ci-info:amd64 (4.0.0+~cs1.1.0-1), node-error-ex:amd64 (1.3.2-4), node-punycode:amd64 (2.3.1+~2.1.4-1), node-balanced-match:amd64 (2.0.0-1), node-foreground-child:amd64 (3.1.1-2), node-fs-write-stream-atomic:amd64 (1.0.10-6), node-interpret:amd64 (2.2.0-3), node-fs-readdir-recursive:amd64 (1.1.0+~1.1.0-1), node-jsonparse:amd64 (1.3.1-10), node-v8flags:amd64 (3.2.0+~3.1.1-1), node-inherits:amd64 (2.0.4-6), node-merge-stream:amd64 (2.0.0+~1.1.2-2), node-has-value:amd64 (2.0.2-4), node-core-util-is:amd64 (1.0.3-1), node-delegates:amd64 (1.0.0-3), node-locate-path:amd64 (7.1.1-2), node-deep-is:amd64 (0.1.4-1), libjs-regenerate:amd64 (1.4.2-3), node-typedarray:amd64 (0.0.7-1), node-pkg-dir:amd64 (5.0.0-2), node-string-decoder:amd64 (1.3.0-6), node-base64-js:amd64 (1.5.1+dfsg+~1.3.0-2), node-unicode-property-aliases-ecmascript:amd64 (2.1.0+ds-1), node-text-table:amd64 (0.2.0-4), node-postcss-value-parser:amd64 (4.2.0-1), python3-packaging:amd64 (25.0-1), node-fancy-log:amd64 (1.3.3+~cs1.3.1-2), node-has-flag:amd64 (5.0.1-1), node-cli-cursor:amd64 (4.0.0-3), node-prelude-ls:amd64 (1.2.1+dfsg-3), node-is-arrayish:amd64 (0.3.2-3), node-collection-visit:amd64 (1.0.0-4), node-optimist:amd64 (0.6.1+~0.0.30-2), node-defaults:amd64 (1.0.4+~1.0.3-1), node-isobject:amd64 (4.0.0-2), node-is-extglob:amd64 (2.1.1-5), node-got:amd64 (11.8.5+~cs58.13.36-5), node-slice-ansi:amd64 (5.0.0+~cs9.0.0-5), node-set-blocking:amd64 (2.0.0-2), node-is-path-cwd:amd64 (2.2.0-2), node-tapable:amd64 (2.2.1-3), node-tslib:amd64 (2.4.1-1), node-ini:amd64 (3.0.1-2), node-colors:amd64 (1.4.0-4), libjs-inherits:amd64 (2.0.4-6), node-imurmurhash:amd64 (0.1.4+dfsg+~0.1.1-2), node-console-control-strings:amd64 (1.1.0-3), node-estraverse:amd64 (5.3.0+ds+~5.1.1-1), node-aproba:amd64 (2.0.0-3), node-run-queue:amd64 (2.0.0-3), node-yallist:amd64 (4.0.0+~4.0.1-1), node-fetch:amd64 (3.3.2+~cs11.4.11-3), node-events:amd64 (3.3.0+~3.0.0-3), node-prr:amd64 (1.0.1-3), node-uri-js:amd64 (4.4.0+dfsg-8), node-unicode-canonical-property-names-ecmascript:amd64 (2.0.0-2), node-json-schema-traverse:amd64 (1.0.0-3), node-wrappy:amd64 (1.0.2-3), node-yaml:amd64 (2.3.4+~cs0.4.0-1), node-commander:amd64 (9.4.1-1), node-ssri:amd64 (9.0.1-3), node-through:amd64 (2.3.8+~cs0.0.30-1), node-minipass:amd64 (5.0.0+~cs10.3.21-3), node-color-name:amd64 (1.1.4+~1.1.1-2), node-arrify:amd64 (2.0.1-3), libjs-typedarray-to-buffer:amd64 (4.0.0-2), node-set-immediate-shim:amd64 (2.0.0-2), node-ieee754:amd64 (1.2.1-3), node-is-windows:amd64 (1.0.2+~cs1.0.0-1), node-p-map:amd64 (4.0.0+~3.1.0+~3.0.1-2), libssl-dev:amd64 (3.5.6-1~deb13u1), node-electron-to-chromium:amd64 (1.5.166-1), node-safe-buffer:amd64 (5.2.1+~cs2.1.2-3), node-promise-inflight:amd64 (1.0.1+~1.0.0-1), node-p-limit:amd64 (4.0.0+~cs4.0.0-5), node-json-schema:amd64 (0.4.0+~7.0.11-1), node-indent-string:amd64 (4.0.0-2), node-async-each:amd64 (1.0.3-3), node-npm-run-path:amd64 (5.1.0+~4.0.0-8), node-binary-extensions:amd64 (2.2.0-2), node-is-descriptor:amd64 (3.0.0-2), node-regjsgen:amd64 (0.7.1+ds-1), libjs-source-map:amd64 (0.7.0++dfsg2+really.0.6.1-15), node-clone:amd64 (2.1.2+~2.1.2-1), node-resolve-from:amd64 (5.0.0+~3.1.0+~3.3.0+~2.0.0-1), node-require-directory:amd64 (2.1.1+~2.1.2-1), node-resolve-cwd:amd64 (3.0.0-2), node-fast-deep-equal:amd64 (3.1.3-3), node-signal-exit:amd64 (4.1.0-7), node-shebang-regex:amd64 (3.0.0-2), node-core-js:amd64 (3.33.2-1), node-hosted-git-info:amd64 (6.1.1-2), node-memfs:amd64 (3.4.12+~cs1.0.3-1), node-chrome-trace-event:amd64 (1.0.3-2), node-data-uri-to-buffer:amd64 (6.0.2~0~2024040606-6+deb13u1), node-iferr:amd64 (1.0.2+~1.0.2-1), node-depd:amd64 (2.0.0-2), node-validate-npm-package-license:amd64 (3.0.4-2), node-js-tokens:amd64 (8.0.0-2), node-spdx-exceptions:amd64 (2.3.0-2), node-json-stable-stringify:amd64 (1.0.2+repack1+~cs1.0.34-2), node-strip-bom:amd64 (4.0.0-2), node-ip-regex:amd64 (4.3.0+~4.1.1-1), node-globals:amd64 (13.23.0-1), node-define-property:amd64 (2.0.2+really+2.0.2-3), node-diff:amd64 (5.0.0~dfsg+~5.0.1-4), libcares2:amd64 (1.34.5-1+deb13u1), node-strip-eof:amd64 (3.0.0-5), node-xtend:amd64 (4.0.2-3), node-babel7-runtime:amd64 (7.20.15+ds1+~cs214.269.168-8), node-json-parse-better-errors:amd64 (1.0.2+~cs3.3.1-3), node-promise-retry:amd64 (2.0.1-4), node-once:amd64 (1.4.1-1), node-quick-lru:amd64 (6.1.1-4), node-babel-plugin-add-module-exports:amd64 (1.0.4+dfsg1~cs5.8.0-4), node-time-stamp:amd64 (2.2.0-2), node-isarray:amd64 (2.0.5-4), node-convert-source-map:amd64 (1.9.0+~1.5.2-1), node-mimic-response:amd64 (3.1.0-9), node-iconv-lite:amd64 (0.6.3-3), node-undici:amd64 (7.3.0+dfsg1+~cs24.12.11-1), libjs-events:amd64 (3.3.0+~3.0.0-3), node-eslint-visitor-keys:amd64 (3.3.0+~1.0.0-1), node-object-visit:amd64 (1.0.1-5), node-mimic-fn:amd64 (4.0.0-5), node-encoding:amd64 (0.1.13-2), node-decompress-response:amd64 (6.0.0-3), node-find-up:amd64 (6.3.0-7), node-wordwrap:amd64 (1.0.0-4), node-map-visit:amd64 (1.0.0-4), node-err-code:amd64 (2.0.3+dfsg-3), node-inflight:amd64 (1.0.6-2), node-is-plain-obj:amd64 (3.0.0-2), node-restore-cursor:amd64 (4.0.0-4), node-get-stream:amd64 (8.0.1-11), node-chownr:amd64 (2.0.0-3), node-regexpp:amd64 (3.2.0-5), node-supports-color:amd64 (8.1.1+~8.1.1-1), node-path-is-inside:amd64 (1.0.2+~1.0.0-1), node-regenerator-transform:amd64 (0.15.2+~0.10.8-1), node-p-cancelable:amd64 (2.1.1-1), node-ansi-styles:amd64 (6.2.1-3), node-flatted:amd64 (3.2.7~ds-1+deb13u1), node-has-values:amd64 (2.0.1-4), node-optionator:amd64 (0.9.1+dfsg+~cs1.2.3-1), node-growl:amd64 (1.10.5-4), node-retry:amd64 (0.13.1.+~cs2.19.16-1), node-graceful-fs:amd64 (4.2.10-1), node-uuid:amd64 (8.3.2+~8.3.4-1), node-to-fast-properties:amd64 (3.0.1-3), node-pify:amd64 (5.0.0+~cs5.0.1-1), node-type-check:amd64 (0.4.0+dfsg-3), node-fs.realpath:amd64 (1.0.0-3), node-es-module-lexer:amd64 (1.1.0+dfsg-3), node-readable-stream:amd64 (3.6.0+~cs3.0.0-4), node-get-caller-file:amd64 (2.0.5+~cs1.1.1-4), node-is-typedarray:amd64 (1.0.0-4), node-async:amd64 (3.2.6+dfsg-2)
+End-Date: 2026-06-14  13:51:15
+
+Start-Date: 2026-06-14  14:01:16
+Commandline: apt install curl
+Requested-By: alaad13 (1000)
+Install: curl:amd64 (8.14.1-2+deb13u3)
+End-Date: 2026-06-14  14:01:19
+
+Start-Date: 2026-06-15  08:08:03
+Commandline: apt install tmux
+Requested-By: alaad13 (1000)
+Install: libevent-core-2.1-7t64:amd64 (2.1.12-stable-10+b1, automatic), tmux:amd64 (3.5a-3)
+End-Date: 2026-06-15  08:08:13
+
+Start-Date: 2026-06-15  09:32:37
+Commandline: apt install elinks links lynx w3m
+Requested-By: alaad13 (1000)
+Install: elinks-data:amd64 (0.18.0-1, automatic), w3m:amd64 (0.5.3+git20230121-2.1), liblua5.3-0:amd64 (5.3.6-2+b4, automatic), libev4t64:amd64 (1:4.33-2.1+b1, automatic), libfsplib0t64:amd64 (0.14-5.1, automatic), links:amd64 (2.29-2+b3), libtre5:amd64 (0.9.0-1, automatic), elinks:amd64 (0.18.0-1+b1), libgc1:amd64 (1:8.2.8-1, automatic), liblz1:amd64 (1.15-3, automatic)
+End-Date: 2026-06-15  09:33:03
+
+Start-Date: 2026-06-16  08:14:05
+Commandline: apt install xsel
+Requested-By: alaad13 (1000)
+Install: xsel:amd64 (1.2.1-1)
+End-Date: 2026-06-16  08:14:13
+
+Start-Date: 2026-06-16  08:14:27
+Commandline: apt install xclip
+Requested-By: alaad13 (1000)
+Install: xclip:amd64 (0.13-4)
+End-Date: 2026-06-16  08:14:30
+
+Start-Date: 2026-06-16  08:14:47
+Commandline: apt install xdotool
+Requested-By: alaad13 (1000)
+Install: libxdo3:amd64 (1:3.20160805.1-5.1, automatic), xdotool:amd64 (1:3.20160805.1-5.1)
+End-Date: 2026-06-16  08:14:50
+
+Start-Date: 2026-06-16  08:15:41
+Commandline: apt install screen
+Requested-By: alaad13 (1000)
+Install: screen:amd64 (4.9.1-3)
+End-Date: 2026-06-16  08:15:46
+
+Start-Date: 2026-06-16  08:17:22
+Commandline: apt install emacs
+Requested-By: alaad13 (1000)
+Install: emacs:amd64 (1:30.1+1-6), gsasl-common:amd64 (2.2.2-1.1+deb13u1, automatic), libgccjit0:amd64 (14.2.0-19, automatic), libntlm0:amd64 (1.8-4, automatic), libmailutils9t64:amd64 (1:3.19-1, automatic), libwebpdecoder3:amd64 (1.5.0-0.1, automatic), mysql-common:amd64 (5.8+1.1.1, automatic), mailutils:amd64 (1:3.19-1, automatic), emacs-gtk:amd64 (1:30.1+1-6, automatic), install-info:amd64 (7.1.1-1+b1, automatic), exim4-config:amd64 (4.98.2-1+deb13u3, automatic), exim4-base:amd64 (4.98.2-1+deb13u3, automatic), libgsasl18:amd64 (2.2.2-1.1+deb13u1, automatic), libnsl2:amd64 (1.3.0-3+b3, automatic), mailutils-common:amd64 (1:3.19-1, automatic), libunbound8:amd64 (1.22.0-2+deb13u3, automatic), libgnutls-dane0t64:amd64 (3.8.9-3+deb13u4, automatic), mariadb-common:amd64 (1:11.8.6-0+deb13u1, automatic), libgssglue1:amd64 (0.9-1.1, automatic), guile-3.0-libs:amd64 (3.0.10+really3.0.10-4, automatic), fonts-noto-color-emoji:amd64 (2.051-0+deb13u1, automatic), emacs-el:amd64 (1:30.1+1-6, automatic), libtree-sitter0.22:amd64 (0.22.6-6+b1, automatic), libmariadb3:amd64 (1:11.8.6-0+deb13u1, automatic), exim4-daemon-light:amd64 (4.98.2-1+deb13u3, automatic), emacs-common:amd64 (1:30.1+1-6, automatic), libpq5:amd64 (17.10-0+deb13u1, automatic), emacs-bin-common:amd64 (1:30.1+1-6, automatic)
+Upgrade: libgnutls30t64:amd64 (3.8.9-3+deb13u3, 3.8.9-3+deb13u4)
+End-Date: 2026-06-16  08:18:05
+
+Start-Date: 2026-06-16  08:19:28
+Commandline: apt install socat
+Requested-By: alaad13 (1000)
+Install: socat:amd64 (1.8.0.3-1)
+End-Date: 2026-06-16  08:19:30
+
+Start-Date: 2026-06-16  08:19:40
+Commandline: apt install rofi
+Requested-By: alaad13 (1000)
+Install: rofi:amd64 (1.7.5-0.1+b2)
+End-Date: 2026-06-16  08:19:43
+
+Start-Date: 2026-06-16  08:24:43
+Commandline: apt install xserver-xephyr
+Requested-By: alaad13 (1000)
+Install: xserver-xephyr:amd64 (2:21.1.16-1.3+deb13u2), libxcb-xv0:amd64 (1.17.0-2+b1, automatic)
+End-Date: 2026-06-16  08:24:46
+
+Start-Date: 2026-06-16  08:26:23
+Commandline: apt install jwm
+Requested-By: alaad13 (1000)
+Install: jwm:amd64 (2.4.6-2), menu:amd64 (2.1.51, automatic)
+End-Date: 2026-06-16  08:26:28
+
+Start-Date: 2026-06-17  09:03:44
+Commandline: apt install libharfbuzz-dev
+Requested-By: alaad13 (1000)
+Install: libblkid-dev:amd64 (2.41-5, automatic), libselinux1-dev:amd64 (3.8.1-1, automatic), libglib2.0-dev-bin:amd64 (2.84.4-3~deb13u3, automatic), libmount-dev:amd64 (2.41-5, automatic), libglib2.0-dev:amd64 (2.84.4-3~deb13u3, automatic), girepository-tools:amd64 (2.84.4-3~deb13u3, automatic), libgio-2.0-dev-bin:amd64 (2.84.4-3~deb13u3, automatic), libpcre2-posix3:amd64 (10.46-1~deb13u1, automatic), python3-packaging:amd64 (25.0-1, automatic), libffi-dev:amd64 (3.4.8-2, automatic), gir1.2-freedesktop-dev:amd64 (1.84.0-1, automatic), libgirepository-2.0-0:amd64 (2.84.4-3~deb13u3, automatic), gir1.2-glib-2.0-dev:amd64 (2.84.4-3~deb13u3, automatic), native-architecture:amd64 (0.2.6, automatic), libharfbuzz-cairo0:amd64 (10.2.0-1+deb13u1, automatic), libgio-2.0-dev:amd64 (2.84.4-3~deb13u3, automatic), libsepol-dev:amd64 (3.8.1-1, automatic), libgraphite2-dev:amd64 (1.3.14-2+b1, automatic), libicu-dev:amd64 (76.1-4, automatic), libsysprof-capture-4-dev:amd64 (48.0-2, automatic), libpcre2-32-0:amd64 (10.46-1~deb13u1, automatic), libpcre2-dev:amd64 (10.46-1~deb13u1, automatic), libharfbuzz-dev:amd64 (10.2.0-1+deb13u1), icu-devtools:amd64 (76.1-4, automatic)
+End-Date: 2026-06-17  09:04:07
+
+Start-Date: 2026-06-21  08:11:15
+Commandline: apt install gnuplot gnuplot-doc source-highlight
+Requested-By: alaad13 (1000)
+Install: source-highlight:amd64 (3.1.9-4.3+b1), gnuplot-doc:amd64 (6.0.2+dfsg1-1), libqt5printsupport5t64:amd64 (5.15.15+dfsg-6+deb13u1, automatic), gnuplot-data:amd64 (6.0.2+dfsg1-1, automatic), gnuplot-qt:amd64 (6.0.2+dfsg1-1, automatic), gnuplot:amd64 (6.0.2+dfsg1-1), libwxbase3.2-1t64:amd64 (3.2.8+dfsg-2, automatic), libsource-highlight-common:amd64 (3.1.9-4.3, automatic), libsource-highlight4t64:amd64 (3.1.9-4.3+b1, automatic), libwxgtk3.2-1t64:amd64 (3.2.8+dfsg-2, automatic), aglfn:amd64 (1.7+git20191031.4036a9c-2, automatic)
+End-Date: 2026-06-21  08:11:33
+
+Start-Date: 2026-06-21  08:18:53
+Commandline: apt install gh -y
+Requested-By: alaad13 (1000)
+Install: gh:amd64 (2.95.0)
+End-Date: 2026-06-21  08:19:00
+
+Start-Date: 2026-06-21  09:17:52
+Commandline: apt install pandoc
+Requested-By: alaad13 (1000)
+Install: pandoc-data:amd64 (3.1.11.1-3, automatic), pandoc:amd64 (3.1.11.1+ds-2)
+End-Date: 2026-06-21  09:18:12
+
+Start-Date: 2026-06-21  09:28:06
+Commandline: apt install glow
+Requested-By: alaad13 (1000)
+Install: glow:amd64 (2.1.2)
+End-Date: 2026-06-21  09:28:18

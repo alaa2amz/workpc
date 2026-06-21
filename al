@@ -1,5 +1,24 @@
 #!/bin/bash
+
+case "$1" in
+  Username*)
+    echo "alaa2amz"
+    exit
+    ;;
+  Password*)
+    cat $HOME/ifrit
+    exit
+    ;;
+esac
+
+
+export GH_TOKEN=`cat $HOME/ifrit`
+export GIT_ASKPASS=$HOME/al
 fortFile=$HOME/Documents/fort.log
+HISTFILESIZE=-1
+fontconsole() { setfont Lat15-Terminus32x16 ; }
+export PATH=$HOME/.local/BRL-CAD_7.42.0_Linux_x86_64/bin/:$PATH
+export myrepo=https://github.com/alaa2amz
 
 b() { clear ; ls -F  $@ ; }
 
@@ -17,11 +36,16 @@ cx() { ls -d *.* | sed 's/.*\.//' | sort | uniq -c | sort -n ; }
 #then
 #sxhkd&
 #fi
-
-{ f="`fortune -s`" ; echo "$f"  ; date ; echo ----------; } >> Documents/fort.log
+if false # tmux -V
+then
+	case $TERM in 
+		tmux-*)
+			;;
+		*)
+			tmux
+			;;
+	esac
+fi
+{ f="`fortune -s`" ; echo "$f"  ; date ; echo ----------; } >> $HOME/Documents/fort.log
 echo "$f"
-HISTFILESIZE=-1
-fontconsole() { setfont Lat15-Terminus32x16 ; }
-export PATH=$HOME/.local/BRL-CAD_7.42.0_Linux_x86_64/bin/:$PATH
-export myrepo=https://github.com/alaa2amz
 
