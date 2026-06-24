@@ -30,6 +30,7 @@ alias $com="$com -iv"
 done
 
 cx() { ls -d *.* | sed 's/.*\.//' | sort | uniq -c | sort -n ; }
+cl() { { xsel ; echo ; echo ======= ; } |tee -a $HOME/clbo.log ; }
 
 #echo ok
 #if ps -a|grep -qve sxhkd 
