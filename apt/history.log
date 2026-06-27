@@ -349,3 +349,9 @@ Commandline: apt install glow
 Requested-By: alaad13 (1000)
 Install: glow:amd64 (2.1.2)
 End-Date: 2026-06-21  09:28:18
+
+Start-Date: 2026-06-27  12:09:17
+Commandline: apt install fonts-dejima-mincho
+Requested-By: alaad13 (1000)
+Install: fonts-dejima-mincho:amd64 (227-16)
+End-Date: 2026-06-27  12:09:23

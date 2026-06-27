@@ -18,4 +18,4 @@ let g:ale_completion_autoimport = 1
 
 set completeopt=menuone,noinsert,noselect,popup
 let g:ale_hover_to_floating_preview = 1
-
+source $HOME/ale-map.vim

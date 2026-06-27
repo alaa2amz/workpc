@@ -1,5 +1,5 @@
 repo=$HOME/workpc
-dot_files="al  .bashrc  .spectrwm.conf .vimrc .xinitrc .config/sxhkd/"
+dot_files="al  .bashrc  .spectrwm.conf .vimrc .xinitrc .config/sxhkd/ ale-map.vim .tmux.con"
 aptpath="/var/log/apt"
 
 for file in $dot_files
