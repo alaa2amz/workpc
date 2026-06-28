@@ -1,0 +1,132 @@
+
+Start-Date: 2026-06-01  05:06:21
+Commandline: apt install rsync
+Requested-By: alaad13 (1000)
+Install: rsync:amd64 (3.4.1+ds1-5+deb13u3)
+End-Date: 2026-06-01  05:06:44
+
+Start-Date: 2026-06-05  14:38:49
+Commandline: apt install feh
+Requested-By: alaad13 (1000)
+Install: feh:amd64 (3.10.3-1), libjpeg-turbo-progs:amd64 (1:2.1.5-4, automatic), yudit-common:amd64 (3.1.0-1, automatic), libturbojpeg0:amd64 (1:2.1.5-4, automatic)
+End-Date: 2026-06-05  14:39:21
+
+Start-Date: 2026-06-05  14:41:14
+Commandline: apt install yudit
+Requested-By: alaad13 (1000)
+Install: yudit:amd64 (3.1.0-1), unifont:amd64 (1:15.1.01-1, automatic), xaw3dg:amd64 (1.5+F-2+b1, automatic), psf-unifont:amd64 (1:15.1.01-1, automatic), gv:amd64 (1:3.7.4-3.1, automatic), xfonts-unifont:amd64 (1:15.1.01-1, automatic), fonts-unifont:amd64 (1:15.1.01-1, automatic)
+End-Date: 2026-06-05  14:42:02
+
+Start-Date: 2026-06-05  16:20:48
+Commandline: apt install playerctl
+Requested-By: alaad13 (1000)
+Install: playerctl:amd64 (2.4.1-3), libplayerctl2:amd64 (2.4.1-3, automatic)
+End-Date: 2026-06-05  16:21:13
+
+Start-Date: 2026-06-07  05:49:26
+Commandline: apt install goldendict
+Requested-By: alaad13 (1000)
+Install: libxapian30:amd64 (1.4.29-3, automatic), libb2-1:amd64 (0.98.1-1.1+b2, automatic), libqt6webenginecore6-bin:amd64 (6.8.2+dfsg-4, automatic), qt6-wayland:amd64 (6.8.2-4, automatic), libqt6quickwidgets6:amd64 (6.8.2+dfsg-7, automatic), libmarisa0:amd64 (0.2.6-19, automatic), libqt6wlshellintegration6:amd64 (6.8.2-4, automatic), libopencc1.1:amd64 (1.1.9+ds1-1+b1, automatic), qt6-svg-plugins:amd64 (6.8.2-3, automatic), libxcb-image0:amd64 (0.4.0-2+b2, automatic), libxcb-icccm4:amd64 (0.4.2-1, automatic), libts0t64:amd64 (1.22-1.1+b1, automatic), libqt6quick6:amd64 (6.8.2+dfsg-7, automatic), libqt6network6:amd64 (6.8.2+dfsg-9+deb13u2, automatic), sse3-support:amd64 (27, automatic), qt6-gtk-platformtheme:amd64 (6.8.2+dfsg-9+deb13u2, automatic), libqt6core6t64:amd64 (6.8.2+dfsg-9+deb13u2, automatic), libqt6qml6:amd64 (6.8.2+dfsg-7, automatic), goldendict:amd64 (1.5.0+git20250409+rm-2), libqt6widgets6:amd64 (6.8.2+dfsg-9+deb13u2, automatic), libminizip1t64:amd64 (1:1.3.dfsg+really1.3.1-1+b1, automatic), isa-support:amd64 (27, automatic), libqt6webengine6-data:amd64 (6.8.2+dfsg-4, automatic), libqt6dbus6:amd64 (6.8.2+dfsg-9+deb13u2, automatic), libdouble-conversion3:amd64 (3.3.1-1, automatic), libqt6webchannel6:amd64 (6.8.2-2, automatic), libqt6printsupport6:amd64 (6.8.2+dfsg-9+deb13u2, automatic), libqt6gui6:amd64 (6.8.2+dfsg-9+deb13u2, automatic), libpcre2-16-0:amd64 (10.46-1~deb13u1, automatic), libqt6multimedia6:amd64 (6.8.2-8, automatic), goldendict-ng:amd64 (25.06.0-2, automatic), qt6-translations-l10n:amd64 (6.8.2-2, automatic), libqt6xml6:amd64 (6.8.2+dfsg-9+deb13u2, automatic), libqt6webenginewidgets6:amd64 (6.8.2+dfsg-4, automatic), libqt6webenginecore6:amd64 (6.8.2+dfsg-4, automatic), libxcb-keysyms1:amd64 (0.4.1-1, automatic), libxcb-cursor0:amd64 (0.1.5-1, automatic), libeb16t64:amd64 (4.4.3-14.3, automatic), libqt6core5compat6:amd64 (6.8.2-3+b1, automatic), libqt6svg6:amd64 (6.8.2-3, automatic), libqt6waylandcompositor6:amd64 (6.8.2-4, automatic), libqt6qmlmeta6:amd64 (6.8.2+dfsg-7, automatic), libzim9:amd64 (9.2.3-1.1+b1, automatic), libqt6waylandclient6:amd64 (6.8.2-4, automatic), libqt6qmlmodels6:amd64 (6.8.2+dfsg-7, automatic), libxcb-render-util0:amd64 (0.3.10-1, automatic), libqt6opengl6:amd64 (6.8.2+dfsg-9+deb13u2, automatic), libtomlplusplus3t64:amd64 (3.4.0+ds-0.2+b1, automatic), libmd4c0:amd64 (0.5.2-2+b1, automatic), qt6-qpa-plugins:amd64 (6.8.2+dfsg-9+deb13u2, automatic), libqt6qmlworkerscript6:amd64 (6.8.2+dfsg-7, automatic), libxcb-xinput0:amd64 (1.17.0-2+b1, automatic), libopencc-data:amd64 (1.1.9+ds1-1, automatic), libqt6positioning6:amd64 (6.8.2-3, automatic)
+End-Date: 2026-06-07  05:52:09
+
+Start-Date: 2026-06-07  06:01:14
+Commandline: apt install curl
+Requested-By: alaad13 (1000)
+Install: curl:amd64 (8.14.1-2+deb13u3)
+End-Date: 2026-06-07  06:01:30
+
+Start-Date: 2026-06-07  06:04:38
+Commandline: apt remove nodejs
+Requested-By: alaad13 (1000)
+Remove: libnode115:amd64 (20.19.2+dfsg-1+deb13u2), node-acorn:amd64 (8.8.1+ds+~cs25.17.7-2), node-corepack:amd64 (0.24.0-5), nodejs:amd64 (20.19.2+dfsg-1+deb13u2)
+End-Date: 2026-06-07  06:04:52
+
+Start-Date: 2026-06-07  06:16:25
+Commandline: apt autoremove -y
+Requested-By: alaad13 (1000)
+Remove: node-minimatch:amd64 (9.0.3-6), node-cjs-module-lexer:amd64 (1.2.3+dfsg-1), node-brace-expansion:amd64 (2.0.1+~1.1.0-2), node-balanced-match:amd64 (2.0.0-1), libcares2:amd64 (1.34.5-1+deb13u1), node-xtend:amd64 (4.0.2-3), node-undici:amd64 (7.3.0+dfsg1+~cs24.12.11-1)
+End-Date: 2026-06-07  06:16:41
+
+Start-Date: 2026-06-12  05:36:59
+Commandline: apt install gh -y
+Requested-By: alaad13 (1000)
+Install: gh:amd64 (2.94.0)
+End-Date: 2026-06-12  05:37:27
+
+Start-Date: 2026-06-16  04:39:39
+Commandline: apt install w3m
+Requested-By: alaad13 (1000)
+Install: w3m:amd64 (0.5.3+git20230121-2.1), libgc1:amd64 (1:8.2.8-1, automatic)
+End-Date: 2026-06-16  04:40:13
+
+Start-Date: 2026-06-18  05:19:21
+Commandline: apt install sakura
+Requested-By: alaad13 (1000)
+Install: sakura:amd64 (3.8.9-1)
+End-Date: 2026-06-18  05:19:52
+
+Start-Date: 2026-06-18  05:22:16
+Commandline: apt install mle
+Requested-By: alaad13 (1000)
+Install: fzf:amd64 (0.60.3-1+b2, automatic), mle:amd64 (1.7.2-1), tree:amd64 (2.2.1-1, automatic)
+End-Date: 2026-06-18  05:22:29
+
+Start-Date: 2026-06-19  21:30:52
+Commandline: apt install vim-ale
+Requested-By: alaad13 (1000)
+Install: vim-ale:amd64 (4.0.0-2)
+End-Date: 2026-06-19  21:31:03
+
+Start-Date: 2026-06-21  05:07:35
+Commandline: apt install bat
+Requested-By: alaad13 (1000)
+Install: bat:amd64 (0.25.0-2+b2), libgit2-1.9:amd64 (1.9.0+ds-2, automatic), libhttp-parser2.9:amd64 (2.9.4-6+b2, automatic), libmbedtls21:amd64 (3.6.5-0.1~deb13u1, automatic), libmbedx509-7:amd64 (3.6.5-0.1~deb13u1, automatic)
+End-Date: 2026-06-21  05:08:11
+
+Start-Date: 2026-06-22  08:28:24
+Commandline: apt install sdcv
+Requested-By: alaad13 (1000)
+Install: sdcv:amd64 (0.5.5-3)
+End-Date: 2026-06-22  08:29:00
+
+Start-Date: 2026-06-22  08:38:43
+Commandline: apt install dict-gcide
+Requested-By: alaad13 (1000)
+Install: dict-gcide:amd64 (0.48.5+nmu4), dictd:amd64 (1.13.1+dfsg-1, automatic), libmaa4:amd64 (1.5.1-1, automatic), dictzip:amd64 (1.13.1+dfsg-1, automatic)
+End-Date: 2026-06-22  08:39:36
+
+Start-Date: 2026-06-22  08:44:29
+Commandline: apt install dict
+Requested-By: alaad13 (1000)
+Install: recode:amd64 (3.7.15-1, automatic), dict:amd64 (1.13.1+dfsg-1)
+End-Date: 2026-06-22  08:44:44
+
+Start-Date: 2026-06-23  04:35:12
+Commandline: apt install manpages-posix
+Requested-By: alaad13 (1000)
+Install: manpages-posix:amd64 (2017a-2)
+End-Date: 2026-06-23  04:35:36
+
+Start-Date: 2026-06-25  08:26:48
+Commandline: apt install libwoff1
+Requested-By: alaad13 (1000)
+Install: libwoff1:amd64 (1.0.2-2+b2)
+End-Date: 2026-06-25  08:26:58
+
+Start-Date: 2026-06-25  09:10:55
+Commandline: apt install lzop
+Requested-By: alaad13 (1000)
+Install: lzop:amd64 (1.04-2)
+End-Date: 2026-06-25  09:11:15
+
+Start-Date: 2026-06-25  09:19:19
+Commandline: apt install python3-pip
+Requested-By: alaad13 (1000)
+Install: libalgorithm-merge-perl:amd64 (0.08-5, automatic), manpages-dev:amd64 (6.9.1-1, automatic), libgcc-14-dev:amd64 (14.2.0-19, automatic), libstdc++-14-dev:amd64 (14.2.0-19, automatic), g++-14:amd64 (14.2.0-19, automatic), gcc-14:amd64 (14.2.0-19, automatic), build-essential:amd64 (12.12, automatic), libctf-nobfd0:amd64 (2.44-3, automatic), gcc-x86-64-linux-gnu:amd64 (4:14.2.0-1, automatic), libtsan2:amd64 (14.2.0-19, automatic), libpython3-dev:amd64 (3.13.5-1, automatic), g++:amd64 (4:14.2.0-1, automatic), gcc:amd64 (4:14.2.0-1, automatic), g++-14-x86-64-linux-gnu:amd64 (14.2.0-19, automatic), libhwasan0:amd64 (14.2.0-19, automatic), libalgorithm-diff-perl:amd64 (1.201-1, automatic), libbinutils:amd64 (2.44-3, automatic), libfakeroot:amd64 (1.37.1.1-1, automatic), binutils-x86-64-linux-gnu:amd64 (2.44-3, automatic), gcc-14-x86-64-linux-gnu:amd64 (14.2.0-19, automatic), g++-x86-64-linux-gnu:amd64 (4:14.2.0-1, automatic), libcc1-0:amd64 (14.2.0-19, automatic), zlib1g-dev:amd64 (1:1.3.dfsg+really1.3.1-1+b1, automatic), python3-wheel:amd64 (0.46.1-2, automatic), python3-packaging:amd64 (25.0-1, automatic), libfile-fcntllock-perl:amd64 (0.22-4+b4, automatic), dpkg-dev:amd64 (1.22.22, automatic), libasan8:amd64 (14.2.0-19, automatic), rpcsvc-proto:amd64 (1.4.3-1, automatic), make:amd64 (4.4.1-2, automatic), libctf0:amd64 (2.44-3, automatic), python3-dev:amd64 (3.13.5-1, automatic), libcrypt-dev:amd64 (1:4.4.38-1, automatic), binutils-common:amd64 (2.44-3, automatic), libitm1:amd64 (14.2.0-19, automatic), python3-pip:amd64 (25.1.1+dfsg-1), libdpkg-perl:amd64 (1.22.22, automatic), libc-dev-bin:amd64 (2.41-12+deb13u3, automatic), libsframe1:amd64 (2.44-3, automatic), libpython3.13-dev:amd64 (3.13.5-2+deb13u2, automatic), libgprofng0:amd64 (2.44-3, automatic), libc6-dev:amd64 (2.41-12+deb13u3, automatic), python3.13-dev:amd64 (3.13.5-2+deb13u2, automatic), libquadmath0:amd64 (14.2.0-19, automatic), libexpat1-dev:amd64 (2.7.1-2, automatic), libubsan1:amd64 (14.2.0-19, automatic), liblsan0:amd64 (14.2.0-19, automatic), libalgorithm-diff-xs-perl:amd64 (0.04-9, automatic), binutils:amd64 (2.44-3, automatic), fakeroot:amd64 (1.37.1.1-1, automatic), linux-libc-dev:amd64 (6.12.90-2, automatic)
+End-Date: 2026-06-25  09:21:45
+
+Start-Date: 2026-06-25  09:24:14
+Commandline: apt install python3.13-venv
+Requested-By: alaad13 (1000)
+Install: python3-setuptools-whl:amd64 (78.1.1-0.1, automatic), python3-pip-whl:amd64 (25.1.1+dfsg-1, automatic), python3.13-venv:amd64 (3.13.5-2+deb13u2)
+End-Date: 2026-06-25  09:24:20
