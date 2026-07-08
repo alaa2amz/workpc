@@ -28,6 +28,7 @@ for com in rm cp mv
 do
 alias $com="$com -iv"
 done
+alias t="tmux attach -x || tmux"
 
 cx() { ls -d *.* | sed 's/.*\.//' | sort | uniq -c | sort -n ; }
 cl() { { xsel ; echo ; echo ======= ; } |tee -a $HOME/clbo.log ; }
@@ -47,6 +48,15 @@ then
 			;;
 	esac
 fi
+
+#if [ -z "$TMUX" ]; then
+#	tmux attach || tmux
+#fi
+
+
 { f="`fortune -s`" ; echo "$f"  ; date ; echo ----------; } >> $HOME/Documents/fort.log
 echo "$f"
 
+
+bind '"\ee":"alaa2amz@gmail.com"' 
+bind -x '"\b":b'
