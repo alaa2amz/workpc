@@ -1,0 +1,20 @@
+#super + z
+# fortune >> $HOME/ggz
+
+super + x
+ echo pppp|tee rtrt
+
+super + shift + x 
+ scrot ;\
+ xsetroot -name done ;\
+ sleep 5 ;\
+ xsetroot -name zzz 
+
+super + shift + r 
+ killall -USR1 sxhkd ;\
+ xsetroot -name done ;\
+ sleep 3 ;\
+ xsetroot -name zzz
+
+super + z
+ xfce4-terminal
