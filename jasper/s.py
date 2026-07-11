@@ -1,5 +1,7 @@
+import itertools
 import json
 from itertools import product
+
 ## constants
 blue = [0, 0, 255]
 electric_indigo = [100, 0, 255]
@@ -53,7 +55,8 @@ sample = {
          }
 
 class SequenceDescriptor:
-    def __init__(self, count, absolutes={0:0}, offsets={'default':3000}):
+    def __init__(self, count=3, absolutes={0:0}, offsets={'default':3000}):
+        print(count)
         self.count = count
         self.absolutes = absolutes
         self.offsets = offsets
@@ -71,10 +74,42 @@ class SequenceDescriptor:
                 sequence[i] = sequence[i-1] + self.offsets['default']
         return sequence
 
+def main():
+    s=Skell(sample)
+    print(s.get_sequences())
+    s.insert()
 
-sdr=SequenceDescriptor(**sample['rows'])
-sdc=SequenceDescriptor(**sample['collumns'])
-sdp=SequenceDescriptor(**sample['plans'])
-for i,j,k in product(sdr.get_squence(), sdc.get_squence(), sdp.get_squence()):
-    print(f'i {i} j {j} k {k}')
-#print(sd.get_squence())
+class Skell:
+    #TODO handle live setter updates
+    def __init__(self, data):
+        self.collumns=''
+        self.rows=''
+        self.plans=''
+        for key in data:
+            setattr(self, key, data[key])
+    
+    def get_sequences(self):
+        collumns = SequenceDescriptor(**self.collumns).get_squence()
+        rows = SequenceDescriptor(**self.rows).get_squence()
+        plans = SequenceDescriptor(**self.plans).get_squence()
+        return [collumns, rows, plans]
+
+    def insert_function(i,j,k,collumns,rows,plans):
+        if k < len(plans):
+            self.insert_collumn(i,j,k,plans[k],plans[k+1])
+        if j < len(rows) and j =! 0:
+            pass
+        if i < len(collumns) and i =! 0:
+            pass
+
+
+    def insert(self):
+        sequences = self.get_sequences()
+        for i,j,k in product(*sequences):
+            print('#',i,j,k)
+            self.insert_function(i,j,k,*sequences)
+
+
+
+if __name__ == '__main__':
+    main()
