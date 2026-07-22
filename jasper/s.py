@@ -1,6 +1,11 @@
 import itertools
 import json
-from itertools import product
+from itertools import product, zip_longest
+
+def main():
+    s=Skell(sample)
+    print(s.get_sequences())
+    s.insert()
 
 ## constants
 blue = [0, 0, 255]
@@ -18,11 +23,16 @@ def mater_plastic(color, transparency=0.0 , reflection=0.0):
     color_string = ' '.join(map(str,color))
     return f'"plastic {{tr {transparency} re {reflection}}}" {color_string} 0'  
 
+    
+
 vertical_column_mater = mater_plastic(blue, low_transparency)
 long_beam_mater = mater_plastic(electric_indigo, low_transparency)
 cross_beam_mater = mater_plastic(alone_in_the_dark, zero_transparency)
 base_mater = mater_plastic(alone_in_the_dark, low_transparency)
 boundary_box_color = mater_plastic(alone_in_the_dark, zero_transparency)
+
+def get_vector(from_point, to_point):
+    return [to_c - fro_c for to_c, fro_c in zip_longest(to_point, from_point, fillvalue=0)]
 
 def parse_json_file(file_path):
     with open(file_path) as file:
@@ -74,10 +84,6 @@ class SequenceDescriptor:
                 sequence[i] = sequence[i-1] + self.offsets['default']
         return sequence
 
-def main():
-    s=Skell(sample)
-    print(s.get_sequences())
-    s.insert()
 
 class Sph:
     def __init__(self,name,vertex,radius):
@@ -106,34 +112,76 @@ class RPP:
         print(f'in {long_name} rpp {s.xmin} {s.xmax}  {s.ymin} {s.ymax} {s.zmin} {s.zmax}')
 
 class RCC:
-    def 
+    def __init__(self, name, vertex,vector, radius):
+        self.name = name
+        self.vertex = vertex
+        self.vector = vector
+        self.radius = radius
+    
+    @classmethod
+    def fromto(cls,name,from_p ,to_p,radius):
+        vector = get_vector(from_p, to_p)
+        vertex = from_p
+        return cls(name, vertex, vector, radius) 
+
+    def insert(self, prefix='',suffix='.s'):
+        long_name = prefix + self.name + suffix
+        vertex_string = ' '.join(map(str,self.vertex))
+        vector_string = ' '.join(map(str,self.vector))
+        print(f'in {long_name} rcc {vertex_string} {vector_string} {self.radius}')
 
 class Skell:
     #TODO handle live setter updates
     def __init__(self, data):
-        self.collumns={}
-        self.rows={}
-        self.plans={}
-        for key in data:
-            setattr(self, key, data[key])
-    
+        """------"""
+        collumns_data = data['collumns']
+        rows_data = data['rows']
+        plans_data = data['plans']
+        self.collumns = SequenceDescriptor(**collumns_data)
+        self.rows = SequenceDescriptor(**rows_data) 
+        self.plans= SequenceDescriptor(**plans_data)
+        self.descriptors = [self.collumns, self.rows, self.plans]
     def get_sequences(self):
-        collumns = SequenceDescriptor(**self.collumns).get_squence()
-        rows = SequenceDescriptor(**self.rows).get_squence()
-        plans = SequenceDescriptor(**self.plans).get_squence()
-        return [collumns, rows, plans]
+        return [ i.get_squence() for i in self.descriptors ]
+    def get_ranges(self):
+        return [ range(i.count) for i in self.descriptors ]
 
     def insert_function(self,i,j,k,collumns,rows,plans):
+        #TODO: to be moved to top
         node_name = f'node_{i}_{j}_{k}'
-        node_radius = 250
-        node = Sph(node_name,[i,j,k],node_radius)
+        node_radius = 40
+        axis_radius = 10
+        vertex = [collumns[i], rows[j], plans[k]]
+        node = Sph(node_name,vertex,node_radius)
         node.insert()
-        if k < len(plans):
+        if k + 1< self.plans.count :
+            name = node_name+ '_vcl'
+            from_p = vertex
+            to_p = vertex[:]
+            to_p[2]= plans[k+1]
+            vcl=RCC.fromto(name, from_p, to_p, axis_radius)
+            vcl.insert()
+            #
             self.insert_collumn(i,j,k,plans)
-        if j < len(rows) and j != 0:
+        if j + 1< self.rows.count and k != 0:
+            name = node_name+ '_ccl'
+            from_p = vertex
+            to_p = vertex[:]
+            to_p[1]= rows[j+1]
+            vcl=RCC.fromto(name, from_p, to_p, axis_radius)
+            vcl.insert()
+            #
             self.insert_cross_beam(i,j,k,rows)
-        if i < len(collumns) and i != 0:
+        if i + 1< self.collumns.count and k != 0:
             self.insert_long_beam(i,j,k,collumns)
+            name = node_name+ '_lcl'
+            from_p = vertex
+            to_p = vertex[:]
+            to_p[0]= collumns[i+1]
+            vcl=RCC.fromto(name, from_p, to_p, axis_radius)
+            vcl.insert()
+            #
+            #self.insert_long_beam()
 
     def insert_collumn(self,i,j,k,plans):
         pass
@@ -144,7 +192,8 @@ class Skell:
 
     def insert(self):
         sequences = self.get_sequences()
-        for i,j,k in product(*sequences):
+        ranges = self.get_ranges()
+        for i,j,k in product(*ranges):
             print('#',i,j,k)
             self.insert_function(i,j,k,*sequences)
 
