@@ -42,5 +42,5 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 source $HOME/.vim/plugged/coc.nvim/doc/coc-example-config.vim 
 map \s i_<Esc>l~<Esc>
-map \pi :w<bar>python3 %<CR>
+map \r :w<bar>python3 %<CR>
 vmap <C-c> "+y
