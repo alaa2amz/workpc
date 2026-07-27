@@ -1,0 +1,5 @@
+mged: illegal option -- .
+Unrecognized option (.)
+
+Usage:  mged [-a attach] [-b] [-c|-C] [-f] [-d display] [-h|?] [-r] [-x#] [-X#] [-v] [database [command]]
+
