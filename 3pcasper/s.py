@@ -52,7 +52,8 @@ sample = {
     'vertical_column': {'flange_thick': 10, 'flange_width': 100, 'handle':
                         'cen', 'rot': [0, 90, 0], 'total_height': 150, 'type':
                         'fi', 'web_thick': 20},
-    'beams': {(0,1,1,'vertical'): {'flange_thick': 10, 'flange_width': 100, 'rot':
+    'beams': {
+        '0_1_1_v': {'flange_thick': 10, 'flange_width': 100, 'rot':
                               [0, 90, 0], 'total_height': 150, 'type': 'fi',
                               'web_thick': 20},
               },
@@ -129,29 +130,32 @@ class RCC:
         print(f'in {long_name} rcc {vertex_string} {vector_string} {self.radius}')
         return long_name
 
-class Beam:
-    def __init__(self,name ,length, total_height, web_thick, flange_thick, flange_width, rotation = [0,0,0], handle='cen', shape='i'):
+class IBeam:
+    def __init__(self,name ,length, total_height, web_thick, flange_thick, flange_width, rotation = [0,0,0], handle='cen'):
         self.lower_flange = RPP(name+'_lf',0,length,-flange_width/2, flange_width/2, 0,flange_thick)
         self.web = RPP(name + '_w', 0, length,-web_thick/2,web_thick/2 ,flange_thick, total_height - flange_thick) 
         self.upper_flange = RPP(name + '_uf', 0,length,-flange_width/2, flange_width/2, total_height-flange_thick, total_height)
         self.orig = Sph(name+'_o',[0,0,0], web_thick/2)
         self.tos = Sph(name + '_t' , [0,0,total_height] , web_thick/2)
-        self.bound_box = RPP(name+'_bb',0, length, -flange_width/2, flange_width/2, 0, total_height)
+        #self.bound_box = RPP(name+'_bb',0, length, -flange_width/2, flange_width/2, 0, total_height)
         self.handle = handle
         self.rotation = rotation
         self.name = name
         self.solids = [self.lower_flange, self.web, self.upper_flange]
-        self.guides = [self.orig, self.tos, self.bound_box]
+        #self.guides = [self.orig, self.tos, self.bound_box]
+        self.guides = [self.orig, self.tos]
 
     def insert(self,prefix='',suffix='.c'):
         long_name = prefix + self.name + suffix
         unions = [i.insert() for i in self.solids]
-        addsubs = [i.inser() for i in self.guides]
+        addsubs = [i.insert() for i in self.guides]
         for i in unions:
             print(f'c {long_name} u {i}')
         for i in addsubs:
             print(f'c {long_name} u {i} - {i}')
-        return long_name
+        bound_box_name = long_name.replace('.c','_bb.s',1)
+        print(f'bb -c {bound_box_name} {long_name}')
+        return long_name, bound_box_name 
 
 
 
@@ -167,6 +171,10 @@ class Skell:
         self.rows = SequenceDescriptor(**rows_data) 
         self.plans= SequenceDescriptor(**plans_data)
         self.descriptors = [self.collumns, self.rows, self.plans]
+        self.vertical_column = data['vertical_column']
+        self.long_beam = data['long_beam']
+        self.cross_beam = data['cross_beam']
+        self.beams = data['beams']
     def get_sequences(self):
         return [ i.get_squence() for i in self.descriptors ]
     def get_ranges(self):
@@ -186,6 +194,7 @@ class Skell:
             to_p[2]= plans[k+1]
             vcl=RCC.fromto(name, from_p, to_p, axis_radius)
             vcl.insert()
+            self.insert_collumn(i,j,k,plans)
             #
             self.insert_collumn(i,j,k,plans)
         if j + 1< self.rows.count and k != 0:
@@ -209,7 +218,14 @@ class Skell:
             #self.insert_long_beam()
 
     def insert_collumn(self,i,j,k,plans):
-        pass
+        key = f'{i}_{j}_{k}_v'
+        length = plans[k+1] - plans[k] 
+        if key not in self.beams:
+            section = self.vertical_column
+        else:
+            section = self.beams[key]
+        collumn = Beam(length:length,**section) # pyright: ignore
+        collumn.insert()
     def insert_cross_beam(self,i,j,k,rows):
         pass
     def insert_long_beam(self,i,j,k,collumns):
