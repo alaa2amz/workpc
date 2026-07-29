@@ -4,7 +4,7 @@ from itertools import product, zip_longest
 
 def main():
     s=Skell(sample)
-    print(s.get_sequences())
+    #print(s.get_sequences())
     s.insert()
 
 ## constants
@@ -50,10 +50,10 @@ sample = {
                    'rotation': [0, 0, -90], 'total_height': 150, 'type': 'fi',
                    'web_thick': 20},
     'vertical_column': {'flange_thick': 10, 'flange_width': 100, 'handle':
-                        'cen', 'rot': [0, 90, 0], 'total_height': 150, 'type':
+                        'cen', 'rotation': [0, 90, 0], 'total_height': 150, 'type':
                         'fi', 'web_thick': 20},
     'beams': {
-        '0_1_1_v': {'flange_thick': 10, 'flange_width': 100, 'rot':
+        '0_1_1_v': {'flange_thick': 10, 'flange_width': 100, 'rotation':
                               [0, 90, 0], 'total_height': 150, 'type': 'fi',
                               'web_thick': 20},
               },
@@ -63,7 +63,7 @@ sample = {
 
 class SequenceDescriptor:
     def __init__(self, count=3, absolutes={0:0}, offsets={'default':3000}):
-        print(count)
+        #print(count)
         self.count = count
         self.absolutes = absolutes
         self.offsets = offsets
@@ -131,15 +131,16 @@ class RCC:
         return long_name
 
 class IBeam:
-    def __init__(self,name ,length, total_height, web_thick, flange_thick, flange_width, rotation = [0,0,0], handle='cen'):
+    def __init__(self,name ,length, total_height, web_thick, flange_thick, flange_width, location = [0,0,0],rotation = [0,0,0], handle='cen',**kargs):
         self.lower_flange = RPP(name+'_lf',0,length,-flange_width/2, flange_width/2, 0,flange_thick)
         self.web = RPP(name + '_w', 0, length,-web_thick/2,web_thick/2 ,flange_thick, total_height - flange_thick) 
         self.upper_flange = RPP(name + '_uf', 0,length,-flange_width/2, flange_width/2, total_height-flange_thick, total_height)
-        self.orig = Sph(name+'_o',[0,0,0], web_thick/2)
+        self.orig = Sph(name+'_o',[0,0,total_height/2], web_thick/2)
         self.tos = Sph(name + '_t' , [0,0,total_height] , web_thick/2)
         #self.bound_box = RPP(name+'_bb',0, length, -flange_width/2, flange_width/2, 0, total_height)
         self.handle = handle
         self.rotation = rotation
+        self.location = location
         self.name = name
         self.solids = [self.lower_flange, self.web, self.upper_flange]
         #self.guides = [self.orig, self.tos, self.bound_box]
@@ -150,9 +151,21 @@ class IBeam:
         unions = [i.insert() for i in self.solids]
         addsubs = [i.insert() for i in self.guides]
         for i in unions:
-            print(f'c {long_name} u {i}')
+            print(f'comb {long_name} u {i}')
         for i in addsubs:
-            print(f'c {long_name} u {i} - {i}')
+            print(f'comb {long_name} u {i} - {i}')
+        handle_name=''
+        if self.handle == 'cen':
+            handle_name = addsubs[0]
+        if self.handle == 'tos':
+            handle_name = addsubs[1]
+        print(f'B {long_name}')
+        print(f'oed / {long_name}/{handle_name}')
+        location_string = ' '.join(map(str,self.location))
+        rotation_string = ' '.join(map(str,self.rotation))
+        print(f'rot {rotation_string}')
+        print(f'translate {location_string}')
+        print(f'accept')
         bound_box_name = long_name.replace('.c','_bb.s',1)
         print(f'bb -c {bound_box_name} {long_name}')
         return long_name, bound_box_name 
@@ -181,6 +194,7 @@ class Skell:
         return [ range(i.count) for i in self.descriptors ]
     def insert_function(self,i,j,k,collumns,rows,plans):
         #TODO: to be moved to top
+        sequances=[collumns,rows,plans]
         node_name = f'node_{i}_{j}_{k}'
         node_radius = 40
         axis_radius = 10
@@ -194,42 +208,45 @@ class Skell:
             to_p[2]= plans[k+1]
             vcl=RCC.fromto(name, from_p, to_p, axis_radius)
             vcl.insert()
-            self.insert_collumn(i,j,k,plans)
-            #
-            self.insert_collumn(i,j,k,plans)
+            beam = self.find_beam(i,j,k,2,'v',sequances)
+            beam.insert()
         if j + 1< self.rows.count and k != 0:
             name = node_name+ '_ccl'
             from_p = vertex
             to_p = vertex[:]
             to_p[1]= rows[j+1]
-            vcl=RCC.fromto(name, from_p, to_p, axis_radius)
-            vcl.insert()
-            #
-            self.insert_cross_beam(i,j,k,rows)
+            ccl=RCC.fromto(name, from_p, to_p, axis_radius)
+            ccl.insert()
+            beam = self.find_beam(i,j,k,1,'c',sequances)
+            beam.insert()
         if i + 1< self.collumns.count and k != 0:
-            self.insert_long_beam(i,j,k,collumns)
             name = node_name+ '_lcl'
             from_p = vertex
             to_p = vertex[:]
             to_p[0]= collumns[i+1]
-            vcl=RCC.fromto(name, from_p, to_p, axis_radius)
-            vcl.insert()
-            #
-            #self.insert_long_beam()
-
-    def insert_collumn(self,i,j,k,plans):
-        key = f'{i}_{j}_{k}_v'
-        length = plans[k+1] - plans[k] 
+            lcl=RCC.fromto(name, from_p, to_p, axis_radius)
+            lcl.insert()
+            beam = self.find_beam(i,j,k,0,'l',sequances)
+            beam.insert()
+    def find_beam(self,i,j,k,index,direction_indicator,sequances):
+        key = f'{i}_{j}_{k}_{direction_indicator}'
+        dimension_index = [i,j,k][index]
+        sequance = sequances[index]
+        location = [sequances[0][i],sequances[1][j],sequances[2][k]]
+        length = sequance[dimension_index + 1] - sequance[dimension_index] 
+        section={}
         if key not in self.beams:
-            section = self.vertical_column
+            match direction_indicator:
+                case 'v':
+                    section = self.vertical_column
+                case 'c':
+                    section = self.cross_beam
+                case 'l':
+                    section = self.long_beam
         else:
             section = self.beams[key]
-        collumn = Beam(length:length,**section) # pyright: ignore
-        collumn.insert()
-    def insert_cross_beam(self,i,j,k,rows):
-        pass
-    def insert_long_beam(self,i,j,k,collumns):
-        pass
+        beam = IBeam(name=key,length=length,location=location,**section) # pyright: ignore
+        return beam
 
     def insert(self):
         sequences = self.get_sequences()
