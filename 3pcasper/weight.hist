@@ -1,0 +1,1000 @@
+ 1117  apt search japanese font textbook
+ 1118  apt search japanese font text book
+ 1119  apt search kyokasho
+ 1120  apt search kyoukasho
+ 1121  apt search japanese book
+ 1122  grep -e ALE -e ale dmap.vim 
+ 1123  grep -e ALE -e ale dmap.vim > ale-map.vim 
+ 1124  vim ale-map.vim 
+ 1125  vim jasper/s.js
+ 1126  vim ale-map.vim 
+ 1127  man vim
+ 1128  vim -u NONE
+ 1129  vim 
+ 1130  vim ale-map.vim
+ 1131  vim jasper/s.js
+ 1132  vim ale-map.vim
+ 1133  vim jasper/s.js
+ 1134  vim .vimrc
+ 1135  vim jasper/s.js
+ 1136  systemctl suspend
+ 1137  apt search jap fonts
+ 1138  sudo apt install fonts-dejima-mincho
+ 1139  sudo apt download fonts-dejima-mincho
+ 1140  ls -tr
+ 1141  apt download fonts-dejima-mincho
+ 1142  ls -tr
+ 1143  apt install --download-only fonts-dejima-mincho
+ 1144  sudo apt install --download-only fonts-dejima-mincho
+ 1145  ls -tr
+ 1146  dpkg -c fonts-dejima-mincho_227-16_all.deb 
+ 1147  cd workpc/
+ 1148  vim sync.sh
+ 1149  sh sync.sh 
+ 1150  vim sync.sh
+ 1151  sh sync.sh 
+ 1152  ls /var/log/apt
+ 1153  systemctl suspend
+ 1154  vim
+ 1155  cd ..
+ 1156  cp -r workpc/ workpc.bkp
+ 1157  cd workpc
+ 1158  git pull
+ 1159  cd 
+ 1160  cd jasper/
+ 1161  vim s.js
+ 1162  systemctl suspend
+ 1163  vim
+ 1164  cd Downloads/
+ 1165  sudo dpkg -i drawio-amd64-30.2.6.deb 
+ 1166  cd
+ 1167  ls -tr
+ 1168  cd Documents/
+ 1169  ls
+ 1170  view Untitled\ Diagram.json
+ 1171  ls
+ 1172  glow node/doc/api/&node
+ 1173  xfce4-terminal node
+ 1174  xfce4-terminal -h
+ 1175  xfce4-terminal -e node&xfce -e glow node/doc/api/&
+ 1176  xfce4-terminal -e node&xfce4-terminal -e glow node/doc/api/&
+ 1177  jobs
+ 1178  xfce4-terminal -e node;xfce4-terminal -e glow node/doc/api/&
+ 1179  xfce4-terminal -e node;xfce4-terminal -e glow node/doc/api/
+ 1180  xfce4-terminal -e node;xfce4-terminal -e "glow node/doc/api/"
+ 1181  fc -ln > donode.sh
+ 1182  sh donode.sh 
+ 1183  cat donode.sh 
+ 1184  man fc
+ 1185  help fc
+ 1186  xfce4-terminal -e node;xfce4-terminal -e "glow node/doc/api/"
+ 1187  less node/doc/api/*.md
+ 1188  less -i node/doc/api/*.md
+ 1189  cat node/doc/api/*.md|less -i
+ 1190  systemctl suspend
+ 1191  man pandoc
+ 1192  pandoc -t man node/doc/api/fs.md 
+ 1193  echo $?
+ 1194  pandoc -t man node/doc/api/fs.md > fs.man
+ 1195  man ./fs.man 
+ 1196  man pandoc
+ 1197  pandoc -f markdown -t man node/doc/api/fs.md > fs.man
+ 1198  man ./fs.man 
+ 1199  less fs.man 
+ 1200  apt search markdown to manpage
+ 1201  apt show go-md2man 
+ 1202  apt search md2man
+ 1203  apt search md2
+ 1204  glow node/doc/api/fs.md 
+ 1205  apt show md2term 
+ 1206  apt search markdown
+ 1207  man pandoc
+ 1208  pandoc -f markdown -t man node/doc/api/fs.md > fs.man
+ 1209  pandoc -f markdown -t html node/doc/api/fs.md > fs.html
+ 1210  lynx fs.html 
+ 1211  apt search html2man
+ 1212  apt search htmltoman
+ 1213  apt search man html
+ 1214  ls -R node/
+ 1215  ls -R node/doc
+ 1216  ls  node/doc/api
+ 1217  b
+ 1218  b node/doc/api
+ 1219  less node/doc/api/fs.md 
+ 1220  vim node/doc/api/fs.md 
+ 1221  glow node/doc/api/fs.md 
+ 1222  bat
+ 1223  sudo apt install bat
+ 1224  bat node/doc/api/fs.md 
+ 1225  batcat node/doc/api/fs.md
+ 1226  node/doc/api/fs.md |sed -E 's/^\w/\t\w/'
+ 1227  cat node/doc/api/fs.md |sed -E 's/^\w/\t\w/'
+ 1228  cat node/doc/api/fs.md |sed -E 's/^\w/\t\w/'|less
+ 1229  pandoc -t rst node/doc/api/fs.md fs.rst
+ 1230  man pandoc
+ 1231  pandoc -t rst node/doc/api/fs.md > fs.rst
+ 1232  less fs.rst 
+ 1233  pydoc3 expat
+ 1234  pydoc3 xml
+ 1235  pydoc3 sax
+ 1236  pydoc3 xml.sax
+ 1237  pydoc3 xml
+ 1238  pydoc3 xml.sax
+ 1239  npm search xpat
+ 1240  npm search expat
+ 1241  npm help
+ 1242  npm help npm
+ 1243  npm search expat
+ 1244  npm search expat|less
+ 1245  npm search -h
+ 1246  npm search -h|less
+ 1247  npm search expat
+ 1248  npm search sax
+ 1249  ls
+ 1250  cd Documents/
+ 1251  ls
+ 1252  cp Untitled\ Diagram.json test.json
+ 1253  vim test-test.json
+ 1254  vim test-test-json.js
+ 1255  apt search coc
+ 1256  cd .vimrc
+ 1257  vim .vimrc
+ 1258  cd
+ 1259  vim .vimrc
+ 1260  vim
+ 1261  systemctl suspend
+ 1262  alias
+ 1263  man -k ansi
+ 1264  man -k terminal
+ 1265  man -k sequances
+ 1266  man -k sequance
+ 1267  man -k sequa
+ 1268  man 1p xargs
+ 1269  man 1posix xargs
+ 1270  man -k xargs
+ 1271  sudo apt install manpages-posix
+ 1272  man 1posix xargs
+ 1273  man ex
+ 1274  man 1p ex
+ 1275  systemctl suspend
+ 1276  cd Downloads/
+ 1277  unzip Ciyue-main.zip 
+ 1278  cd Ciyue-main/
+ 1279  b
+ 1280  glow -p README.md 
+ 1281  cd linux/
+ 1282  b
+ 1283  cd ..
+ 1284  ls
+ 1285  cd docs/
+ 1286  ls
+ 1287  glow -p index.md 
+ 1288  ls guide/
+ 1289  cd ..
+ 1290  b
+ 1291  glow -p README.md 
+ 1292  cd linux/
+ 1293  b
+ 1294  cd runner/
+ 1295  b
+ 1296  cd ..
+ 1297  b
+ 1298  sudo apt install cmake
+ 1299  cmake build
+ 1300  mkdir build
+ 1301  cmake build
+ 1302  cd
+ 1303  xsel |tee coc-js
+ 1304  vim
+ 1305  ascii
+ 1306  man ascii
+ 1307  man tmux
+ 1308  tmux new-session -A
+ 1309  vim al
+ 1310  tmux kill-server
+ 1311  tmux
+ 1312  tmux neww
+ 1313  tmux new-session -A
+ 1314  tmux ls
+ 1315  tmux list-comm attach
+ 1316  tmux list-comm -v attach
+ 1317  tmux list-comm attach
+ 1318  man tmux
+ 1319  vim al
+ 1320  tmux kill-server
+ 1321  t
+ 1322  exit
+ 1323  pydoc3 formatted
+ 1324  pydoc3 formated
+ 1325  pydoc3 strings
+ 1326  pydoc3 string
+ 1327  pydoc3 stdlib
+ 1328  pydoc3 standard
+ 1329  man pydoc3
+ 1330  man pydoc3 topics
+ 1331  pydoc3 topics
+ 1332  pydoc3 strings
+ 1333  man pydoc3 
+ 1334  pydoc3 -k strings
+ 1335  pydoc3 /strings
+ 1336  pydoc3 STRINGS
+ 1337  pydoc3 F-STRINGS
+ 1338  pydoc3 FORMATTING 
+ 1339  pydoc3 topics
+ 1340  pydoc3 topics|less
+ 1341  pydoc3 STRINGS
+ 1342  help f-string
+ 1343  pydoc3 f-string
+ 1344  pydoc3 -k f-string
+ 1345  pydoc3 f-strings
+ 1346  pydoc -g
+ 1347  pydoc3 -g
+ 1348  pydoc3 -b
+ 1349  exit
+ 1350  systemctl suspend
+ 1351  bind
+ 1352  bind -h
+ 1353  type
+ 1354  type type
+ 1355  type whereis 
+ 1356  type which
+ 1357  type where
+ 1358  complete -h
+ 1359  complete -W "aa ddd fff" alaa
+ 1360  compgen alaa a
+ 1361  compgen alaa 
+ 1362  help
+ 1363  help variables 
+ 1364  help -v variables 
+ 1365  help -m variables 
+ 1366  help compgen
+ 1367  help complete
+ 1368  apt search clipmenu
+ 1369  apt search clipboard
+ 1370  man xclip
+ 1371  xfce4-clipman-history 
+ 1372  xfce4-clipman
+ 1373  stalonetray 
+ 1374  help bind
+ 1375  help complete
+ 1376  complete -IE -W'aaaa zzzzz ggggg'
+ 1377  complete -IE -W'aaaa zzzzz ggggg' a
+ 1378  help complete
+ 1379  help help
+ 1380  man complete
+ 1381  help -m complete
+ 1382  man bash
+ 1383  vim drawio-to-xml.sh
+ 1384  cp Documents/Untitled\ Diagram.drawio ./ddd.drawio
+ 1385  sh dio2json.sh ddd.drawio 
+ 1386  vim dio2json.sh
+ 1387  sh dio2json.sh ddd.drawio 
+ 1388  ls -tr
+ 1389  sh dio2json.sh ddd.drawio 
+ 1390  vim dio2json.sh
+ 1391  sh dio2json.sh ddd.drawio 
+ 1392  file ddd.drawio 
+ 1393  file -ki ddd.drawio 
+ 1394  vim ddd.drawio 
+ 1395  man setxkbmap 
+ 1396  mged
+ 1397  xev
+ 1398  pydoc3 topics
+ 1399  pydoc3 ASSERTION 
+ 1400  pydoc3 ASSIGNMENT
+ 1401  pydoc3 -h
+ 1402  pydoc3 -b
+ 1403  python3 -mvenv v
+ 1404  . v/bin/activate
+ 1405  pip --version
+ 1406  pip install django
+ 1407  pip install --verbose django
+ 1408  django-admin 
+ 1409  django-admin help shell
+ 1410  django-admin 
+ 1411  django-admin help shell
+ 1412  django-admin 
+ 1413  django-admin help
+ 1414  django-admin help start
+ 1415  django-admin help startproject
+ 1416  django-admin help startapp
+ 1417  mkdir p
+ 1418  cd p
+ 1419  mkdir d
+ 1420  cd d
+ 1421  django-admin startapp my1st
+ 1422  ls
+ 1423  cd my1st/
+ 1424  ls
+ 1425  django-admin 
+ 1426  cd ..
+ 1427  django-admin startproject my1stp
+ 1428  b my1stp
+ 1429  ls
+ 1430  cd my1stp
+ 1431  ls
+ 1432  b my1stp/
+ 1433  b ../my1st
+ 1434  mv ../my1st .
+ 1435  ls
+ 1436  ./manage.py 
+ 1437  ./manage.py runserver
+ 1438  b my1st
+ 1439  cd my1stp
+ 1440  b
+ 1441  python3 .
+ 1442  vim __init__.py 
+ 1443  b
+ 1444  vim settings.py 
+ 1445  vim urls.py 
+ 1446  vim settings.py 
+ 1447  vim urls.py 
+ 1448  cd ../my1st
+ 1449  ls
+ 1450  vim *.py
+ 1451  cd ..
+ 1452  cd
+ 1453  cd jasper/
+ 1454  vim s.js s.py
+ 1455  python3
+ 1456  systemctl suspend
+ 1457  bind
+ 1458  bind -l
+ 1459  bind -p
+ 1460  bind -p|fgrep '\\' 
+ 1461  bind -p|fgrep '\ez' 
+ 1462  bind '"\ez":"alaa"' 
+ 1463  bind -p|fgrep '\ee' 
+ 1464  bind '"\ee":"alaa2amz@gmail.com"' 
+ 1465  bind -p|fgrep '\eg' 
+ 1466  echo >> al <<EOF
+ 1467  bind '"\ee":"alaa2amz@gmail.com"' 
+ 1468  EOF
+ 1469  cat al
+ 1470  cat >> al <<EOF
+ 1471  bind '"\ee":"alaa2amz@gmail.com"' 
+ 1472  EOF
+ 1473  cat al
+ 1474  man tmux
+ 1475  vim .tmux.conf
+ 1476  t
+ 1477  vim
+ 1478  cd pup
+ 1479  vim test.js
+ 1480  apt remove vim-ale 
+ 1481  sudo apt remove vim-ale 
+ 1482  sudo apt autoremove 
+ 1483  sudo apt autoremove vim-ale
+ 1484  vim test.js
+ 1485  cd
+ 1486  ls
+ 1487  ls *.vim
+ 1488  vim .vimrc
+ 1489  cd pup/
+ 1490  vim dl-all-img.js
+ 1491  node dl-all-img.js https://example.com
+ 1492  ls
+ 1493  cd downloaded_images/
+ 1494  ls
+ 1495  cd ..
+ 1496  node dl-all-img.js 'https://www.google.com/search?sca_esv=eb348a2ae99c9073&udm=2&fbs=ABfTbFVyMZGZf1hfvX9uKjN_-G8c4u0nXx4bEIpwm1lnNH832cY0rzciwbWdjW1sV3VNzLxdnf7_4forAzXNHe3mB2aZVh5n-JLaLonxZNcsNVHvv-OQh2i9ewyg4X6tUYWQrj51E2b2jID98j_LKIzX1QKTFwHDoa6L0Nlc7Ylyc_Go2Jg8ru-qRJL9NoNkClCvBVgSDqXfsw8TsMOlsE3IsYEZEUI59A&q=ferrari&sa=X&ved=2ahUKEwiexeW4mbuVAxX52gIHHU3uCAsQtKgLegQIGhAB&biw=1279&bih=648&dpr=1.5'
+ 1497  cd downloaded_images/
+ 1498  feh
+ 1499  cd ..
+ 1500  vim
+ 1501  ls /usr/share/X11/xkb/
+ 1502  ls /usr/share/X11/xkb/keycodes/
+ 1503  ls /usr/share/X11/xkb/compat/
+ 1504  ls /usr/share/X11/xkb/geometry/
+ 1505  ls /usr/share/X11/xkb/
+ 1506  ls /usr/share/X11/xkb/*
+ 1507  setxkbmap us
+ 1508  setxkbmap jp
+ 1509  setxkbmap jap
+ 1510  setxkbmap ar
+ 1511  setxkbmap ara
+ 1512  setxkbmap us
+ 1513  setxkbmap ar
+ 1514  setxkbmap ara
+ 1515  setxkbmap us
+ 1516  setxkbmap jap
+ 1517  setxkbmap j
+ 1518  setxkbmap us
+ 1519  setxkbmap -l
+ 1520  setxkbmap -h
+ 1521  setxkbmap --help
+ 1522  man setxkbmap
+ 1523  man xconsole 
+ 1524  man xkbset
+ 1525  man xkbcomp 
+ 1526  xkbcomp 
+ 1527  xkbcomp -a
+ 1528  xkbcomp -l
+ 1529  xkbcomp
+ 1530  man xkbcomp 
+ 1531  man ckbcomp 
+ 1532  man keyboard
+ 1533  systemctl suspend
+ 1534  scrot
+ 1535  man -k keymaps
+ 1536  man -k layouts
+ 1537  man -k layout
+ 1538  man layouts
+ 1539  man keymaps
+ 1540  cd
+ 1541  python
+ 1542  python3
+ 1543  cd jasper
+ 1544  ls
+ 1545  vim s.js s.py
+ 1546  cd
+ 1547  ls
+ 1548  mkdir Pool
+ 1549  mv *.* Pool/
+ 1550  ls Pool/*.vim
+ 1551  mv Pool/dmap.vim Pool/ale-map.vim .
+ 1552  cd .vim/autoload/
+ 1553  ls
+ 1554  cd ../plugged/
+ 1555  ls
+ 1556  cd coc.nvim/
+ 1557  ls
+ 1558  ls *
+ 1559  vim 
+ 1560  cd
+ 1561  vim 
+ 1562  ls .vim/plugged/
+ 1563  echo  'source $HOME/.vim/plugged/coc.nvim/doc/coc-example-config.vim ' >> .vimrc
+ 1564  vim s.js s.py
+ 1565  cd jasper/
+ 1566  vim s.js s.py
+ 1567  vim s.py
+ 1568  python3
+ 1569  vim s.py
+ 1570  vim s.js
+ 1571  vim sample_skell.js 
+ 1572  node  sample_skell.js 
+ 1573  vim sample_skell.js 
+ 1574  node  sample_skell.js 
+ 1575  vim sample_skell.js 
+ 1576  node  sample_skell.js 
+ 1577  mv sample_skell.js sample_skell.mjs
+ 1578  node  sample_skell.mjs 
+ 1579  ls -tr
+ 1580  cat sample_skell.json 
+ 1581  vim s.py
+ 1582  ls
+ 1583  mv sample_skell.json skell_sample.json
+ 1584  python3 s.py
+ 1585  mv sample_skell.json skell_sample.json
+ 1586  vim s.py
+ 1587  python3 s.py
+ 1588  python3 -i s.py
+ 1589  vim s.py
+ 1590  cat sample_skell.json 
+ 1591  cat skell_sample.json 
+ 1592  vim s.py
+ 1593  cd
+ 1594  cd workpc/
+ 1595  bash sync.sh
+ 1596  vim sync.sh
+ 1597  systemctl suspend
+ 1598  cd
+ 1599  man node
+ 1600  npm search nodedoc
+ 1601  npm search node-help
+ 1602  npm search fonts
+ 1603  npm search arabic
+ 1604  ls */bin
+ 1605  apt show python3-all
+ 1606  apt show python3-full
+ 1607  sudo apt install python3-full
+ 1608  man vdir
+ 1609  vdir
+ 1610  man du
+ 1611  du -s
+ 1612  du -sh
+ 1613  du -sh *
+ 1614  python
+ 1615  python3
+ 1616  b
+ 1617  cd jasper/
+ 1618  vim s.py
+ 1619  vim s.py s.js
+ 1620  du -sh .
+ 1621  du -sh ./*
+ 1622  cd ..
+ 1623  mv jasper/ workpc/
+ 1624  cd workpc/
+ 1625  cd jasper/
+ 1626  git add *.js *.jso *.mjs *.sh *.vim *.py
+ 1627  git add *.js *.json *.mjs *.sh *.vim *.py
+ 1628  git status
+ 1629  git add ../sxhkd/
+ 1630  git commit -amjasper
+ 1631  git push
+ 1632  systemctl suspend
+ 1633  cd
+ 1634  fortune 
+ 1635  dict doberman
+ 1636  sdcv doberman
+ 1637  sudo apt install dictd dict dict-gcide dict-wn dict-freedict-eng-ara dict-freedict-jpn-eng
+ 1638  dict doberman
+ 1639  cd workpc/jasper/
+ 1640  vim s.py
+ 1641  killall -9 google-chrome
+ 1642  killall -9 google
+ 1643  killall -9 xinit
+ 1644  killall -9 dwm
+ 1645  killall -9 Xorg
+ 1646  systemctl suspend
+ 1647  ls
+ 1648  thunar .
+ 1649  complete -A alias a
+ 1650  complete -A alias 
+ 1651  complete -A alias lll
+ 1652  complete -A alias ls
+ 1653  complete -A binding 
+ 1654  complete -A binding b
+ 1655  a
+ 1656  compgen -p a
+ 1657  complete -A alias ls
+ 1658  complete -A binding b
+ 1659  complete -A binding bbb
+ 1660  complete -A service bbb
+ 1661  man -k xmm
+ 1662  ((3 + 4))
+ 1663  echo ((3 + 4))
+ 1664  echo (( 3 + 4 ))
+ 1665  echo (( 6 ))
+ 1666  man bash
+ 1667  compgen ls a
+ 1668  echo $COMPREPLY 
+ 1669  compgen l
+ 1670  echo $COMPREPLY 
+ 1671  compgen 
+ 1672  compgen aa
+ 1673  compgen bb 
+ 1674  compgen bbb a
+ 1675  echo $COMPREPLY 
+ 1676  echo $COMP*
+ 1677  echo $COMP_WORDS
+ 1678  echo $COMP
+ 1679  echo $COMP*
+ 1680  compgen l
+ 1681  echo $COMP*
+ 1682  cd node/doc/api
+ 1683  grep '###' fs.md
+ 1684  grep '###.*\.' fs.md
+ 1685  vim 
+ 1686  vim fs.md
+ 1687  man draw
+ 1688  drawio -h
+ 1689  drawio --help
+ 1690  systemctl suspend
+ 1691  help bind
+ 1692  help help
+ 1693  help -d bind
+ 1694  help -s bind
+ 1695  help bind
+ 1696  bind -X
+ 1697  b
+ 1698  bind -x "\\b":b
+ 1699  bind -x '"\\b":b'
+ 1700  bind -X
+ 1701  cd
+ 1702  cat >>al <<EOF
+ 1703  bind -x '"\\b":b'
+ 1704  EOF
+ 1705  cat al
+ 1706  help complete
+ 1707  ddd() { exch sspk pkpkp pkpkp ; }
+ 1708  ddd
+ 1709  ddd() { echo sspk pkpkp pkpkp ; }
+ 1710  ddd
+ 1711  complete -C ddd alaa
+ 1712  ddd() { echo "$*" >debug ;echo aaa;echo zzzz;echo ssss }
+ 1713  ddd() { echo "$*" >debug ;echo aaa;echo zzzz;echo ssss ; }
+ 1714  cat debug 
+ 1715  man -k  kernel
+ 1716  man -k  -s7 kernel
+ 1717  man -k  -s8 kernel
+ 1718  man getkeycodes 
+ 1719  getkeycodes
+ 1720  man getkeycodes 
+ 1721  man -k  -s5 kernel
+ 1722  man -k kbd
+ 1723  man -k keyboard
+ 1724  man ckbcomp
+ 1725  man keyboard
+ 1726  systemctl suspend
+ 1727  man setxkbmap 
+ 1728  man setupcon
+ 1729  systemctl suspend
+ 1730  apt search yq
+ 1731  apt search xq
+ 1732  apt show yq
+ 1733  apt show xq
+ 1734  sudo apt install yq
+ 1735  man xq
+ 1736  vim introduction-to-chemical-engineering.md
+ 1737  fontconsole 
+ 1738  startx
+ 1739  mkdir buildsssssfsfdf
+ 1740  sh
+ 1741  systemctl suspend
+ 1742  vim
+ 1743  mged g.g
+ 1744  cat g.g |mged -c gg.g
+ 1745  mged gg.g
+ 1746  systemctl suspend
+ 1747  exit
+ 1748  cd workpc/jasper/
+ 1749  vim s.py
+ 1750  git add s.py
+ 1751  git commit -amtoday
+ 1752  git push
+ 1753  systemctl suspend
+ 1754  cd
+ 1755  ls -tr
+ 1756  ls *.md
+ 1757  cd Downloads/
+ 1758  ls *.md
+ 1759  cd
+ 1760  find -name '*/*.md'
+ 1761  find -name './*/*.md'
+ 1762  ls */*.md
+ 1763  ls */*/*.md
+ 1764  ls */*/*.md*
+ 1765  ls */*/.*.md*
+ 1766  systemctl suspend
+ 1767  cd workpc/jasper/
+ 1768  vim -h
+ 1769  vim
+ 1770  vim s.{py,js}
+ 1771  systemctl suspend
+ 1772  emac -ng
+ 1773  emacs -ng
+ 1774  man emacs
+ 1775  emacs -nw
+ 1776  vim s.{py,js}
+ 1777  cd
+ 1778  ls
+ 1779  cd Downloads/
+ 1780  ls
+ 1781  cd
+ 1782  xsel |tee jmdict.link
+ 1783  wget -i jmdict.link 
+ 1784  gunzip -k JMdict.gz 
+ 1785  ls -tr
+ 1786  python3
+ 1787  less JMdict
+ 1788  xsel |radk.link
+ 1789  xsel |tee radk.link
+ 1790  wget -i radk.link 
+ 1791  gunzip -k radkfile.gz 
+ 1792  python3
+ 1793  systemctl suspend
+ 1794  vim schema.yaml
+ 1795  sudo apt install python3-yaml
+ 1796  python3
+ 1797  vim schema.yaml
+ 1798  python3
+ 1799  vim schema.yaml
+ 1800  systemctl suspend
+ 1801  xsel|tee install-wine32.sh
+ 1802  sh install-wine32.sh 
+ 1803  sudo apt install flatpack
+ 1804  sudo apt install flatpak
+ 1805  flatpak install flathub com.usebottles.bottles
+ 1806  sudo flatpak install flathub com.usebottles.bottles
+ 1807  sudo apt show bottlerocket 
+ 1808  flatpak override com.usebottles.bottles --user --filesystem=home
+ 1809  xsel|tee add-bottles.sh 
+ 1810  sudo flatpak install flathub com.usebottles.bottles
+ 1811  flatpak install flathub com.usebottles.bottles 
+ 1812  # Allow desktop entries  
+ 1813  flatpak override com.usebottles.bottles --user --filesystem=xdg-data/applications  
+ 1814  flatpak override com.usebottles.bottles --user --filesystem=~/.local/share/applications  
+ 1815  # Optional: Access home directory  
+ 1816  flatpak override com.usebottles.bottles --user --filesystem=home 
+ 1817  sudo flatpak install flathub com.usebottles.bottles
+ 1818  xsel|tee fix-flathub.sh
+ 1819  flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+ 1820  sudo flatpak install flathub com.usebottles.bottles
+ 1821  sh install-wine32.sh 
+ 1822  cd Downloads/
+ 1823  mkdir kgold
+ 1824  cd kgold/
+ 1825  mv ../kgold
+ 1826  mv ../kgold .
+ 1827  mv ../kgold1.zip .
+ 1828  unzip kgold1.zip 
+ 1829  ls
+ 1830  wine
+ 1831  wine explorer
+ 1832  cd ..
+ 1833  ls -tr
+ 1834  mkdir jbkgold
+ 1835  cd jbkgold/
+ 1836  cd ..
+ 1837  cp kgold8.exe kgolda8.exe kgdict3.zip jbkgold/
+ 1838  cd jbkgold/
+ 1839  ls
+ 1840  wine kgolda8.exe 
+ 1841  wine kgold
+ 1842  wine c:>kgold/kgold.exe
+ 1843  wine c://>kgold/kgold.exe
+ 1844  wine kgold.exe
+ 1845  wine cmd.exe
+ 1846  cd .aMule/
+ 1847  ls
+ 1848  cd Temp/
+ 1849  ls
+ 1850  ls -l
+ 1851  man -k mp4
+ 1852  man -k player
+ 1853  man -k video
+ 1854  mimetype 
+ 1855  mimetype mp4
+ 1856  mimeview
+ 1857  mimeview mp4
+ 1858  man mmcli
+ 1859  man -k mpeg
+ 1860  man -k player
+ 1861  parole *
+ 1862  ls -lh
+ 1863  parole  001.part
+ 1864  vlc
+ 1865  ls -lh
+ 1866  vlc 001.part
+ 1867  vlc 001.2art
+ 1868  systemctl suspend
+ 1869  apt show mecab
+ 1870  sudo apt install mecab\*
+ 1871  mecab 
+ 1872  mecab --help
+ 1873  sdcv nise
+ 1874  al
+ 1875  . al
+ 1876  wa j by
+ 1877  wa j /by
+ 1878  wa j by
+ 1879  wa  by
+ 1880  wa 
+ 1881  wa sun
+ 1882  wa / sun
+ 1883  wa k nihon
+ 1884  sh -X wa k nihon
+ 1885  sh -x wa k nihon
+ 1886  bash -x wa k nihon
+ 1887  cd .local/J
+ 1888  . set-path.sh 
+ 1889  wa k nihon
+ 1890  wa sun
+ 1891  wa k kinyoubi
+ 1892  bash -x wa k kinyoubi
+ 1893  awk --version
+ 1894  mv data/ ..
+ 1895  bash -x wa k kinyoubi
+ 1896  bash  wa k kinyoubi
+ 1897  wa k kinyoubi
+ 1898  cd casper/
+ 1899  cd
+ 1900  cd workpc/jasper/
+ 1901  ls -tr
+ 1902  vim s.js s.py
+ 1903  python3 s.py
+ 1904  python3 -i s.py
+ 1905  vim s.js s.py
+ 1906  python3 -i s.py
+ 1907  vim s.js s.py
+ 1908  python3 -i s.py
+ 1909  vim s.js s.py
+ 1910  python3 -i s.py
+ 1911  vim s.js s.py
+ 1912  python3 s.py 
+ 1913  python3 s.py > ss.tcl
+ 1914  cat ss.tcl |mged -c ss.g
+ 1915  python3 s.py 
+ 1916  vim s.js s.py
+ 1917  python3 s.py > ss.tcl
+ 1918  cat ss.tcl |mged -c ss.g
+ 1919  rm ss.g
+ 1920  cat ss.tcl |mged -c ss.g
+ 1921  mged ss.g
+ 1922  vim s.js s.py
+ 1923  rm ss.g
+ 1924  python3 s.py > ss.tcl
+ 1925  python3 s.py 
+ 1926  cat ss.tcl |mged -c ss.g
+ 1927  mged ss.g
+ 1928  vim s.js s.py
+ 1929  mv ss.g ss-i.g
+ 1930  python3 s.py 
+ 1931  python3 s.py |tee ss.tcl
+ 1932  cat ss.tcl |mged -c ss.g
+ 1933  mged ss.g
+ 1934  vim s.js s.py
+ 1935  rm -f ss.g; python3 s.py > ss.tcl;cat ss.tcl|mged -c ss.g;mged -c ss.g
+ 1936  vim s.py
+ 1937  rm -f ss.g; python3 s.py > ss.tcl;cat ss.tcl|mged -c ss.g;mged  ss.g
+ 1938  cat >r.sh <<EOF
+ 1939  rm -f ss.g; python3 s.py > ss.tcl;cat ss.tcl|mged -c ss.g;mged  ss.g
+ 1940  EOF
+ 1941  cat r.sh 
+ 1942  vim s.py
+ 1943  sh r.sh 
+ 1944  vim s.py
+ 1945  vim s.js
+ 1946  git status
+ 1947  git add r.sh s.py
+ 1948  cd 
+ 1949  cd workpc/
+ 1950  vim .gitignore
+ 1951  git status
+ 1952  git add .gitignore 
+ 1953  git commit -ambeforevac
+ 1954  git push
+ 1955  git pull
+ 1956  git status 
+ 1957  git log
+ 1958  emacs te.py
+ 1959  ls
+ 1960  mv *.png Pictures/
+ 1961  b
+ 1962  tmux ls
+ 1963  tmux list
+ 1964  tmux
+ 1965  cd workpc/
+ 1966  git log
+ 1967  python3
+ 1968  cd workpc
+ 1969  git reset --hard c5d968078a13d239079bfa12
+ 1970  git log
+ 1971  vim jasper/s.py
+ 1972  git pull
+ 1973  cd jasper/
+ 1974  cp s.py s.py.orig
+ 1975  git log
+ 1976  git reset 7d4a19573f000f39e85d8
+ 1977  cat s.py
+ 1978  git pull
+ 1979  git status
+ 1980  git add r.sh ../.gitignore 
+ 1981  git status
+ 1982  git add s.py
+ 1983  git status
+ 1984  git commit -amwhew
+ 1985  git push
+ 1986  vim s.py
+ 1987  cd ..
+ 1988  sh sync.sh 
+ 1989  systemctl poweroff 
+ 1990  python3
+ 1991  cd workpc/
+ 1992  cd pcasper/
+ 1993  cd ..
+ 1994  mv pcasper/ 3pcasper/
+ 1995  cd 3pcasper/
+ 1996  b
+ 1997  vim s.py 
+ 1998  cd
+ 1999  git status
+ 2000  cd -
+ 2001  git status
+ 2002  git add
+ 2003  cd ..
+ 2004  git add 3pcasper/
+ 2005  git status
+ 2006  git commit -am3pcasper
+ 2007  git push
+ 2008  sh sync.sh 
+ 2009  systemctl suspend
+ 2010  cd 3pcasper/
+ 2011  mv s.py skell.py
+ 2012  vim skell.py 
+ 2013  cp ~/casper/ .
+ 2014  cp -r ~/casper/ .
+ 2015  vim casper/lib/skell.sh
+ 2016  vim casper/lib/b.sh 
+ 2017  vim skell.py 
+ 2018  python3 skell.py 
+ 2019  vim skell.py 
+ 2020  python3 skell.py 
+ 2021  vim skell.py 
+ 2022  python3 skell.py 
+ 2023  vim skell.py 
+ 2024  python3 skell.py 
+ 2025  vim skell.py 
+ 2026  python3 skell.py 
+ 2027  vim skell.py 
+ 2028  python3 skell.py 
+ 2029  vim skell.py 
+ 2030  python3 skell.py |a.tcl
+ 2031  python3 skell.py 
+ 2032  rm a.g;python3 skell.py > a.tcl;cat a.tcl|mged -c a.g
+ 2033  mged a.g
+ 2034  python3 skell.py 
+ 2035  rm a.g;python3 skell.py > a.tcl;cat a.tcl|mged -c a.g 1>o 2>e
+ 2036  cat a
+ 2037  cat e
+ 2038  less a.tcl
+ 2039  brlman c
+ 2040  cat e
+ 2041  less a.tcl
+ 2042  vim skell.py 
+ 2043  systemctl suspend
+ 2044  vim skell.py 
+ 2045  rm a.g;python3 skell.py > a.tcl;cat a.tcl|mged -c a.g 1>o 2>e
+ 2046  cat e
+ 2047  mged a.g
+ 2048  vim skell.py 
+ 2049  rm a.g;python3 skell.py > a.tcl;cat a.tcl|mged -c a.g 1>o 2>e
+ 2050  mged a.g
+ 2051  vim skell.py 
+ 2052  rm a.g;python3 skell.py > a.tcl;cat a.tcl|mged -c a.g 1>o 2>e
+ 2053  mged a.g
+ 2054  vim skell.py 
+ 2055  less a.tcl 
+ 2056  vim backyard/s.js
+ 2057  vim skell.py 
+ 2058  rm a.g;python3 skell.py > a.tcl;cat a.tcl|mged -c a.g 1>o 2>e
+ 2059  mged a.g
+ 2060  git status
+ 2061  cd ..
+ 2062  cd -
+ 2063  git add skell.py 
+ 2064  git commit -amqemash
+ 2065  git push
+ 2066  cp skell.py ~/
+ 2067  git log
+ 2068  git reset --hard c5f691bade021d0577
+ 2069  git pull
+ 2070  git add skell.py 
+ 2071  ls
+ 2072  cp ~/skell.py .
+ 2073  git add skell.py 
+ 2074  mv s.py backyard/
+ 2075  git status
+ 2076  git commit -amqemash
+ 2077  git push
+ 2078  systemctl suspend
+ 2079  vim skell.py 
+ 2080  man rtweight 
+ 2081  rtweight --help
+ 2082  mged -c a.g ls
+ 2083  mged -c a.g ls \*.c
+ 2084  rtweight a.g 0_0_0_v.c
+ 2085  ls casper/
+ 2086  grep -r rtwei
+ 2087  grep -r rtwe
+ 2088  grep -r rt
+ 2089  grep -r rtweight 
+ 2090  ls
+ 2091  cd casper
+ 2092  ls
+ 2093  ls doc
+ 2094  cat doc/Standard-ISO-2858.txt 
+ 2095  ls
+ 2096  grep -r rtweight 
+ 2097  grep -r rtw
+ 2098  cd ..
+ 2099  man rtweight 
+ 2100  rtweight -d 8 a.g 0_0_0_v.c
+ 2101  man rtweight 
+ 2102  man gqa
+ 2103  grep -r gqa
+ 2104  gqa a.g 0_0_0_v.c
+ 2105  man gqa
+ 2106  gqa -A v a.g 0_0_0_v.c
+ 2107  man gqa
+ 2108  gqa -A v a.g 0_0_0_v.c
+ 2109  man gqa
+ 2110  gqa -g 1cm-1mm -A v a.g 0_0_0_v.c
+ 2111  gqa -u m3 -g 1cm-1mm -A v a.g 0_0_0_v.c
+ 2112  man gqa
+ 2113  gqa -u m^3 -g 1cm-1mm -A v a.g 0_0_0_v.c
+ 2114  man gqa
+ 2115  gqa -u m,m^3,kg -g 1cm-1mm -A v a.g 0_0_0_v.c
+ 2116  history > weight.hist

@@ -49,7 +49,7 @@ sample = {
     'cross_beam': {'flange_thick': 10, 'flange_width': 100, 'handle': 'tos',
                    'rotation': [0, 0, -90], 'total_height': 150, 'type': 'fi',
                    'web_thick': 20},
-    'vertical_column': {'flange_thick': 10, 'flange_width': 100, 'handle':
+    'post': {'flange_thick': 10, 'flange_width': 100, 'handle':
                         'cen', 'rotation': [0, 90, 0], 'total_height': 150, 'type':
                         'fi', 'web_thick': 20},
     'beams': {
@@ -132,11 +132,11 @@ class RCC:
 
 class IBeam:
     def __init__(self,name ,length, total_height, web_thick, flange_thick, flange_width, location = [0,0,0],rotation = [0,0,0], handle='cen',**kargs):
-        self.lower_flange = RPP(name+'_lf',0,length,-flange_width/2, flange_width/2, 0,flange_thick)
-        self.web = RPP(name + '_w', 0, length,-web_thick/2,web_thick/2 ,flange_thick, total_height - flange_thick) 
-        self.upper_flange = RPP(name + '_uf', 0,length,-flange_width/2, flange_width/2, total_height-flange_thick, total_height)
-        self.orig = Sph(name+'_o',[0,0,total_height/2], web_thick/2)
-        self.tos = Sph(name + '_t' , [0,0,total_height] , web_thick/2)
+        self.lower_flange = RPP(name+'-lflng',0,length,-flange_width/2, flange_width/2, 0,flange_thick)
+        self.web = RPP(name + '-web', 0, length,-web_thick/2,web_thick/2 ,flange_thick, total_height - flange_thick) 
+        self.upper_flange = RPP(name + '-uflng', 0,length,-flange_width/2, flange_width/2, total_height-flange_thick, total_height)
+        self.orig = Sph(name+'-o',[0,0,total_height/2], web_thick/2)
+        self.tos = Sph(name + '-t' , [0,0,total_height] , web_thick/2)
         #self.bound_box = RPP(name+'_bb',0, length, -flange_width/2, flange_width/2, 0, total_height)
         self.handle = handle
         self.rotation = rotation
@@ -166,7 +166,7 @@ class IBeam:
         print(f'rot {rotation_string}')
         print(f'translate {location_string}')
         print(f'accept')
-        bound_box_name = long_name.replace('.c','_bb.s',1)
+        bound_box_name = long_name.replace('.c','-bb.s',1)
         print(f'bb -c {bound_box_name} {long_name}')
         return long_name, bound_box_name 
 
@@ -184,7 +184,7 @@ class Skell:
         self.rows = SequenceDescriptor(**rows_data) 
         self.plans= SequenceDescriptor(**plans_data)
         self.descriptors = [self.collumns, self.rows, self.plans]
-        self.vertical_column = data['vertical_column']
+        self.post = data['post']
         self.long_beam = data['long_beam']
         self.cross_beam = data['cross_beam']
         self.beams = data['beams']
@@ -195,14 +195,15 @@ class Skell:
     def insert_function(self,i,j,k,collumns,rows,plans):
         #TODO: to be moved to top
         sequances=[collumns,rows,plans]
-        node_name = f'node_{i}_{j}_{k}'
+        node_name = f'{i}-{j}-{k}'
         node_radius = 40
         axis_radius = 10
         vertex = [collumns[i], rows[j], plans[k]]
-        node = Sph(node_name,vertex,node_radius)
+        name = 'node-' + node_name
+        node = Sph(name ,vertex,node_radius)
         node.insert()
         if k + 1< self.plans.count :
-            name = node_name+ '_vcl'
+            name = 'vax-'+ node_name
             from_p = vertex
             to_p = vertex[:]
             to_p[2]= plans[k+1]
@@ -211,7 +212,7 @@ class Skell:
             beam = self.find_beam(i,j,k,2,'v',sequances)
             beam.insert()
         if j + 1< self.rows.count and k != 0:
-            name = node_name+ '_ccl'
+            name ='cax-'+ node_name 
             from_p = vertex
             to_p = vertex[:]
             to_p[1]= rows[j+1]
@@ -220,7 +221,7 @@ class Skell:
             beam = self.find_beam(i,j,k,1,'c',sequances)
             beam.insert()
         if i + 1< self.collumns.count and k != 0:
-            name = node_name+ '_lcl'
+            name ='lax-'+ node_name 
             from_p = vertex
             to_p = vertex[:]
             to_p[0]= collumns[i+1]
@@ -229,7 +230,15 @@ class Skell:
             beam = self.find_beam(i,j,k,0,'l',sequances)
             beam.insert()
     def find_beam(self,i,j,k,index,direction_indicator,sequances):
-        key = f'{i}_{j}_{k}_{direction_indicator}'
+        name=''
+        match direction_indicator:
+            case 'p':
+                name = 'post'
+            case 'c':
+                name = 'cbeam'
+            case 'l':
+                name = 'lbeam'
+        key = f'{name}-{i}-{j}-{k}'
         dimension_index = [i,j,k][index]
         sequance = sequances[index]
         location = [sequances[0][i],sequances[1][j],sequances[2][k]]
@@ -237,8 +246,8 @@ class Skell:
         section={}
         if key not in self.beams:
             match direction_indicator:
-                case 'v':
-                    section = self.vertical_column
+                case 'p':
+                    section = self.post
                 case 'c':
                     section = self.cross_beam
                 case 'l':
