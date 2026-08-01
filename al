@@ -63,3 +63,5 @@ echo "$f"
 bind '"\ee":"alaa2amz@gmail.com"' 
 bind -x '"\b":b'
 
+wd() { echo $PWD > /tmp/cwd ; }
+rd() { cd $(cat /tmp/cwd) ; }
