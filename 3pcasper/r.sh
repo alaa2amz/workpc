@@ -1,1 +1,5 @@
-rm -f ss.g; python3 s.py > ss.tcl;cat ss.tcl|mged -c ss.g;mged  ss.g
+f=$a
+rm -f $f.g
+python3 skell.py > $f.tcl
+cat $f.tcl|mged -c $f.g
+mged  -c -aogl $f.g

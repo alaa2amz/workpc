@@ -1,0 +1,2 @@
+global mged_default; set mged_default(rot_factor) 1.0
+

@@ -2,10 +2,12 @@ import itertools
 import json
 from itertools import product, zip_longest
 
+
 def main():
     s=Skell(sample)
     #print(s.get_sequences())
     s.insert()
+
 
 ## constants
 ### colors
@@ -19,11 +21,13 @@ alone_in_the_dark   = [0, 0, 100]
 low_transparency    = 0.3
 zero_transparency   = 0.0
 
+
 def mater_plastic(color, transparency=0.0 , reflection=0.0):
     """construct mater command arguments supplied after group.
     mater group "shader" color inherent?"""
     color_string = ' '.join(map(str,color))
-    return f'"plastic {{tr {transparency} re {reflection}}}" {color_string} 0'  
+    return f'"plastic {{tr {transparency} re {reflection}}}" {color_string} 0'
+
 
 ### materials
 vertical_column_mater   = mater_plastic(blue, low_transparency)
@@ -31,6 +35,7 @@ long_beam_mater         = mater_plastic(electric_indigo, low_transparency)
 cross_beam_mater        = mater_plastic(alone_in_the_dark, zero_transparency)
 base_mater              = mater_plastic(alone_in_the_dark, low_transparency)
 boundary_box_color      = mater_plastic(alone_in_the_dark, zero_transparency)
+
 
 def get_vector(from_point, to_point):
     return [to_c - fro_c for to_c, fro_c in zip_longest(to_point, from_point, fillvalue=0)]
@@ -209,7 +214,7 @@ class Skell:
             to_p[2]= plans[k+1]
             vcl=RCC.fromto(name, from_p, to_p, axis_radius)
             vcl.insert()
-            beam = self.find_beam(i,j,k,2,'v',sequances)
+            beam = self.find_beam(i,j,k,2,'p',sequances)
             beam.insert()
         if j + 1< self.rows.count and k != 0:
             name ='cax-'+ node_name 
