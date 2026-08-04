@@ -40,6 +40,7 @@ boundary_box_color      = mater_plastic(alone_in_the_dark, zero_transparency)
 def get_vector(from_point, to_point):
     return [to_c - fro_c for to_c, fro_c in zip_longest(to_point, from_point, fillvalue=0)]
 
+
 sample = {
         'collumns': {'absolutes': {0:0, 1: 3000}, 'count': 3, 
                      'offsets': {'default':2500, '2': 3500}},
@@ -65,6 +66,7 @@ sample = {
     'margin': 5000,
     'floor_depth': 2000,
          }
+
 
 class SequenceDescriptor:
     def __init__(self, count=3, absolutes={0:0}, offsets={'default':3000}):
@@ -112,7 +114,8 @@ class RPP:
     def insert(self, prefix='',suffix='.s'):
         long_name = prefix + self.name + suffix
         s=self
-        print(f'in {long_name} rpp {s.xmin} {s.xmax}  {s.ymin} {s.ymax} {s.zmin} {s.zmax}')
+        print(f'in {long_name} rpp {s.xmin} {s.xmax}  {s.ymin} {s.ymax} \
+                {s.zmin} {s.zmax}')
         return long_name
 
 class RCC:
@@ -132,33 +135,59 @@ class RCC:
         long_name = prefix + self.name + suffix
         vertex_string = ' '.join(map(str,self.vertex))
         vector_string = ' '.join(map(str,self.vector))
-        print(f'in {long_name} rcc {vertex_string} {vector_string} {self.radius}')
+        print(f'in {long_name} rcc {vertex_string} \
+                {vector_string} {self.radius}')
         return long_name
 
 class IBeam:
-    def __init__(self,name ,length, total_height, web_thick, flange_thick, flange_width, location = [0,0,0],rotation = [0,0,0], handle='cen',**kargs):
-        self.lower_flange = RPP(name+'-lflng',0,length,-flange_width/2, flange_width/2, 0,flange_thick)
-        self.web = RPP(name + '-web', 0, length,-web_thick/2,web_thick/2 ,flange_thick, total_height - flange_thick) 
-        self.upper_flange = RPP(name + '-uflng', 0,length,-flange_width/2, flange_width/2, total_height-flange_thick, total_height)
+    def __init__(self, name, length,
+        total_height,
+        web_thick,
+        flange_thick,
+        flange_width,
+        location = [0,0,0],
+        rotation = [0,0,0],
+        handle='cen',
+        **kargs):
+        """--- --- ---"""
+        self.lower_flange = RPP(name + '-lflng',
+            0,
+            length,
+            -flange_width/2,
+            flange_width/2,
+            0,
+            flange_thick)
+        self.web = RPP(name + '-web',
+            0,
+            length,
+            -web_thick/2,
+            web_thick/2,
+            flange_thick,
+            total_height - flange_thick) 
+        self.upper_flange = RPP(name + '-uflng',
+            0,
+            length,
+            -flange_width/2,
+            flange_width/2,
+            total_height - flange_thick,
+            total_height)
         self.orig = Sph(name+'-o',[0,0,total_height/2], web_thick/2)
         self.tos = Sph(name + '-t' , [0,0,total_height] , web_thick/2)
-        #self.bound_box = RPP(name+'_bb',0, length, -flange_width/2, flange_width/2, 0, total_height)
         self.handle = handle
         self.rotation = rotation
         self.location = location
         self.name = name
         self.solids = [self.lower_flange, self.web, self.upper_flange]
-        #self.guides = [self.orig, self.tos, self.bound_box]
         self.guides = [self.orig, self.tos]
 
     def insert(self,prefix='',suffix='.c'):
         long_name = prefix + self.name + suffix
         unions = [i.insert() for i in self.solids]
+        unions_u_join = ' u '.join(unions)
         addsubs = [i.insert() for i in self.guides]
-        for i in unions:
-            print(f'comb {long_name} u {i}')
-        for i in addsubs:
-            print(f'comb {long_name} u {i} - {i}')
+        addsubs_minus = [ f'{i} - {i}' for i in addsubs ]
+        addsubs_u_join = ' u '.join(addsubs_minus)
+        print(f'comb {long_name} u {unions_u_join} u {addsubs_u_join}')
         handle_name=''
         if self.handle == 'cen':
             handle_name = addsubs[0]
@@ -193,6 +222,15 @@ class Skell:
         self.long_beam = data['long_beam']
         self.cross_beam = data['cross_beam']
         self.beams = data['beams']
+
+        self.nodes = []
+        self.vaxs = []
+        self.caxs = []
+        self.laxs = []
+        self.posts = []
+        self.cbeams = []
+        self.lbeams = []
+
     def get_sequences(self):
         return [ i.get_squence() for i in self.descriptors ]
     def get_ranges(self):
@@ -206,23 +244,26 @@ class Skell:
         vertex = [collumns[i], rows[j], plans[k]]
         name = 'node-' + node_name
         node = Sph(name ,vertex,node_radius)
-        node.insert()
+        node_name = node.insert()
+        self.nodes.append(node_name)
         if k + 1< self.plans.count :
             name = 'vax-'+ node_name
             from_p = vertex
             to_p = vertex[:]
             to_p[2]= plans[k+1]
-            vcl=RCC.fromto(name, from_p, to_p, axis_radius)
-            vcl.insert()
+            vax=RCC.fromto(name, from_p, to_p, axis_radius)
+            vax_name = vax.insert()
+            self.vaxs.append(vax_name)
             beam = self.find_beam(i,j,k,2,'p',sequances)
-            beam.insert()
+            beam_name = beam.insert()
+            self.posts.append(beam_name)
         if j + 1< self.rows.count and k != 0:
             name ='cax-'+ node_name 
             from_p = vertex
             to_p = vertex[:]
             to_p[1]= rows[j+1]
-            ccl=RCC.fromto(name, from_p, to_p, axis_radius)
-            ccl.insert()
+            cax=RCC.fromto(name, from_p, to_p, axis_radius)
+            cax.insert()
             beam = self.find_beam(i,j,k,1,'c',sequances)
             beam.insert()
         if i + 1< self.collumns.count and k != 0:
@@ -265,6 +306,13 @@ class Skell:
     def insert(self):
         sequences = self.get_sequences()
         ranges = self.get_ranges()
+        self.nodes = []
+        self.vaxs = []
+        self.caxs = []
+        self.laxs = []
+        self.posts = []
+        self.cbeams = []
+        self.lbeams = []
         for i,j,k in product(*ranges):
             print('#',i,j,k)
             self.insert_function(i,j,k,*sequences)
