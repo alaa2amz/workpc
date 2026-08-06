@@ -255,7 +255,7 @@ class Skell:
             vax_name = vax.insert()
             self.vaxs.append(vax_name)
             beam = self.find_beam(i,j,k,2,'p',sequances)
-            beam_name = beam.insert()
+            beam_name,bbox_name = beam.insert()
             self.posts.append(beam_name)
         if j + 1< self.rows.count and k != 0:
             name ='cax-'+ node_name 
@@ -263,18 +263,23 @@ class Skell:
             to_p = vertex[:]
             to_p[1]= rows[j+1]
             cax=RCC.fromto(name, from_p, to_p, axis_radius)
-            cax.insert()
+            cax_name = cax.insert()
+            self.caxs.append(cax_name)
             beam = self.find_beam(i,j,k,1,'c',sequances)
-            beam.insert()
+            beam_name,bbox_name = beam.insert()
+            self.cbeams.append(beam_name)
         if i + 1< self.collumns.count and k != 0:
             name ='lax-'+ node_name 
             from_p = vertex
             to_p = vertex[:]
             to_p[0]= collumns[i+1]
-            lcl=RCC.fromto(name, from_p, to_p, axis_radius)
-            lcl.insert()
+            lax=RCC.fromto(name, from_p, to_p, axis_radius)
+            lax_name = lax.insert()
+            self.laxs.append(lax_name)
             beam = self.find_beam(i,j,k,0,'l',sequances)
-            beam.insert()
+            beam_name,bbox_name =  beam.insert()
+            self.lbeams.append(beam_name)
+
     def find_beam(self,i,j,k,index,direction_indicator,sequances):
         name=''
         match direction_indicator:
@@ -316,6 +321,43 @@ class Skell:
         for i,j,k in product(*ranges):
             print('#',i,j,k)
             self.insert_function(i,j,k,*sequences)
+        nodes_group = 'node.g'
+        vax_group = 'vax.g'
+        cax_group = 'cax.g'
+        lax_group = 'lax.g'
+        post_group = 'post.g'
+        cbeam_group = 'cbeam.g'
+        lbeam_group = 'lbeam.g'
+        ax_group = 'ax.g'
+        skell_region = 'skell.r'
+        all_group = 'all-skell.g'
+        groups={ 
+                nodes_group: self.nodes,
+                vax_group: self.vaxs,
+                cax_group: self.caxs,
+                lax_group: self.laxs,
+                post_group: self.posts,
+                cbeam_group: self.cbeams,
+                lbeam_group: self.lbeams,
+                post_group: self.posts,
+                cbeam_group: self.cbeams,
+                lbeam_group: self.lbeams,
+                ax_group: [vax_group, cax_group, lax_group],
+                skell_region: [ post_group, cbeam_group, lbeam_group],
+                all_group :[skell_region, ax_group, nodes_group],
+                }
+        for key,alist in groups.items():
+            concated = ' '.join(alist)
+            print(f'g {key} {concated}')
+        print(f'c -r  {skell_region}')
+        print(f'comb_color {skell_region} 0 0 100')
+
+
+                
+
+
+
+
 
 
 
