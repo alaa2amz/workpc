@@ -42,11 +42,11 @@ def get_vector(from_point, to_point):
 
 
 sample = {
-        'collumns': {'absolutes': {0:0, 1: 3000}, 'count': 3, 
+        'collumns': {'absolutes': {0:0, 1: 3000}, 'count': 5, 
                      'offsets': {'default':2500, '2': 3500}},
-        'rows': {'absolutes': {0:0, 1:3000}, 'count': 3, 
+        'rows': {'absolutes': {0:0, 1:3000}, 'count': 7, 
                  'offsets': {'default':2500,2: 3500} },
-        'plans': {'absolutes': {0:0,1: 7000}, 'count': 3, 
+        'plans': {'absolutes': {0:0,1: 4000}, 'count': 4, 
                   'offsets': {'default':2500, 2: 3500}},
 
     'long_beam': {'flange_thick': 10, 'flange_width': 100, 'handle': 'tos',
