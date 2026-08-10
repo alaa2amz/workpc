@@ -308,6 +308,19 @@ class Skell:
         beam = IBeam(name=key,length=length,location=location,**section) # pyright: ignore
         return beam
 
+    def insert_base(self):
+        sequences = self.get_sequences()
+        base_name = 'base'
+        extension = 5000
+        depth = 2000
+        max_x = sequences[0][-1] + extension
+        max_y = sequences[1][-1] + extension
+        min_x = -extension
+        min_y = -extension
+        base = RPP(base_name,min_x,max_x,min_y,max_y,-depth,0)
+        return base.insert()
+
+
     def insert(self):
         sequences = self.get_sequences()
         ranges = self.get_ranges()
@@ -321,6 +334,7 @@ class Skell:
         for i,j,k in product(*ranges):
             print('#',i,j,k)
             self.insert_function(i,j,k,*sequences)
+        base_name = self.insert_base()
         nodes_group = 'node.g'
         vax_group = 'vax.g'
         cax_group = 'cax.g'
@@ -344,13 +358,13 @@ class Skell:
                 lbeam_group: self.lbeams,
                 ax_group: [vax_group, cax_group, lax_group],
                 skell_region: [ post_group, cbeam_group, lbeam_group],
-                all_group :[skell_region, ax_group, nodes_group],
+                all_group :[skell_region,base_name],
                 }
         for key,alist in groups.items():
             concated = ' '.join(alist)
             print(f'g {key} {concated}')
         print(f'c -r  {skell_region}')
-        print(f'comb_color {skell_region} 0 0 100')
+        print(f'comb_color {skell_region} 0 0 200')
 
 
                 
