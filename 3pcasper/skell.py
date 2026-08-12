@@ -209,8 +209,10 @@ class IBeam:
 
 class Skell:
     #TODO handle live setter updates
+    extension = 5000
     def __init__(self, data):
         """------"""
+        self.extension = Skell.extension
         collumns_data = data['collumns']
         rows_data = data['rows']
         plans_data = data['plans']
@@ -311,7 +313,7 @@ class Skell:
     def insert_base(self):
         sequences = self.get_sequences()
         base_name = 'base'
-        extension = 5000
+        extension = self.extension
         depth = 2000
         max_x = sequences[0][-1] + extension
         max_y = sequences[1][-1] + extension
@@ -319,6 +321,13 @@ class Skell:
         min_y = -extension
         base = RPP(base_name,min_x,max_x,min_y,max_y,-depth,0)
         return base.insert()
+
+    def make_sections(self):
+        sequences = self.get_sequences()
+        extensioned_seqs = [[-self.extension] + i + [self.extension] for i in sequences]
+        print(extensioned_seqs
+        exit()
+
 
 
     def insert(self):
@@ -335,6 +344,7 @@ class Skell:
             print('#',i,j,k)
             self.insert_function(i,j,k,*sequences)
         base_name = self.insert_base()
+
         nodes_group = 'node.g'
         vax_group = 'vax.g'
         cax_group = 'cax.g'
@@ -345,14 +355,11 @@ class Skell:
         ax_group = 'ax.g'
         skell_region = 'skell.r'
         all_group = 'all-skell.g'
-        groups={ 
+        groups={
                 nodes_group: self.nodes,
                 vax_group: self.vaxs,
                 cax_group: self.caxs,
                 lax_group: self.laxs,
-                post_group: self.posts,
-                cbeam_group: self.cbeams,
-                lbeam_group: self.lbeams,
                 post_group: self.posts,
                 cbeam_group: self.cbeams,
                 lbeam_group: self.lbeams,
