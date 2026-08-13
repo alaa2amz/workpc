@@ -324,9 +324,24 @@ class Skell:
 
     def make_sections(self):
         sequences = self.get_sequences()
-        extensioned_seqs = [[-self.extension] + i + [self.extension] for i in sequences]
-        print(extensioned_seqs
-        exit()
+        ext = self.extension
+        ext_seqs = []
+        for seq in sequences:
+            new_seq = [ seq[0]-ext ] + seq + [ seq[-1] + ext ]
+            ext_seqs.append(new_seq)
+        print(ext_seqs)
+        model_min_x = ext_seqs[0][0] 
+        model_max_x = ext_seqs[0][-1] 
+        model_min_y = ext_seqs[1][0] 
+        model_max_y = ext_seqs[1][-1] 
+        model_min_z = ext_seqs[2][0] 
+        model_max_z = ext_seqs[2][-1] 
+        for i,val in enumerate(ext_seqs[0]):
+            plan = RPP('sec_plan-{i}',model_min_x,model_max_x,
+                       model_min_y,model_max_y,
+                       val,ext_seqs[0][i+1])
+            plan.insert()
+
 
 
 
@@ -344,6 +359,7 @@ class Skell:
             print('#',i,j,k)
             self.insert_function(i,j,k,*sequences)
         base_name = self.insert_base()
+        self.make_sections()
 
         nodes_group = 'node.g'
         vax_group = 'vax.g'
@@ -372,6 +388,8 @@ class Skell:
             print(f'g {key} {concated}')
         print(f'c -r  {skell_region}')
         print(f'comb_color {skell_region} 0 0 200')
+        
+        
 
 
                 
