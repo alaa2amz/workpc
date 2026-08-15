@@ -210,6 +210,7 @@ class IBeam:
 class Skell:
     #TODO handle live setter updates
     extension = 5000
+
     def __init__(self, data):
         """------"""
         self.extension = Skell.extension
@@ -230,13 +231,21 @@ class Skell:
         self.caxs = []
         self.laxs = []
         self.posts = []
+        self.bb_posts = []
         self.cbeams = []
+        self.bb_cbeams = []
         self.lbeams = []
+        self.bb_lbeams = []
+        self.sec_plans = []
+        self.sec_elevs = []
+        self.sec_crosses = []
 
     def get_sequences(self):
         return [ i.get_squence() for i in self.descriptors ]
+
     def get_ranges(self):
         return [ range(i.count) for i in self.descriptors ]
+    
     def insert_function(self,i,j,k,collumns,rows,plans):
         #TODO: to be moved to top
         sequances=[collumns,rows,plans]
@@ -259,6 +268,7 @@ class Skell:
             beam = self.find_beam(i,j,k,2,'p',sequances)
             beam_name,bbox_name = beam.insert()
             self.posts.append(beam_name)
+            self.bb_posts.append(bbox_name)
         if j + 1< self.rows.count and k != 0:
             name ='cax-'+ node_name 
             from_p = vertex
@@ -270,6 +280,7 @@ class Skell:
             beam = self.find_beam(i,j,k,1,'c',sequances)
             beam_name,bbox_name = beam.insert()
             self.cbeams.append(beam_name)
+            self.bb_cbeams.append(bbox_name)
         if i + 1< self.collumns.count and k != 0:
             name ='lax-'+ node_name 
             from_p = vertex
@@ -281,6 +292,7 @@ class Skell:
             beam = self.find_beam(i,j,k,0,'l',sequances)
             beam_name,bbox_name =  beam.insert()
             self.lbeams.append(beam_name)
+            self.bb_lbeams.append(bbox_name)
 
     def find_beam(self,i,j,k,index,direction_indicator,sequances):
         name=''
@@ -323,6 +335,9 @@ class Skell:
         return base.insert()
 
     def make_sections(self):
+        self.sec_plans = []
+        self.sec_elevs = []
+        self.sec_crosses = []
         sequences = self.get_sequences()
         ext = self.extension
         ext_seqs = []
@@ -336,12 +351,42 @@ class Skell:
         model_max_y = ext_seqs[1][-1] 
         model_min_z = ext_seqs[2][0] 
         model_max_z = ext_seqs[2][-1] 
-        for i,val in enumerate(ext_seqs[0]):
-            plan = RPP('sec_plan-{i}',model_min_x,model_max_x,
-                       model_min_y,model_max_y,
-                       val,ext_seqs[0][i+1])
-            plan.insert()
+        for i,val in enumerate(ext_seqs[2]):
+            if i+1 > len(ext_seqs[2])-1:
+                continue
+            plan = RPP(
+                    f'sec_plan-{i}',
+                    model_min_x,model_max_x,
+                    model_min_y,model_max_y,
+                    val,ext_seqs[2][i+1],
+                    )
+            plan_name = plan.insert()
+            self.sec_plans.append(plan_name)
 
+        for i,val in enumerate(ext_seqs[1]):
+            if i+1 > len(ext_seqs[1])-1:
+                continue
+            elev = RPP(
+                    f'sec_elev-{i}',
+                    model_min_x, model_max_x,
+                    val, ext_seqs[1][i+1],
+                    model_min_z, model_max_z,
+                    )
+            elev_name = elev.insert()
+            self.sec_elevs.append(elev_name)
+
+
+        for i,val in enumerate(ext_seqs[0]):
+            if i+1 > len(ext_seqs[0])-1:
+                continue
+            cross = RPP(
+                    f'sec_cross-{i}',
+                    val, ext_seqs[0][i+1],
+                    model_min_y,model_max_y,
+                    model_min_z, model_max_z,
+                    )
+            cross_name = cross.insert()
+            self.sec_crosses.append(cross_name)
 
 
 
@@ -366,8 +411,11 @@ class Skell:
         cax_group = 'cax.g'
         lax_group = 'lax.g'
         post_group = 'post.g'
+        bb_post_group = 'bb-post.g'
         cbeam_group = 'cbeam.g'
+        bb_cbeam_group = 'bb-cbeam.g'
         lbeam_group = 'lbeam.g'
+        bb_lbeam_group = 'bb-lbeam.g'
         ax_group = 'ax.g'
         skell_region = 'skell.r'
         all_group = 'all-skell.g'
@@ -377,8 +425,11 @@ class Skell:
                 cax_group: self.caxs,
                 lax_group: self.laxs,
                 post_group: self.posts,
+                bb_post_group: self.bb_posts,
                 cbeam_group: self.cbeams,
+                bb_cbeam_group: self.bb_cbeams,
                 lbeam_group: self.lbeams,
+                bb_lbeam_group: self.bb_lbeams,
                 ax_group: [vax_group, cax_group, lax_group],
                 skell_region: [ post_group, cbeam_group, lbeam_group],
                 all_group :[skell_region,base_name],
