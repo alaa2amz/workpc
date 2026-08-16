@@ -1,9 +1,12 @@
-import itertools
-import json
+import wc
+import yaml
 from itertools import product, zip_longest
 
-
+ys = {}
 def main():
+    global ys 
+    ys = yaml.safe_load(yaml_sample)
+    sample = ys
     s=Skell(sample)
     #print(s.get_sequences())
     s.insert()
@@ -21,6 +24,8 @@ alone_in_the_dark   = [0, 0, 100]
 low_transparency    = 0.3
 zero_transparency   = 0.0
 
+def color(name,sep=' '):
+    return sep.join([str(i) for i in list(wc.name_to_rgb(name))])
 
 def mater_plastic(color, transparency=0.0 , reflection=0.0):
     """construct mater command arguments supplied after group.
@@ -39,11 +44,84 @@ boundary_box_color      = mater_plastic(alone_in_the_dark, zero_transparency)
 
 def get_vector(from_point, to_point):
     return [to_c - fro_c for to_c, fro_c in zip_longest(to_point, from_point, fillvalue=0)]
+yaml_sample ='''
+name: ea
+location: [0,0,0]
+rotation: [0,0,0]
 
+collumns:
+  count: 5
+  absolutes:
+    0: 0
+    1: 3000
+  offsets:
+    default: 2500
+    2: 3500
+
+rows:
+  count: 7
+  absolutes:
+    0: 0
+    1: 3000
+  offsets:
+    default: 2500
+    2: 3500
+
+plans:
+  count: 4
+  absolutes:
+    0: 0
+    1: 4000
+  offsets:
+    default: 2500
+    2: 3500
+
+long_beam:
+  total_height: 150
+  flange_width: 100
+  web_thick: 20
+  flange_thick: 10
+  rotation: [0,0,0]
+  handle: tos
+  type: fi
+
+cross_beam:
+  total_height: 150
+  flange_width: 100
+  web_thick: 20
+  flange_thick: 10
+  rotation: [0, 0, -90]
+  handle: tos
+  type: fi
+
+post:
+  total_height: 150
+  flange_width: 100
+  flange_thick: 10
+  web_thick: 20
+  handle: cen
+  rotation: [0, 90, 0]
+  type: fi
+
+beams:
+  0_1_1_v:
+    total_height: 150
+    flange_width: 100
+    web_thick: 20
+    flange_thick: 10
+    rotation: [0, 90, 0]
+    type: fi
+
+margin: 5000
+floor_depth: 2000
+'''
 
 sample = {
+        'name':'ea',
+        'location':[0,0,0],
+        'rotation':[0,0,0],
         'collumns': {'absolutes': {0:0, 1: 3000}, 'count': 5, 
-                     'offsets': {'default':2500, '2': 3500}},
+                     'offsets': {'default':2500, 2: 3500}},
         'rows': {'absolutes': {0:0, 1:3000}, 'count': 7, 
                  'offsets': {'default':2500,2: 3500} },
         'plans': {'absolutes': {0:0,1: 4000}, 'count': 4, 
@@ -239,6 +317,7 @@ class Skell:
         self.sec_plans = []
         self.sec_elevs = []
         self.sec_crosses = []
+        self.all_sections = []
 
     def get_sequences(self):
         return [ i.get_squence() for i in self.descriptors ]
@@ -355,7 +434,7 @@ class Skell:
             if i+1 > len(ext_seqs[2])-1:
                 continue
             plan = RPP(
-                    f'sec_plan-{i}',
+                    f'sec-plan-{i}',
                     model_min_x,model_max_x,
                     model_min_y,model_max_y,
                     val,ext_seqs[2][i+1],
@@ -367,7 +446,7 @@ class Skell:
             if i+1 > len(ext_seqs[1])-1:
                 continue
             elev = RPP(
-                    f'sec_elev-{i}',
+                    f'sec-elev-{i}',
                     model_min_x, model_max_x,
                     val, ext_seqs[1][i+1],
                     model_min_z, model_max_z,
@@ -380,7 +459,7 @@ class Skell:
             if i+1 > len(ext_seqs[0])-1:
                 continue
             cross = RPP(
-                    f'sec_cross-{i}',
+                    f'sec-cross-{i}',
                     val, ext_seqs[0][i+1],
                     model_min_y,model_max_y,
                     model_min_z, model_max_z,
@@ -419,6 +498,10 @@ class Skell:
         ax_group = 'ax.g'
         skell_region = 'skell.r'
         all_group = 'all-skell.g'
+        sec_plan_group = 'sec-plan.g'
+        sec_elev_group = 'sec-elev.g'
+        sec_cross_group = 'sec-cross.g'
+        all_sec_c = 'all-sec.g'
         groups={
                 nodes_group: self.nodes,
                 vax_group: self.vaxs,
@@ -433,13 +516,24 @@ class Skell:
                 ax_group: [vax_group, cax_group, lax_group],
                 skell_region: [ post_group, cbeam_group, lbeam_group],
                 all_group :[skell_region,base_name],
+                sec_plan_group: self.sec_plans,
+                sec_elev_group: self.sec_elevs,
+                sec_cross_group: self.sec_crosses,
                 }
         for key,alist in groups.items():
             concated = ' '.join(alist)
             print(f'g {key} {concated}')
         print(f'c -r  {skell_region}')
         print(f'comb_color {skell_region} 0 0 200')
-        
+        all_sections = (self.sec_plans+
+                       self.sec_elevs+
+                       self.sec_crosses)
+        for secrpp in all_sections:       
+            sec_name = secrpp[:-2]+'.c'
+            print(f'comb {sec_name} u {secrpp} + {all_group}')
+            self.all_sections.append(sec_name)
+        concated = ' '.join(self.all_sections)
+        print(f'g {all_sec_c} {concated}')
         
 
 
