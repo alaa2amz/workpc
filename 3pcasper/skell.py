@@ -2,6 +2,7 @@ import wc
 import yaml
 from itertools import product, zip_longest
 
+#yaml sample
 ys = {}
 def main():
     global ys 
@@ -10,6 +11,8 @@ def main():
     s=Skell(sample)
     #print(s.get_sequences())
     s.insert()
+    #print(blue)
+    #print(color('blue'))
 
 
 ## constants
@@ -29,7 +32,8 @@ def color(name,sep=' '):
 
 def mater_plastic(color, transparency=0.0 , reflection=0.0):
     """construct mater command arguments supplied after group.
-    mater group "shader" color inherent?"""
+    mater group "shader" color inherent?
+    """
     color_string = ' '.join(map(str,color))
     return f'"plastic {{tr {transparency} re {reflection}}}" {color_string} 0'
 
@@ -318,6 +322,7 @@ class Skell:
         self.sec_elevs = []
         self.sec_crosses = []
         self.all_sections = []
+        self.whole_box = ''
 
     def get_sequences(self):
         return [ i.get_squence() for i in self.descriptors ]
@@ -423,13 +428,15 @@ class Skell:
         for seq in sequences:
             new_seq = [ seq[0]-ext ] + seq + [ seq[-1] + ext ]
             ext_seqs.append(new_seq)
-        print(ext_seqs)
+        #print(ext_seqs)
         model_min_x = ext_seqs[0][0] 
         model_max_x = ext_seqs[0][-1] 
         model_min_y = ext_seqs[1][0] 
         model_max_y = ext_seqs[1][-1] 
         model_min_z = ext_seqs[2][0] 
         model_max_z = ext_seqs[2][-1] 
+        whole_box=RPP('whole-box',model_min_x, model_max_x, model_min_y, model_max_y, model_min_z,model_max_z)
+        self.whole_box = whole_box.insert()
         for i,val in enumerate(ext_seqs[2]):
             if i+1 > len(ext_seqs[2])-1:
                 continue
@@ -523,14 +530,16 @@ class Skell:
         for key,alist in groups.items():
             concated = ' '.join(alist)
             print(f'g {key} {concated}')
-        print(f'c -r  {skell_region}')
-        print(f'comb_color {skell_region} 0 0 200')
+        print(f'c -r {skell_region}')
+        blue=color('blue')
+        print(f'mater {skell_region} "plastic" {blue} 0')
         all_sections = (self.sec_plans+
                        self.sec_elevs+
                        self.sec_crosses)
         for secrpp in all_sections:       
             sec_name = secrpp[:-2]+'.c'
-            print(f'comb {sec_name} u {secrpp} + {all_group}')
+            #print(f'comb {sec_name} u {secrpp} + {all_group}')
+            print(f'comb {sec_name} u {all_group} + {secrpp}')
             self.all_sections.append(sec_name)
         concated = ' '.join(self.all_sections)
         print(f'g {all_sec_c} {concated}')
