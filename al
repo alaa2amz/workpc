@@ -65,3 +65,5 @@ bind -x '"\b":b'
 
 wd() { echo $PWD > /tmp/cwd ; }
 rd() { cd $(cat /tmp/cwd) ; }
+alias fxmessage="xmessage -geometry 350x150 -xrm 'xmessage*minWidth: 350' -xrm 'xmessage*minHeight: 150' -xrm 'xmessage*maxWidth: 350' -xrm 'xmessage*maxHeight: 150'"
+
