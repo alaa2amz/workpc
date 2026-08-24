@@ -48,7 +48,7 @@ boundary_box_color      = mater_plastic(alone_in_the_dark, zero_transparency)
 
 def get_vector(from_point, to_point):
     return [to_c - fro_c for to_c, fro_c in zip_longest(to_point, from_point, fillvalue=0)]
-yaml_sample ='''
+yaml_sample =''' #yaml: 
 name: ea
 location: [0,0,0]
 rotation: [0,0,0]
@@ -119,7 +119,18 @@ beams:
 margin: 5000
 floor_depth: 2000
 '''
-
+pv_sample ='''#yaml
+name: test
+location: [0,0,0] #or cen of 0-1, 
+rotation: [0,0,0]
+diameter: 2000
+length: 2500
+thick: -12
+end1_thick: -12
+end2_thick: -12
+supports:
+nozzles: 
+'''
 sample = {
         'name':'ea',
         'location':[0,0,0],
@@ -200,12 +211,35 @@ class RPP:
                 {s.zmin} {s.zmax}')
         return long_name
 
+class Tor:
+    def __init__(self, name, vertex, normal, radius_big, radius_small):
+        self.name = name
+        self.vertex = vertex
+        self.normal = normal
+        self.radius_big = radius_big
+        self.radius_small = radius_small
+
+    def insert(self, prefix='',suffix='.s'):
+        long_name = prefix + self.name + suffix
+        vertex_string = ' '.join(map(str,self.vertex))
+        normal_string = ' '.join(map(str,self.normal))
+        print(f'in {long_name} rcc {vertex_string} \
+                {normal_string} {self.radius_big} {self.radius_small}')
+        return long_name
+
 class RCC:
     def __init__(self, name, vertex,vector, radius):
         self.name = name
         self.vertex = vertex
         self.vector = vector
         self.radius = radius
+    def insert(self, prefix='',suffix='.s'):
+        long_name = prefix + self.name + suffix
+        vertex_string = ' '.join(map(str,self.vertex))
+        vector_string = ' '.join(map(str,self.vector))
+        print(f'in {long_name} rcc {vertex_string} \
+                {vector_string} {self.radius}')
+        return long_name
     
     @classmethod
     def fromto(cls,name,from_p ,to_p,radius):
