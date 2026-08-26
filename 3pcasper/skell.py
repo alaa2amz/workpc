@@ -15,7 +15,7 @@ def main():
     #print(blue)
     #print(color('blue'))
     rcc = RCC('test',[0,0,0], [0,0,3000],1000)
-    trcc = ThickRCC(rcc,20)
+    trcc = Shell(rcc,20)
     trcc.insert()
 
 
@@ -217,19 +217,19 @@ class RPP:
         return long_name
 
 class Tor:
-    def __init__(self, name, vertex, normal, radius_big, radius_small):
+    def __init__(self, name, vertex, normal, radius_big, radius):
         self.name = name
         self.vertex = vertex
         self.normal = normal
         self.radius_big = radius_big
-        self.radius_small = radius_small
+        self.radius = radius
 
     def insert(self, prefix='',suffix='.s'):
         long_name = prefix + self.name + suffix
         vertex_string = ' '.join(map(str,self.vertex))
         normal_string = ' '.join(map(str,self.normal))
         print(f'in {long_name} rcc {vertex_string} \
-                {normal_string} {self.radius_big} {self.radius_small}')
+                {normal_string} {self.radius_big} {self.radius}')
         return long_name
 
 class RCC:
@@ -255,28 +255,28 @@ class RCC:
 
 
 class TRC:
-    def __init__(self, name, vertex,vector, radius_base, radius_top):
+    def __init__(self, name, vertex,vector, radius, radius_top):
         self.name = name
         self.vertex = vertex
         self.vector = vector
-        self.radius_base = radius_base
+        self.radius = radius
         self.radius_top = radius_top
     
     @classmethod
-    def fromto(cls,name,from_p ,to_p,radius_base, radius_top):
+    def fromto(cls,name,from_p ,to_p,radius, radius_top):
         vector = get_vector(from_p, to_p)
         vertex = from_p
-        return cls(name, vertex, vector, radius_base, radius_top) 
+        return cls(name, vertex, vector, radius, radius_top) 
 
     def insert(self, prefix='',suffix='.s'):
         long_name = prefix + self.name + suffix
         vertex_string = ' '.join(map(str,self.vertex))
         vector_string = ' '.join(map(str,self.vector))
         print(f'in {long_name} trc {vertex_string} \
-                {vector_string} {self.radius_base} {self.radius_top}')
+                {vector_string} {self.radius} {self.radius_top}')
         return long_name
 
-class ThickRCC():
+class Shell():
     def __init__(self,rcc, thick, ref=0):
         self.name =  rcc.name
         self.thick = thick
@@ -285,13 +285,22 @@ class ThickRCC():
         self.inner_rcc.name += '-inner'
         self.outer_rcc = deepcopy(rcc)
         self.outer_rcc.name += '-outer'
+        if type(self) == TRC:
+            self.trc = True
         if ref == 0:
             self.outer_rcc.radius += thick
+            if self.trc:
+                self.outer_rcc.radius_base += thick
         elif ref == 1:
             self.inner_rcc.radius -= thick/2
             self.outer_rcc.radius += thick/2
+            if self.trc:
+                self.inner_rcc.radius_base -= thick/2
+                self.outer_rcc.radius_base += thick/2
         elif ref == 2:
             self.inner_rcc.radius -= thick
+            if self.trc:
+                self.outer_rcc.radius_base -= thick
 
     def insert(self, prefix='',suffix='.c'):
         long_name = prefix + self.name + suffix
