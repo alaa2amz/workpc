@@ -1,61 +1,6 @@
 source $VIMRUNTIME/vimrc_example.vim
-"source $HOME/py.vim
-set background=dark
-colorscheme torte
 
-"set t_ti= t_te=
-"set wildmenu      " Visual menu for command-line completion
-autocmd InsertLeave * pclose
-"set wildmode=list:longest,full  " Set how completion cycles through matches
-"set completeopt=menuone,noinsert,noselect,popup
-"" Enable filetype plugins
-"filetype plugin on
-"nnoremap <silent> <space> :nohlsearch<CR>
-nnoremap <silent> <Esc> :nohlsearch<CR>
-
-
-"" Set up JavaScript omni completion explicitly (optional, Vim usually handles this automatically)
-"autocmd FileType javascript setlocal omnifunc=javascriptcomplete#Complete
-
-""""""""""
-"packadd! ale
-"" Enable completion
-let g:ale_completion_enabled = 1
-"" Allow ALE to auto-import modules/components upon completion
-"source $HOME/ale-map.vim
-set omnifunc=ale#completion#OmniFunc
-""" Map Ruff rule prefixes to correct ALE severities
-"let g:ale_type_map = {
-"\   'ruff': {
-"\       'E': 'E',
-"\       'W': 'W',
-"\       'I': 'INFO',
-"\       'F401': 'W',
-"\   }
-"\}
-
-"" Force ALE to treat Ruff's F821 (undefined name) and other critical issues as errors
-"let g:ale_python_ruff_change_exceptions = 1
-"let g:ale_type_map = {
-"\   'ruff': {
-"\       'E': 'E',
-"\       'F': 'E',
-"\       'W': 'W',
-"\       'F821': 'E',
-"\   }
-"\}
-
-" Force ALE to treat all ruff outputs as errors
-let g:ale_python_ruff_options = '--select=E,F'
-let g:ale_type_map = {'ruff': {'W': 'W', 'I': 'I', 'E': 'E'}}
-let g:ale_completion_enabled = 1
-let g:ale_lsp_suggestions = 1
-
-
-
-
-
-""""""""""
+"auto install plug
 let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
 if empty(glob(data_dir . '/autoload/plug.vim'))
   silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
@@ -65,22 +10,38 @@ endif
 call plug#begin()
 
 Plug 'stephpy/vim-yaml' " High-quality YAML syntax package if needed
-"Plug 'girishji/vimcomplete'
-" List your plugins here
-"Plug 'tpope/vim-sensible'
-
+Plug 'tpope/vim-sensible'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-"Plug 'dense-analysis/ale'
+Plug 'dense-analysis/ale'
+Plug 'preservim/tagbar'
+Plug 'liuchengxu/vista.vim'
 
-"if has('nvim')
-"  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-"else
-"  Plug 'Shougo/deoplete.nvim'
-"  Plug 'roxma/nvim-yarp'
-"  Plug 'roxma/vim-hug-neovim-rpc'
-"endif
 
 call plug#end()
+ALEDisable
+set background=dark
+colorscheme torte
+
+autocmd InsertLeave * pclose
+"nnoremap <silent> <space> :nohlsearch<CR>
+nnoremap <silent> <Esc> :nohlsearch<CR>
+
+
+
+" Force ALE to treat all ruff outputs as errors
+let g:ale_python_ruff_options = '--select=E,F'
+let g:ale_type_map = {'ruff': {'W': 'W', 'I': 'I', 'E': 'E'}}
+let g:ale_completion_enabled = 1
+let g:ale_lsp_suggestions = 1
+let g:ale_completion_enabled = 1
+"source $HOME/ale-map.vim
+set omnifunc=ale#completion#OmniFunc
+
+
+
+
+
+
 
 
 
@@ -142,3 +103,12 @@ augroup PythonYamlString
         \ let b:current_syntax = 'python'
 augroup END
 
+"source $HOME/py.vim
+"set t_ti= t_te=
+"set wildmenu      " Visual menu for command-line completion
+"set wildmode=list:longest,full  " Set how completion cycles through matches
+"set completeopt=menuone,noinsert,noselect,popup
+"" Enable filetype plugins
+"filetype plugin on
+"Plug 'girishji/vimcomplete'
+" List your plugins here
