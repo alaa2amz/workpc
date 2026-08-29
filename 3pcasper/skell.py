@@ -1,3 +1,5 @@
+from os import name
+
 import wc
 import yaml
 from itertools import product, zip_longest
@@ -14,9 +16,11 @@ def main():
     ##s.insert()
     #print(blue)
     #print(color('blue'))
-    rcc = RCC('test',[0,0,0], [0,0,3000],1000)
-    trcc = Shell(rcc,20)
-    trcc.insert()
+    #rcc = RCC('test',[0,0,0], [0,0,3000],1000)
+    #trcc = Shell(rcc,20)
+    #trcc.insert()
+    tsh=ToriSphEnd('ddd',3000,15)
+    tsh.insert()
 
 
 
@@ -228,7 +232,7 @@ class Tor:
         long_name = prefix + self.name + suffix
         vertex_string = ' '.join(map(str,self.vertex))
         normal_string = ' '.join(map(str,self.normal))
-        print(f'in {long_name} rcc {vertex_string} \
+        print(f'in {long_name} tor {vertex_string} \
                 {normal_string} {self.radius_big} {self.radius}')
         return long_name
 
@@ -287,6 +291,8 @@ class Shell():
         self.outer_rcc.name += '-outer'
         if type(self) == TRC:
             self.trc = True
+        else:
+            self.trc = False
         if ref == 0:
             self.outer_rcc.radius += thick
             if self.trc:
@@ -310,7 +316,33 @@ class Shell():
         return comb_name
 
 
-        
+class ToriSphEnd:
+    def __init__(self,name,diameter,thick,ref=0):
+        self.name = name
+        self.diameter = diameter
+        self.thick = thick
+        self.ref = ref
+        self.barrel_height = 3.5 * thick
+
+    def insert(self):
+        tori_radius = self.diameter  / 10
+        tori_height = ((self.diameter - tori_radius)**2 - (self.diameter/2 -tori_radius)**2)**0.5
+        tori_ring_radius = self.diameter/2-tori_radius
+        barrel = RCC(self.name+'-barrel',[0,0,0],[0,0,self.barrel_height],self.diameter/2)
+        shell_barrel = Shell(barrel,self.thick)
+        torus = Tor(self.name+'-tor',[0,0,self.barrel_height],[0,0,1],tori_ring_radius,tori_radius)
+        shell_torus = Shell(torus,self.thick)
+        sph_z = - self.diameter + self.barrel_height + (self.diameter-tori_height)
+        spher = Sph(self.name+'-sph',[0,0,sph_z],self.diameter)
+        shell_sph = Shell(spher, self.thick)
+        b=shell_barrel.insert()
+        t=shell_torus.insert()
+        s=shell_sph.insert()
+        cutter = RCC(self.name+'-cutter', [0,0,0],[0,0,sph_z+self.thick] ,self.diameter/2 + self.thick)
+        c = cutter.insert()
+        print(f'comb {self.name}-crud.c u {s} + {c}')
+        print(f'comb {self.name}-dish.c u {self.name}-crud.c - {t}')
+
 
 class IBeam:
     def __init__(self, name, length,
