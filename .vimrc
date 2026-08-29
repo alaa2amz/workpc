@@ -18,7 +18,6 @@ Plug 'liuchengxu/vista.vim'
 
 
 call plug#end()
-ALEDisable
 set background=dark
 colorscheme torte
 
@@ -34,6 +33,7 @@ let g:ale_type_map = {'ruff': {'W': 'W', 'I': 'I', 'E': 'E'}}
 let g:ale_completion_enabled = 1
 let g:ale_lsp_suggestions = 1
 let g:ale_completion_enabled = 1
+let g:ale_enabled = 0
 "source $HOME/ale-map.vim
 set omnifunc=ale#completion#OmniFunc
 
@@ -53,6 +53,10 @@ source $HOME/.vim/plugged/coc.nvim/doc/coc-example-config.vim
 map \s i_<Esc>l~<Esc>
 map \r :w<bar>!python3 %<CR>
 vmap <C-c> "+y
+map \at :ALEToggle<CR>
+map \cd :CocDisable<CR>
+map \ce :CocEnable<CR>
+nmap <F8> :TagbarToggle<CR>
 
 
 " Enable ALE completion features
