@@ -312,8 +312,8 @@ class Shell():
         long_name = prefix + self.name + suffix
         inner_name = self.inner_rcc.insert()
         outer_name = self.outer_rcc.insert()
-        comb_name = print (f'comb {long_name} u {outer_name} - {inner_name}')
-        return comb_name
+        print (f'comb {long_name} u {outer_name} - {inner_name}')
+        return [long_name,outer_name,inner_name]
 
 
 class ToriSphEnd:
@@ -326,6 +326,7 @@ class ToriSphEnd:
 
     def insert(self):
         tori_radius = self.diameter  / 10
+        #h J
         tori_height = ((self.diameter - tori_radius)**2 - (self.diameter/2 -tori_radius)**2)**0.5
         tori_ring_radius = self.diameter/2-tori_radius
         barrel = RCC(self.name+'-barrel',[0,0,0],[0,0,self.barrel_height],self.diameter/2)
@@ -335,13 +336,17 @@ class ToriSphEnd:
         sph_z = - self.diameter + self.barrel_height + (self.diameter-tori_height)
         spher = Sph(self.name+'-sph',[0,0,sph_z],self.diameter)
         shell_sph = Shell(spher, self.thick)
-        b=shell_barrel.insert()
-        t=shell_torus.insert()
-        s=shell_sph.insert()
-        cutter = RCC(self.name+'-cutter', [0,0,0],[0,0,sph_z+self.thick] ,self.diameter/2 + self.thick)
+        b = shell_barrel.insert()
+        t = shell_torus.insert()
+        s = shell_sph.insert()
+        cutter = RCC(self.name+'-cutter', [0,0,self.barrel_height],[0,0,-self.barrel_height-tori_radius-1] ,self.diameter/2 + self.thick+1)
+        cutter2= TRC(self.name+'-cutter2',[0,0,self.diameter+self.thick+sph_z+1],[0,0,-self.diameter-1],tori_ring_radius*(self.diameter+1)/tori_height,0.01) 
         c = cutter.insert()
-        print(f'comb {self.name}-crud.c u {s} + {c}')
-        print(f'comb {self.name}-dish.c u {self.name}-crud.c - {t}')
+        c2 = cutter2.insert()
+
+        print(f'comb {self.name}-knuckil.c u {t[0]} - {c2} - {c}')
+        print(f'comb {self.name}-dish.c u {s[0]} + {c2}')
+        print(f'comb {self.name}-toriend.c u  {self.name}-knuckil.c u {self.name}-dish.c u {b[0]}')
 
 
 class IBeam:
