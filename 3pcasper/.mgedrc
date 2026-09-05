@@ -1,2 +1,4 @@
 global mged_default; set mged_default(rot_factor) 1.0
+set mged_default(font) {Helvetica -24}
+set mged_default(fixed_font) {Courier -24}
 
