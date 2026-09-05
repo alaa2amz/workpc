@@ -1,115 +1,19 @@
 
-Start-Date: 2026-08-01  12:03:32
-Commandline: apt install make-doc
+Start-Date: 2026-09-02  07:59:38
+Commandline: apt install httrack --install-suggests
 Requested-By: alaad13 (1000)
-Install: make-doc:amd64 (4.4.1-1)
-End-Date: 2026-08-01  12:03:40
+Install: httrack-doc:amd64 (3.49.6-1, automatic), httrack:amd64 (3.49.6-1), webhttrack:amd64 (3.49.6-1, automatic), libhttrack2:amd64 (3.49.6-1, automatic), webhttrack-common:amd64 (3.49.6-1, automatic)
+End-Date: 2026-09-02  07:59:55
 
-Start-Date: 2026-08-08  08:29:29
-Commandline: apt install nemo
+Start-Date: 2026-09-02  08:30:29
+Commandline: apt install wget2
 Requested-By: alaad13 (1000)
-Install: libxapp1:amd64 (2.8.8-1, automatic), pnp.ids:amd64 (0.394-1, automatic), xapps-common:amd64 (2.8.8-1, automatic), nemo-data:amd64 (6.4.5-1, automatic), id3:amd64 (1.1.2-4, automatic), fonts-dejavu:amd64 (2.37-8, automatic), gir1.2-xmlb-2.0:amd64 (0.3.22-1, automatic), libpwquality-common:amd64 (1.4.5-5, automatic), yelp-xsl:amd64 (42.1-4, automatic), cinnamon-l10n:amd64 (6.4.2-1, automatic), libcrack2:amd64 (2.9.6-5.2+b1, automatic), exif:amd64 (0.6.22-4, automatic), libgail-3-0t64:amd64 (3.24.49-3, automatic), catdoc:amd64 (1:0.95-6, automatic), python3-distro:amd64 (1.9.0-1, automatic), nemo-fileroller:amd64 (6.4.0-1, automatic), hwdata:amd64 (0.394-1, automatic), docbook-xml:amd64 (4.5-13, automatic), libpwquality1:amd64 (1.4.5-5, automatic), file-roller:amd64 (44.5-1, automatic), sgml-data:amd64 (2.0.11+nmu1, automatic), libgnomekbd-common:amd64 (3.28.1-2, automatic), mesa-utils-bin:amd64 (9.0.0-2+b2, automatic), gnome-disk-utility:amd64 (46.1-2+b1, automatic), python3-xlrd:amd64 (2.0.1-2, automatic), libxapp-gtk3-module:amd64 (2.8.8-1, automatic), xapp-sn-watcher:amd64 (2.8.8-1, automatic), html2text:amd64 (2.2.3-3, automatic), cinnamon-desktop-data:amd64 (6.4.1-1, automatic), libnemo-extension1:amd64 (6.4.5-1, automatic), libcinnamon-desktop4t64:amd64 (6.4.1-1, automatic), libyelp0:amd64 (42.2-4+deb13u1, automatic), nemo:amd64 (6.4.5-1), yelp:amd64 (42.2-4+deb13u1, automatic), untex:amd64 (1:1.2-10, automatic), cracklib-runtime:amd64 (2.9.6-5.2+b1, automatic), fonts-dejavu-extra:amd64 (2.37-8, automatic), mesa-utils:amd64 (9.0.0-2+b2, automatic), libgnomekbd8:amd64 (3.28.1-2, automatic), inxi:amd64 (3.3.38-1-1, automatic), tree:amd64 (2.2.1-1, automatic)
-End-Date: 2026-08-08  08:30:52
+Install: libwget3:amd64 (2.2.0+ds-1+deb13u1, automatic), wget2:amd64 (2.2.0+ds-1+deb13u1)
+End-Date: 2026-09-02  08:30:37
 
-Start-Date: 2026-08-10  08:17:28
-Commandline: apt install zathura
+Start-Date: 2026-09-03  09:36:06
+Commandline: apt-get install -y --no-install-recommends libasound2t64 libatk-bridge2.0-0t64 libatk1.0-0t64 libatspi2.0-0t64 libcairo2 libcups2t64 libdbus-1-3 libdrm2 libgbm1 libglib2.0-0t64 libnspr4 libnss3 libpango-1.0-0 libx11-6 libxcb1 libxcomposite1 libxdamage1 libxext6 libxfixes3 libxkbcommon0 libxrandr2 libasound2 libavcodec61 libcairo-gobject2 libdbus-glib-1-2 libfontconfig1 libfreetype6 libgdk-pixbuf-2.0-0 libgtk-3-0t64 libharfbuzz0b libpangocairo-1.0-0 libx11-xcb1 libxcb-shm0 libxcursor1 libxi6 libxrender1 libxtst6 libsoup-3.0-0 gstreamer1.0-libav gstreamer1.0-plugins-bad gstreamer1.0-plugins-base gstreamer1.0-plugins-good libegl1 libenchant-2-2 libepoxy0 libevdev2 libgles2 libglx0 libgstreamer-gl1.0-0 libgstreamer-plugins-base1.0-0 libgstreamer1.0-0 libgtk-4-1 libgudev-1.0-0 libharfbuzz-icu0 libhyphen0 libicu76 libjpeg62-turbo liblcms2-2 libmanette-0.2-0 libnotify4 libopengl0 libopenjp2-7 libopus0 libpng16-16t64 libproxy1v5 libsecret-1-0 libwayland-client0 libwayland-egl1 libwayland-server0 libwebp7 libwebpdemux2 libwoff1 libxml2 libxslt1.1 libatomic1 libevent-2.1-7t64 libavif16 xvfb fonts-noto-color-emoji fonts-unifont xfonts-scalable fonts-liberation fonts-ipafont-gothic fonts-wqy-zenhei fonts-tlwg-loma-otf fonts-freefont-ttf
 Requested-By: alaad13 (1000)
-Install: libgirara-gtk3-4:amd64 (0.4.5-1, automatic), zathura:amd64 (0.5.11-1), zathura-pdf-poppler:amd64 (0.3.3-1, automatic)
-End-Date: 2026-08-10  08:17:37
-
-Start-Date: 2026-08-10  08:20:56
-Commandline: apt install zathura*
-Requested-By: alaad13 (1000)
-Install: libglx-dev:amd64 (1.7.0-1+b2, automatic), libegl-dev:amd64 (1.7.0-1+b2, automatic), libatk-bridge2.0-dev:amd64 (2.56.2-1+deb13u1, automatic), libgles-dev:amd64 (1.7.0-1+b2, automatic), gir1.2-json-1.0:amd64 (1.10.6+ds-2, automatic), libxcomposite-dev:amd64 (1:0.4.6-1, automatic), libjpeg-dev:amd64 (1:2.1.5-4, automatic), libice-dev:amd64 (2:1.1.1-1, automatic), libjpeg62-turbo-dev:amd64 (1:2.1.5-4, automatic), libwebp-dev:amd64 (1.5.0-0.1, automatic), libxrandr-dev:amd64 (2:1.5.4-1+b3, automatic), libxfixes-dev:amd64 (1:6.0.0-2+b4, automatic), libxtst-dev:amd64 (2:1.2.5-1, automatic), liblerc-dev:amd64 (4.0.0+ds-5, automatic), libtiffxx6:amd64 (4.7.0-3+deb13u2, automatic), libatspi2.0-dev:amd64 (2.56.2-1+deb13u1, automatic), libsm-dev:amd64 (2:1.2.6-1, automatic), libcloudproviders-dev:amd64 (0.3.6-2, automatic), libepoxy-dev:amd64 (1.5.10-2, automatic), libjbig-dev:amd64 (2.1-6.1+b2, automatic), libglvnd-dev:amd64 (1.7.0-1+b2, automatic), libxi-dev:amd64 (2:1.8.2-1, automatic), zathura-cb:amd64 (0.1.11-1), libgles1:amd64 (1.7.0-1+b2, automatic), zathura-ps:amd64 (0.2.8-1), zathura-dev:amd64 (0.5.11-1), libegl1-mesa-dev:amd64 (25.0.7-2+deb13u1, automatic), liblzma-dev:amd64 (5.8.1-1+deb13u1, automatic), libxcb-shm0-dev:amd64 (1.17.0-2+b1, automatic), gir1.2-cloudproviders-0.3.0:amd64 (0.3.6-2, automatic), libcap-dev:amd64 (1:2.75-10+deb13u1+b1, automatic), libdatrie-dev:amd64 (0.2.13-3+b1, automatic), libatk1.0-dev:amd64 (2.56.2-1+deb13u1, automatic), wayland-protocols:amd64 (1.44-1, automatic), libgdk-pixbuf-2.0-dev:amd64 (2.42.12+dfsg-4+deb13u1, automatic), libdeflate-dev:amd64 (1.23-2, automatic), pango1.0-tools:amd64 (1.56.3-1, automatic), libxcursor-dev:amd64 (1:1.2.3-1, automatic), libgirara-dev:amd64 (0.4.5-1, automatic), libxcb-render0-dev:amd64 (1.17.0-2+b1, automatic), libxdamage-dev:amd64 (1:1.1.6-1+b2, automatic), libzstd-dev:amd64 (1.5.7+dfsg-1, automatic), libglvnd-core-dev:amd64 (1.7.0-1+b2, automatic), libgl-dev:amd64 (1.7.0-1+b2, automatic), libxkbcommon-dev:amd64 (1.7.0-2, automatic), libjson-glib-dev:amd64 (1.10.6+ds-2, automatic), libdbus-1-dev:amd64 (1.16.2-2, automatic), zathura-djvu:amd64 (0.2.10-1), libwayland-bin:amd64 (1.23.1-3, automatic), libgtk-3-dev:amd64 (3.24.49-3, automatic), libwayland-dev:amd64 (1.23.1-3, automatic), libopengl-dev:amd64 (1.7.0-1+b2, automatic), libcairo2-dev:amd64 (1.18.4-1+b1, automatic), libset-scalar-perl:amd64 (1.29-3, automatic), libtiff-dev:amd64 (4.7.0-3+deb13u2, automatic), libpixman-1-dev:amd64 (0.44.0-3, automatic), libsharpyuv-dev:amd64 (1.5.0-0.1, automatic), libpango1.0-dev:amd64 (1.56.3-1, automatic), libsystemd-dev:amd64 (257.13-1~deb13u1, automatic), libthai-dev:amd64 (0.1.29-2+b1, automatic)
-End-Date: 2026-08-10  08:21:41
-
-Start-Date: 2026-08-10  08:37:45
-Commandline: apt install tcl8.6
-Requested-By: alaad13 (1000)
-Install: tcl8.6:amd64 (8.6.16+dfsg-1)
-End-Date: 2026-08-10  08:37:52
-
-Start-Date: 2026-08-10  08:38:41
-Commandline: apt install --install-suggests tcl
-Requested-By: alaad13 (1000)
-Install: tcl:amd64 (8.6.16)
-End-Date: 2026-08-10  08:38:47
-
-Start-Date: 2026-08-10  08:39:35
-Commandline: apt install tcl8.6-doc
-Requested-By: alaad13 (1000)
-Install: tcl8.6-doc:amd64 (8.6.16+dfsg-1)
-End-Date: 2026-08-10  08:39:38
-
-Start-Date: 2026-08-11  08:20:36
-Commandline: apt install geany
-Requested-By: alaad13 (1000)
-Install: geany-common:amd64 (2.0-2, automatic), geany:amd64 (2.0-2)
-End-Date: 2026-08-11  08:20:52
-
-Start-Date: 2026-08-11  13:30:55
-Commandline: apt install python3-pip
-Requested-By: alaad13 (1000)
-Install: libpython3-dev:amd64 (3.13.5-1, automatic), python3-wheel:amd64 (0.46.1-2, automatic), python3-dev:amd64 (3.13.5-1, automatic), python3-pip:amd64 (25.1.1+dfsg-1), libpython3.13-dev:amd64 (3.13.5-2+deb13u3, automatic), python3.13-dev:amd64 (3.13.5-2+deb13u3, automatic)
-Upgrade: idle-python3.13:amd64 (3.13.5-2+deb13u2, 3.13.5-2+deb13u3), python3.13:amd64 (3.13.5-2+deb13u2, 3.13.5-2+deb13u3), libpython3.13-stdlib:amd64 (3.13.5-2+deb13u2, 3.13.5-2+deb13u3), python3.13-tk:amd64 (3.13.5-2+deb13u2, 3.13.5-2+deb13u3), libpython3.13-minimal:amd64 (3.13.5-2+deb13u2, 3.13.5-2+deb13u3), python3.13-venv:amd64 (3.13.5-2+deb13u2, 3.13.5-2+deb13u3), libpython3.13:amd64 (3.13.5-2+deb13u2, 3.13.5-2+deb13u3), libpython3.13-testsuite:amd64 (3.13.5-2+deb13u2, 3.13.5-2+deb13u3), python3.13-full:amd64 (3.13.5-2+deb13u2, 3.13.5-2+deb13u3), python3.13-gdbm:amd64 (3.13.5-2+deb13u2, 3.13.5-2+deb13u3), python3.13-minimal:amd64 (3.13.5-2+deb13u2, 3.13.5-2+deb13u3), python3.13-doc:amd64 (3.13.5-2+deb13u2, 3.13.5-2+deb13u3), python3.13-examples:amd64 (3.13.5-2+deb13u2, 3.13.5-2+deb13u3)
-End-Date: 2026-08-11  13:32:00
-
-Start-Date: 2026-08-11  13:34:06
-Commandline: apt install python3-pynvim
-Requested-By: alaad13 (1000)
-Install: libvterm0:amd64 (0.3.3-3+b1, automatic), lua-luv:amd64 (1.48.0-2-3, automatic), libluajit-5.1-2:amd64 (2.1.0+openresty20250117-2, automatic), xxd:amd64 (2:9.1.1230-2, automatic), neovim:amd64 (0.10.4-8, automatic), libmsgpack-c2:amd64 (6.0.1-3+b1, automatic), neovim-runtime:amd64 (0.10.4-8, automatic), lua-lpeg:amd64 (1.1.0-2, automatic), python3-pynvim:amd64 (0.5.2-2), libunibilium4:amd64 (2.1.1-2+b1, automatic), python3-msgpack:amd64 (1.0.3-3+b4, automatic), python3-greenlet:amd64 (3.1.0-1+b2, automatic), libluajit-5.1-common:amd64 (2.1.0+openresty20250117-2, automatic)
-End-Date: 2026-08-11  13:34:26
-
-Start-Date: 2026-08-12  08:09:00
-Commandline: apt install geany-plugin-vimode
-Requested-By: alaad13 (1000)
-Install: geany-plugin-vimode:amd64 (2.0-6+b1), geany-plugins-common:amd64 (2.0-6+b1, automatic)
-End-Date: 2026-08-12  08:09:02
-
-Start-Date: 2026-08-18  10:23:02
-Commandline: apt install texlive
-Requested-By: alaad13 (1000)
-Install: libpotrace0:amd64 (1.16-2+b2, automatic), tex-common:amd64 (6.19, automatic), libtexlua53-5:amd64 (2024.20240313.70630+ds-6, automatic), texlive-binaries:amd64 (2024.20240313.70630+ds-6, automatic), dvisvgm:amd64 (3.4.4+ds-1, automatic), lmodern:amd64 (2.005-1, automatic), libmujs3:amd64 (1.3.6-1, automatic), libmpfi0:amd64 (1.5.4+ds-4, automatic), libzzip-0-13t64:amd64 (0.13.78+dfsg.1-0.1, automatic), libmupdf25.1:amd64 (1.25.1+ds1-6+deb13u1, automatic), libptexenc1:amd64 (2024.20240313.70630+ds-6, automatic), libwoff1:amd64 (1.0.2-2+b2, automatic), texlive-latex-base:amd64 (2024.20250309-1, automatic), libteckit0:amd64 (2.5.12+ds1-1+b1, automatic), fonts-texgyre:amd64 (20180621-6, automatic), t1utils:amd64 (1.41-4, automatic), fonts-texgyre-math:amd64 (20180621-6, automatic), libgumbo3:amd64 (0.13.0+dfsg-2, automatic), texlive:amd64 (2024.20250309-1), fonts-lmodern:amd64 (2.005-1, automatic), texlive-base:amd64 (2024.20250309-1, automatic), mupdf-tools:amd64 (1.25.1+ds1-6+deb13u1, automatic), tex-gyre:amd64 (20180621-6, automatic), tipa:amd64 (2:1.3-21, automatic), texlive-fonts-recommended:amd64 (2024.20250309-1, automatic), texlive-latex-recommended:amd64 (2024.20250309-1, automatic)
-End-Date: 2026-08-18  10:25:03
-
-Start-Date: 2026-08-18  10:39:39
-Commandline: apt install fonts-kaushanscript
-Requested-By: alaad13 (1000)
-Install: fonts-kaushanscript:amd64 (1.02-2.1)
-End-Date: 2026-08-18  10:39:45
-
-Start-Date: 2026-08-18  10:45:04
-Commandline: apt install texlive-luatex
-Requested-By: alaad13 (1000)
-Install: texlive-luatex:amd64 (2024.20250309-1)
-End-Date: 2026-08-18  10:46:17
-
-Start-Date: 2026-08-24  10:27:16
-Commandline: apt install rlfe
-Requested-By: alaad13 (1000)
-Install: rlfe:amd64 (8.2-6)
-End-Date: 2026-08-24  10:27:25
-
-Start-Date: 2026-08-25  08:52:08
-Commandline: apt install docker-ce
-Requested-By: alaad13 (1000)
-Install: containerd.io:amd64 (2.3.3-1~debian.13~trixie, automatic), docker-compose-plugin:amd64 (5.5.0-1~debian.13~trixie, automatic), docker-ce-cli:amd64 (5:29.7.2-1~debian.13~trixie, automatic), iptables:amd64 (1.8.11-2, automatic), pigz:amd64 (2.8-1, automatic), libip4tc2:amd64 (1.8.11-2, automatic), docker-buildx-plugin:amd64 (0.36.1-1~debian.13~trixie, automatic), docker-ce:amd64 (5:29.7.2-1~debian.13~trixie), docker-ce-rootless-extras:amd64 (5:29.7.2-1~debian.13~trixie, automatic), libip6tc2:amd64 (1.8.11-2, automatic)
-End-Date: 2026-08-25  08:52:37
-
-Start-Date: 2026-08-26  08:31:38
-Commandline: apt install universal-ctags
-Requested-By: alaad13 (1000)
-Install: universal-ctags:amd64 (5.9.20210829.0-2)
-End-Date: 2026-08-26  08:31:52
-
-Start-Date: 2026-08-26  09:00:55
-Commandline: apt install wmctrl
-Requested-By: alaad13 (1000)
-Install: wmctrl:amd64 (1.07+git20240228.1105759-1)
-End-Date: 2026-08-26  09:01:03
-
-Start-Date: 2026-08-26  10:06:44
-Commandline: apt install awesome
-Requested-By: alaad13 (1000)
-Install: libxdg-basedir1:amd64 (1.2.0-2.1, automatic), rlwrap:amd64 (0.46.1-1+b1, automatic), lua-lgi:amd64 (0.9.2-4, automatic), awesome:amd64 (4.3-7+b2), acpi:amd64 (1.8-1, automatic), awesome-extra:amd64 (2023010601, automatic), lua-filesystem:amd64 (1.8.0-3+b2, automatic)
-End-Date: 2026-08-26  10:07:09
+Install: fonts-wqy-zenhei:amd64 (0.9.45-8), xvfb:amd64 (2:21.1.16-1.3+deb13u3), fonts-tlwg-loma-otf:amd64 (1:0.7.3-1), fonts-unifont:amd64 (1:15.1.01-1), fonts-ipafont-gothic:amd64 (00303-23)
+Upgrade: xserver-xorg-core:amd64 (2:21.1.16-1.3+deb13u2, 2:21.1.16-1.3+deb13u3), xserver-xorg-legacy:amd64 (2:21.1.16-1.3+deb13u2, 2:21.1.16-1.3+deb13u3), libgstreamer-plugins-bad1.0-0:amd64 (1.26.2-3+deb13u1, 1.26.2-3+deb13u3), xserver-common:amd64 (2:21.1.16-1.3+deb13u2, 2:21.1.16-1.3+deb13u3), libnss3:amd64 (2:3.110-1+deb13u1, 2:3.110-1+deb13u4), xserver-xephyr:amd64 (2:21.1.16-1.3+deb13u2, 2:21.1.16-1.3+deb13u3), gstreamer1.0-plugins-bad:amd64 (1.26.2-3+deb13u1, 1.26.2-3+deb13u3), gstreamer1.0-libav:amd64 (1.26.2-1, 1.26.2-1+deb13u1)
+End-Date: 2026-09-03  09:36:43

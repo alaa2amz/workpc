@@ -1,20 +1,33 @@
 #super + z
 # fortune >> $HOME/ggz
 
+ #test
 super + x
  echo pppp|tee rtrt
 
-super + shift + x 
+ #screenshot 
+super + shift + x
  scrot ;\
  xsetroot -name done ;\
  sleep 5 ;\
  xsetroot -name zzz 
 
-super + shift + r 
+ #restart sxhkd
+super + shift + r
  killall -USR1 sxhkd ;\
  xsetroot -name done ;\
  sleep 3 ;\
  xsetroot -name zzz
 
+ #terminal
 super + z
  xfce4-terminal
+
+ #edit hotkeys
+super + e
+ gvim $HOME/.config/sxhkd/sxhkdrc
+
+ #help
+super + h
+ herbe "$(grep '^[ ]#' -A1 $HOME/.config/sxhkd/sxhkdrc)"
+ 
