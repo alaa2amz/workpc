@@ -324,29 +324,60 @@ class ToriSphEnd:
         self.ref = ref
         self.barrel_height = 3.5 * thick
 
-    def insert(self):
+    def insert(self,prefix='',suffix='.c'):
+        long_name = prefix + self.name + suffix
         tori_radius = self.diameter  / 10
         #h J
-        tori_height = ((self.diameter - tori_radius)**2 - (self.diameter/2 -tori_radius)**2)**0.5
-        tori_ring_radius = self.diameter/2-tori_radius
-        barrel = RCC(self.name+'-barrel',[0,0,0],[0,0,self.barrel_height],self.diameter/2)
-        shell_barrel = Shell(barrel,self.thick)
-        torus = Tor(self.name+'-tor',[0,0,self.barrel_height],[0,0,1],tori_ring_radius,tori_radius)
-        shell_torus = Shell(torus,self.thick)
+        #torus ring center height 
+        tori_height = ( (self.diameter - tori_radius)**2 - (self.diameter / 2 - tori_radius)**2 )**0.5
+        tori_ring_radius = self.diameter/2 - tori_radius
         sph_z = - self.diameter + self.barrel_height + (self.diameter-tori_height)
-        spher = Sph(self.name+'-sph',[0,0,sph_z],self.diameter)
-        shell_sph = Shell(spher, self.thick)
-        b = shell_barrel.insert()
-        t = shell_torus.insert()
-        s = shell_sph.insert()
-        cutter = RCC(self.name+'-cutter', [0,0,self.barrel_height],[0,0,-self.barrel_height-tori_radius-1] ,self.diameter/2 + self.thick+1)
-        cutter2= TRC(self.name+'-cutter2',[0,0,self.diameter+self.thick+sph_z+1],[0,0,-self.diameter-1],tori_ring_radius*(self.diameter+1)/tori_height,0.01) 
-        c = cutter.insert()
-        c2 = cutter2.insert()
 
-        print(f'comb {self.name}-knuckil.c u {t[0]} - {c2} - {c}')
-        print(f'comb {self.name}-dish.c u {s[0]} + {c2}')
-        print(f'comb {self.name}-toriend.c u  {self.name}-knuckil.c u {self.name}-dish.c u {b[0]}')
+        barrel = RCC(self.name+'-barrel',[0,0,0],[0,0,self.barrel_height],self.diameter/2)
+        shell_barrel = Shell(barrel,self.thick,self.ref)
+
+        torus = Tor(self.name+'-tor',[0,0,self.barrel_height],[0,0,1],tori_ring_radius,tori_radius)
+        shell_torus = Shell(torus,self.thick,self.ref)
+
+        spher = Sph(self.name+'-sph',[0,0,sph_z],self.diameter)
+        shell_sph = Shell(spher, self.thick,self.ref)
+
+        barrel_inserted = shell_barrel.insert()
+        torus_inserted = shell_torus.insert()
+        sph_inserted = shell_sph.insert()
+        cutter = RCC(self.name+'-cutter', [0,0,self.barrel_height],[0,0,-self.barrel_height-tori_radius-1] ,self.diameter/2 + self.thick+1)
+        con_cutter= TRC(self.name+'-cutter2',[0,0,self.diameter+self.thick+sph_z+1],[0,0,-self.diameter-1],tori_ring_radius*(self.diameter+1)/tori_height,0.01) 
+        cutter_inserted = cutter.insert()
+        con_cutter_inserted = con_cutter.insert()
+
+        print(f'comb {self.name}-knuckil.c u {torus_inserted[0]} - {con_cutter_inserted} - {cutter_inserted}')
+        print(f'comb {self.name}-dish.c u {sph_inserted[0]} + {con_cutter_inserted}')
+        print(f'comb {long_name}.c u  {self.name}-knuckil.c u {self.name}-dish.c u {barrel_inserted[0]}')
+        return long_name
+
+class PressureVessel:
+    def __init__(self,name,diameter,height,shell_thick,ends_thick=0,nozzles=None,support=None,location=None,rotation=None):
+        self.name = name
+        self.diameter = diameter
+        self.height = height
+        self.nozzles = nozzles
+        self.support = support
+        self.location = location
+        self.rotation = rotation
+        self.shell_thick = shell_thick
+        self.ends_thick = shell_thick if ends_thick==0 else ends_thick
+
+    def insert(self,prefix='',suffix='.c'):
+        long_name = prefix + self.name + suffix
+        lower_end = ToriSphEnd(self.name+'lower-end',self.diameter,self.ends_thick)
+        section = RCC(self.name+'-section',[0,0,0],[0,0,self.height],self.diameter/2)
+        section_shell = Shell(section,self.shell_thick)
+        upper_flange = ToriSphEnd(self.name+'upper-end',self.diameter,self.ends_thick)
+        lower_end_inserted = lower_end.insert()
+
+
+
+
 
 
 class IBeam:
@@ -403,6 +434,7 @@ class IBeam:
             handle_name = addsubs[0]
         if self.handle == 'tos':
             handle_name = addsubs[1]
+        #it shall be removed
         print(f'B {long_name}')
         print(f'oed / {long_name}/{handle_name}')
         location_string = ' '.join(map(str,self.location))
@@ -413,6 +445,13 @@ class IBeam:
         bound_box_name = long_name.replace('.c','-bb.s',1)
         print(f'bb -c {bound_box_name} {long_name}')
         return long_name, bound_box_name 
+
+def blast(object):
+    print(f'B {object}')
+def oed(lhs,rhs):
+    print(f'oed {lhs} {rhs}')
+def accept():
+    print(f'accept')
 
 
 
