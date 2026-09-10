@@ -21,9 +21,9 @@ def main():
     #rcc = RCC('test',[0,0,0], [0,0,3000],1000)
     #trcc = Shell(rcc,20)
     #trcc.insert()
-    #tsh=ToriSphEnd('ddd',3000,15)
+    #tsh=ToriSphEnd('d',3000,15)
     #tsh.insert()
-    pv = PressureVessel('nnn',2000,3000,15)
+    pv = PressureVessel('n',2000,3000,15)
     pv.insert()
 
 
@@ -356,7 +356,7 @@ class ToriSphEnd:
 
         print(f'comb {self.name}-knuckil.c u {torus_inserted['name']} - {con_cutter_inserted} - {cutter_inserted}')
         print(f'comb {self.name}-dish.c u {sph_inserted['name']} + {con_cutter_inserted}')
-        print(f'comb {long_name}.c u  {self.name}-knuckil.c u {self.name}-dish.c u {barrel_inserted['name']}')
+        print(f'comb {long_name} u  {self.name}-knuckil.c u {self.name}-dish.c u {barrel_inserted['name']}')
         return {'name':long_name, 'barrel':barrel_inserted,'torus':torus_inserted,'sph':sph_inserted}
 
 class PressureVessel:
@@ -382,13 +382,16 @@ class PressureVessel:
         upper_end_inserted = upper_end.insert()
         #pp(locals())
         #input()
-        oed('/',f'{upper_end_inserted['name']}/{upper_end_inserted['barrel']['inner']}')
-        print(f'trnslate 0 0 {self.length}')
+        blast(upper_end_inserted['name'])
+        oed('/',f"{upper_end_inserted['name']}/{upper_end_inserted['barrel']['name']}/{upper_end_inserted['barrel']['inner']}")
+        print(f'translate 0 0 {self.length}')
         accept()
+        blast(lower_end_inserted['name'])
+        oed('/',f"{lower_end_inserted['name']}/{lower_end_inserted['barrel']['name']}/{lower_end_inserted['barrel']['inner']}")
         #####oed('/',f'{lower_end_inserted[0]}/{lower_end_inserted[1][1]}')
-        print(f'trnslate 180 0 0')
+        print(f'orot 180 0 0')
         accept()
-        print(f'r {long_name} u {lower_end_inserted[0]} u {section_inserted[0]} u {upper_end_inserted[0]}')
+        print(f"comb  {long_name} u {lower_end_inserted['name']} u {section_inserted['name']} u {upper_end_inserted['name']}")
 
 
 
