@@ -22,6 +22,7 @@ export PATH=$HOME/.local/BRL-CAD_7.42.0_Linux_x86_64/bin/:$PATH
 export PATH=$HOME/.local/bin/:$PATH
 export PATH=$HOME/.local/J/bin/:$PATH
 export myrepo=https://github.com/alaa2amz
+export esc=`printf '\033'`
 
 wd() { echo $PWD > /tmp/cwd ; }
 rd() { cd $(cat /tmp/cwd) ; }

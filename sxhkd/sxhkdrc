@@ -30,4 +30,9 @@ super + e
  #help
 super + h
  herbe "$(grep '^[ ]#' -A1 $HOME/.config/sxhkd/sxhkdrc)"
+
+ #xdotool1
+super + q
+	xdotool click 3 sleep 0.5 key v sleep 0.5 keydown shift sleep 0.05 key Tab sleep 0.05 keyup shift sleep 0.05 keydown Return && sleep 0.1 && xdotool keyup Return
+
  

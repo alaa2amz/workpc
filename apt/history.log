@@ -17,3 +17,21 @@ Requested-By: alaad13 (1000)
 Install: fonts-wqy-zenhei:amd64 (0.9.45-8), xvfb:amd64 (2:21.1.16-1.3+deb13u3), fonts-tlwg-loma-otf:amd64 (1:0.7.3-1), fonts-unifont:amd64 (1:15.1.01-1), fonts-ipafont-gothic:amd64 (00303-23)
 Upgrade: xserver-xorg-core:amd64 (2:21.1.16-1.3+deb13u2, 2:21.1.16-1.3+deb13u3), xserver-xorg-legacy:amd64 (2:21.1.16-1.3+deb13u2, 2:21.1.16-1.3+deb13u3), libgstreamer-plugins-bad1.0-0:amd64 (1.26.2-3+deb13u1, 1.26.2-3+deb13u3), xserver-common:amd64 (2:21.1.16-1.3+deb13u2, 2:21.1.16-1.3+deb13u3), libnss3:amd64 (2:3.110-1+deb13u1, 2:3.110-1+deb13u4), xserver-xephyr:amd64 (2:21.1.16-1.3+deb13u2, 2:21.1.16-1.3+deb13u3), gstreamer1.0-plugins-bad:amd64 (1.26.2-3+deb13u1, 1.26.2-3+deb13u3), gstreamer1.0-libav:amd64 (1.26.2-1, 1.26.2-1+deb13u1)
 End-Date: 2026-09-03  09:36:43
+
+Start-Date: 2026-09-06  07:57:05
+Commandline: apt install dunst
+Requested-By: alaad13 (1000)
+Install: dunst:amd64 (1.12.2-1)
+End-Date: 2026-09-06  07:57:23
+
+Start-Date: 2026-09-14  09:03:10
+Commandline: apt install mpv
+Requested-By: alaad13 (1000)
+Install: yt-dlp:amd64 (2025.04.30-1, automatic), mpv:amd64 (0.40.0-3+deb13u1), python3-websockets:amd64 (15.0.1-1, automatic), libavdevice61:amd64 (7:7.1.5-0+deb13u1, automatic), ffmpeg:amd64 (7:7.1.5-0+deb13u1, automatic), libsndio7.0:amd64 (1.10.0-0.1, automatic), python3-pycryptodome:amd64 (3.20.0+dfsg-3, automatic), libsixel1:amd64 (1.10.5-1, automatic)
+End-Date: 2026-09-14  09:03:34
+
+Start-Date: 2026-09-14  09:18:14
+Commandline: apt install groff groff
+Requested-By: alaad13 (1000)
+Install: groff:amd64 (1.23.0-9), python3-puremagic:amd64 (1.28-1, automatic), psutils:amd64 (3.3.8-1, automatic), python3-pypdf:amd64 (5.4.0-1, automatic), python3-pil:amd64 (11.1.0-5+deb13u4, automatic), python3-psutils:amd64 (3.3.8-1, automatic), python3-olefile:amd64 (0.47-1, automatic), libraqm0:amd64 (0.10.2-1, automatic)
+End-Date: 2026-09-14  09:18:32

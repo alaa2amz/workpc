@@ -29,6 +29,7 @@ let g:ale_type_map = {'ruff': {'W': 'W', 'I': 'I', 'E': 'E'}}
 let g:ale_completion_enabled = 0
 let g:ale_lsp_suggestions = 0
 let g:ale_enabled = 0
+let g:ale_sign_column_always = 0
 "source $HOME/ale-map.vim
 "set omnifunc=ale#completion#OmniFunc
 
@@ -58,7 +59,7 @@ augroup PythonYamlString
 augroup END
 
 autocmd FileType python setlocal formatprg=black\ -q\ 2>/dev/null\ --stdin-filename\ %\ -
-
+highlight SignColumn ctermbg=darkgrey guibg=darkgrey
 "set t_ti= t_te=
 "set wildmenu      " Visual menu for command-line completion
 "set wildmode=list:longest,full  " Set how completion cycles through matches
