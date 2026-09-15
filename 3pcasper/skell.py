@@ -328,8 +328,9 @@ class ToriSphEnd:
         self.ref = ref
         self.barrel_height = 3.5 * thick
 
-    def insert(self,prefix='',suffix='.c'):
+    def insert(self,prefix='',suffix='-tse.c'):
         long_name = prefix + self.name + suffix
+        long_name_filled = prefix + self.name + '-filled'+suffix
         tori_radius = self.diameter  / 10
         #h J
         #torus ring center height 
@@ -354,10 +355,15 @@ class ToriSphEnd:
         cutter_inserted = cutter.insert()
         con_cutter_inserted = con_cutter.insert()
 
-        print(f'comb {self.name}-knuckil.c u {torus_inserted['name']} - {con_cutter_inserted} - {cutter_inserted}')
-        print(f'comb {self.name}-dish.c u {sph_inserted['name']} + {con_cutter_inserted}')
-        print(f'comb {long_name} u  {self.name}-knuckil.c u {self.name}-dish.c u {barrel_inserted['name']}')
-        return {'name':long_name, 'barrel':barrel_inserted,'torus':torus_inserted,'sph':sph_inserted}
+        print(f"comb {self.name}-knuckil.c u {torus_inserted['name']} - {con_cutter_inserted} - {cutter_inserted}")
+        print(f"comb {self.name}-dish.c u {sph_inserted['name']} + {con_cutter_inserted}")
+        print(f"comb {long_name} u  {self.name}-knuckil.c u {self.name}-dish.c u {barrel_inserted['name']}")
+        #print(f"comb {self.name}-filled-knuckil.c u {torus_inserted['inner']}")
+        #print(f"comb {self.name}-filled-knuckil.c u {torus_inserted['inner']} - {con_cutter_inserted} - {cutter_inserted}")
+        print(f"comb {self.name}-filled-dish.c u  {barrel_inserted['inner']} u {barrel_inserted['inner'] +{torus_inserted['inserted']} +")
+        #print(f"comb {long_name_filled} u  {self.name}-filled-knuckil.c u {self.name}-filled-dish.c u {barrel_inserted['inner']}")
+        print(f"comb {long_name_filled} u  {self.name}-filled-dish.c ")
+        return {'name':long_name, 'filled':long_name_filled,'barrel':barrel_inserted,'torus':torus_inserted,'sph':sph_inserted}
 
 class PressureVessel:
     def __init__(self,name,diameter,length,shell_thick,ends_thick=0,nozzles=None,support=None,location=None,rotation=None):
@@ -371,12 +377,12 @@ class PressureVessel:
         self.shell_thick = shell_thick
         self.ends_thick = shell_thick if ends_thick==0 else ends_thick
 
-    def insert(self,prefix='',suffix='.c'):
+    def insert(self,prefix='',suffix='-pv.c'):
         long_name = prefix + self.name + suffix
-        lower_end = ToriSphEnd(self.name+'-lower-end',self.diameter,self.ends_thick)
+        lower_end = ToriSphEnd(self.name+'-lowerend',self.diameter,self.ends_thick)
         section = RCC(self.name+'-section',[0,0,0],[0,0,self.length],self.diameter/2)
         section_shell = Shell(section,self.shell_thick)
-        upper_end = ToriSphEnd(self.name+'-upper-end',self.diameter,self.ends_thick)
+        upper_end = ToriSphEnd(self.name+'-upperend',self.diameter,self.ends_thick)
         lower_end_inserted = lower_end.insert()
         section_inserted = section_shell.insert()
         upper_end_inserted = upper_end.insert()
@@ -392,6 +398,7 @@ class PressureVessel:
         print(f'orot 180 0 0')
         accept()
         print(f"comb  {long_name} u {lower_end_inserted['name']} u {section_inserted['name']} u {upper_end_inserted['name']}")
+        print(f"comb  {long_name[:-2]+'innerbody.c'} u {lower_end_inserted['name']} u {section_inserted['name']} u {upper_end_inserted['name']}")
 
 
 
