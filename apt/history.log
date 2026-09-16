@@ -35,3 +35,9 @@ Commandline: apt install groff groff
 Requested-By: alaad13 (1000)
 Install: groff:amd64 (1.23.0-9), python3-puremagic:amd64 (1.28-1, automatic), psutils:amd64 (3.3.8-1, automatic), python3-pypdf:amd64 (5.4.0-1, automatic), python3-pil:amd64 (11.1.0-5+deb13u4, automatic), python3-psutils:amd64 (3.3.8-1, automatic), python3-olefile:amd64 (0.47-1, automatic), libraqm0:amd64 (0.10.2-1, automatic)
 End-Date: 2026-09-14  09:18:32
+
+Start-Date: 2026-09-16  08:16:53
+Commandline: apt install ydotool
+Requested-By: alaad13 (1000)
+Install: ydotool:amd64 (1.0.4-2~bpo13+1)
+End-Date: 2026-09-16  08:17:05

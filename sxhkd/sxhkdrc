@@ -35,4 +35,14 @@ super + h
 super + q
 	xdotool click 3 sleep 0.5 key v sleep 0.5 keydown shift sleep 0.05 key Tab sleep 0.05 keyup shift sleep 0.05 keydown Return && sleep 0.1 && xdotool keyup Return
 
+delay=0.1
+
+super + 2
+	sleep 1;xdotool click 3 sleep 1 key v sleep 1 keydown shift sleep 1 key Tab keyup shift sleep 1 key Return sleep 1 key Right 
+
+super + c
+	google-chrome
+super + k
+	killall -9 chrome
+
  
