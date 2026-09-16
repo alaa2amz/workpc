@@ -331,6 +331,7 @@ class ToriSphEnd:
     def insert(self,prefix='',suffix='-tse.c'):
         long_name = prefix + self.name + suffix
         long_name_filled = prefix + self.name + '-filled'+suffix
+        group_name = long_name[:-2]+'.g'
         tori_radius = self.diameter  / 10
         #h J
         #torus ring center height 
@@ -350,7 +351,8 @@ class ToriSphEnd:
         barrel_inserted = shell_barrel.insert()
         torus_inserted = shell_torus.insert()
         sph_inserted = shell_sph.insert()
-        cutter = RCC(self.name+'-cutter', [0,0,self.barrel_height],[0,0,-self.barrel_height-tori_radius-1] ,self.diameter/2 + self.thick+1)
+        cutter = RCC(self.name+'-cutter', [0,0,self.barrel_height],[0,0,-self.diameter-1] ,self.diameter/2 + self.thick+1)
+        #cutter = RCC(self.name+'-cutter', [0,0,self.barrel_height],[0,0,-self.barrel_height-tori_radius-1] ,self.diameter/2 + self.thick+1)
         con_cutter= TRC(self.name+'-cutter2',[0,0,self.diameter+self.thick+sph_z+1],[0,0,-self.diameter-1],tori_ring_radius*(self.diameter+1)/tori_height,0.01) 
         cutter_inserted = cutter.insert()
         con_cutter_inserted = con_cutter.insert()
@@ -360,10 +362,10 @@ class ToriSphEnd:
         print(f"comb {long_name} u  {self.name}-knuckil.c u {self.name}-dish.c u {barrel_inserted['name']}")
         #print(f"comb {self.name}-filled-knuckil.c u {torus_inserted['inner']}")
         #print(f"comb {self.name}-filled-knuckil.c u {torus_inserted['inner']} - {con_cutter_inserted} - {cutter_inserted}")
-        print(f"comb {self.name}-filled-dish.c u  {barrel_inserted['inner']} u {barrel_inserted['inner'] +{torus_inserted['inserted']} +")
-        #print(f"comb {long_name_filled} u  {self.name}-filled-knuckil.c u {self.name}-filled-dish.c u {barrel_inserted['inner']}")
-        print(f"comb {long_name_filled} u  {self.name}-filled-dish.c ")
-        return {'name':long_name, 'filled':long_name_filled,'barrel':barrel_inserted,'torus':torus_inserted,'sph':sph_inserted}
+
+        print(f"comb {long_name_filled} u  {sph_inserted['inner']} + {con_cutter_inserted} - {cutter_inserted} u  {torus_inserted['inner']} - {con_cutter_inserted} - {cutter_inserted} u {barrel_inserted['inner']}")
+        print(f"g {group_name} {long_name} {long_name_filled}")
+        return {'group':group_name,'name':long_name, 'filled':long_name_filled,'barrel':barrel_inserted,'torus':torus_inserted,'sph':sph_inserted}
 
 class PressureVessel:
     def __init__(self,name,diameter,length,shell_thick,ends_thick=0,nozzles=None,support=None,location=None,rotation=None):
@@ -388,12 +390,12 @@ class PressureVessel:
         upper_end_inserted = upper_end.insert()
         #pp(locals())
         #input()
-        blast(upper_end_inserted['name'])
-        oed('/',f"{upper_end_inserted['name']}/{upper_end_inserted['barrel']['name']}/{upper_end_inserted['barrel']['inner']}")
+        blast(upper_end_inserted['group'])
+        oed('/',f"{upper_end_inserted['group']}/{upper_end_inserted['name']}/{upper_end_inserted['barrel']['name']}/{upper_end_inserted['barrel']['inner']}")
         print(f'translate 0 0 {self.length}')
         accept()
-        blast(lower_end_inserted['name'])
-        oed('/',f"{lower_end_inserted['name']}/{lower_end_inserted['barrel']['name']}/{lower_end_inserted['barrel']['inner']}")
+        blast(lower_end_inserted['group'])
+        oed('/',f"{lower_end_inserted['group']}/{lower_end_inserted['name']}/{lower_end_inserted['barrel']['name']}/{lower_end_inserted['barrel']['inner']}")
         #####oed('/',f'{lower_end_inserted[0]}/{lower_end_inserted[1][1]}')
         print(f'orot 180 0 0')
         accept()

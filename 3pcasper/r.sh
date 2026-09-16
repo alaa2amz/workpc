@@ -18,7 +18,7 @@ EOF
 
 
 check $?
-mged  -c -aogl $f.g
+mged -x5 -X5  -c -aogl $f.g
 }
 
 check() {
