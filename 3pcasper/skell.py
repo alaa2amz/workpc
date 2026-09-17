@@ -49,7 +49,11 @@ def mater_plastic(color, transparency=0.0 , reflection=0.0):
     """
     color_string = ' '.join(map(str,color))
     return f'"plastic {{tr {transparency} re {reflection}}}" {color_string} 0'
-
+def pmater(name,clr='grey',tr=0.0,re=0.0):
+    color_code=color(clr)
+    s=f'mater  {name} "plastic {{ tr {tr} re {re} }}" {color_code} 0'
+    print(s)
+     #mater region1 "plastic {tr 0.5 re 0.2}" 210 100 100 0
 
 ### materials
 vertical_column_mater   = mater_plastic(blue, low_transparency)
@@ -364,6 +368,7 @@ class ToriSphEnd:
         #print(f"comb {self.name}-filled-knuckil.c u {torus_inserted['inner']} - {con_cutter_inserted} - {cutter_inserted}")
 
         print(f"comb {long_name_filled} u  {sph_inserted['inner']} + {con_cutter_inserted} - {cutter_inserted} u  {torus_inserted['inner']} - {con_cutter_inserted} - {cutter_inserted} u {barrel_inserted['inner']}")
+        pmater(long_name_filled,'cyan', 0.0, 0.0)
         print(f"g {group_name} {long_name} {long_name_filled}")
         return {'group':group_name,'name':long_name, 'filled':long_name_filled,'barrel':barrel_inserted,'torus':torus_inserted,'sph':sph_inserted}
 
@@ -399,8 +404,14 @@ class PressureVessel:
         #####oed('/',f'{lower_end_inserted[0]}/{lower_end_inserted[1][1]}')
         print(f'orot 180 0 0')
         accept()
-        print(f"comb  {long_name} u {lower_end_inserted['name']} u {section_inserted['name']} u {upper_end_inserted['name']}")
-        print(f"comb  {long_name[:-2]+'innerbody.c'} u {lower_end_inserted['name']} u {section_inserted['name']} u {upper_end_inserted['name']}")
+        print(f"comb  {long_name} u {lower_end_inserted['group']}/{lower_end_inserted['name']} u {section_inserted['name']} u {upper_end_inserted['group']}/{upper_end_inserted['name']}")
+        print(f"copymat {upper_end_inserted['group']}/{upper_end_inserted['name']} {long_name}/{upper_end_inserted['name']}")
+        print(f"copymat {lower_end_inserted['group']}/{lower_end_inserted['name']} {long_name}/{lower_end_inserted['name']}")
+        fill_name = long_name[:-2]+'fill.c'
+        print(f"comb  {fill_name} u {lower_end_inserted['group']}/{lower_end_inserted['filled']} u {section_inserted['inner']} u {upper_end_inserted['group']}/{upper_end_inserted['filled']}")
+        print(f"copymat {upper_end_inserted['group']}/{upper_end_inserted['filled']} {fill_name}/{upper_end_inserted['filled']}")
+        print(f"copymat {lower_end_inserted['group']}/{lower_end_inserted['filled']} {fill_name}/{lower_end_inserted['filled']}")
+        pmater(fill_name,'cyan')
 
 
 
