@@ -44,5 +44,7 @@ super + c
 	google-chrome
 super + k
 	killall -9 chrome
+super + 3
+	xdotool click 3 sleep 0.5 key v search -sync -name "Save File" windowactivate -sync&&xdotool key Shift+Tab&&xdotool key Return&&sleep 0.5&&xdotool key Right
 
  
