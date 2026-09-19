@@ -1,6 +1,8 @@
 from glob import translate
 from os import name
 from pprint import pp
+import json
+from typing import Self
 
 import wc
 import yaml
@@ -23,12 +25,24 @@ def main():
     #trcc.insert()
     #tsh=ToriSphEnd('d',3000,15)
     #tsh.insert()
-    pv = PressureVessel('n',2000,3000,15)
-    pv.insert()
+    #pv = PressureVessel('n',2000,3000,15)
+    #pv.insert()
+    #load_data()
+    #pp(pipes_dict)
+    p=Pipe('ddd', 300, 30)
+    p.insert()
+
+
+def load_data():
+    global pipes_dict
+    with open(pipes_data_file) as f:
+        pipes_dict = json.load(f)
 
 
 
 ## constants
+pipes_data_file = 'pipes.json'
+pipes_dict = {}
 ### colors
 blue                = [0, 0, 255]
 electric_indigo     = [100, 0, 255]
@@ -413,9 +427,19 @@ class PressureVessel:
         print(f"copymat {lower_end_inserted['group']}/{lower_end_inserted['filled']} {fill_name}/{lower_end_inserted['filled']}")
         pmater(fill_name,'cyan')
 
+class Pipe:
+    def __init__(self,name,outer_diameter,thick,length=1000,rotation=None,location=None):
+        self.name = name
+        self.outer_diameter = outer_diameter
+        self.thick = thick
+        self.length = length
+        self.rotation = rotation or [0,0,0]
+        self.location = location or [0,0,0]
 
-
-
+    def insert(self):
+        rcc=RCC(self.name,self.location,self.rotation,self.outer_diameter/2) 
+        shell=Shell(rcc,self.thick,2)
+        shell.insert()
 
 
 class IBeam:
@@ -512,6 +536,20 @@ class Skell:
         self.long_beam = data['long_beam']
         self.cross_beam = data['cross_beam']
         self.beams = data['beams']
+
+        self.nodes = []
+        self.vaxs = []
+        self.caxs = []
+        self.laxs = []
+        self.posts = []
+        self.bb_posts = []
+        self.cbeams = []
+        self.bb_cbeams = []
+        self.lbeams = []
+        self.bb_lbeams = []
+        self.sec_plans = []
+        self.sec_elevs = []
+        self.sec_crosses = []
 
         self.nodes = []
         self.vaxs = []
@@ -716,20 +754,6 @@ class Skell:
         all_sec_c = 'all-sec.g'
         groups={
                 nodes_group: self.nodes,
-                vax_group: self.vaxs,
-                cax_group: self.caxs,
-                lax_group: self.laxs,
-                post_group: self.posts,
-                bb_post_group: self.bb_posts,
-                cbeam_group: self.cbeams,
-                bb_cbeam_group: self.bb_cbeams,
-                lbeam_group: self.lbeams,
-                bb_lbeam_group: self.bb_lbeams,
-                ax_group: [vax_group, cax_group, lax_group],
-                skell_region: [ post_group, cbeam_group, lbeam_group],
-                all_group :[skell_region,base_name],
-                sec_plan_group: self.sec_plans,
-                sec_elev_group: self.sec_elevs,
                 sec_cross_group: self.sec_crosses,
                 }
         for key,alist in groups.items():
