@@ -433,13 +433,19 @@ class Pipe:
         self.outer_diameter = outer_diameter
         self.thick = thick
         self.length = length
-        self.rotation = rotation or [0,0,0]
+        self.rotation = rotation or [1,0,0]
         self.location = location or [0,0,0]
 
     def insert(self):
-        rcc=RCC(self.name,self.location,self.rotation,self.outer_diameter/2) 
+        vector = [i*self.length for i in self.rotation]
+        rcc=RCC(self.name,self.location,vector,self.outer_diameter/2) 
         shell=Shell(rcc,self.thick,2)
         shell.insert()
+
+class FlangeDims:
+    def __init__(self,face_diameter=0 ,face_raise=0,hub_diameter=0 ,hub_height ,bore_d,hole_d,n_holes,location,rotation):
+class Flange:
+    def __init__(self,name,outer_dimeter,inner_diameter,thick,rotation=None,location=None,dimensions=None):
 
 
 class IBeam:
