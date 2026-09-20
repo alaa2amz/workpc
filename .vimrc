@@ -68,3 +68,6 @@ highlight SignColumn ctermbg=darkgrey guibg=darkgrey
 "filetype plugin on
 "Plug 'girishji/vimcomplete'
 " List your plugins here
+"
+autocmd ColorScheme * highlight CocHighlightText     ctermfg=LightMagenta    guifg=LightMagenta
+
