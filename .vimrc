@@ -71,3 +71,5 @@ highlight SignColumn ctermbg=darkgrey guibg=darkgrey
 "
 autocmd ColorScheme * highlight CocHighlightText     ctermfg=LightMagenta    guifg=LightMagenta
 
+hi CocHighlightText ctermbg=yellow
+nmap <silent> <C-f> <Plug>(coc-float-hide)
