@@ -2,6 +2,7 @@ from glob import translate
 from os import name
 from pprint import pp
 import json
+import csv
 from typing import Self
 
 import wc
@@ -13,9 +14,9 @@ from copy import deepcopy
 ys = {}
 def main():
     global ys 
-    ys = yaml.safe_load(yaml_sample)
-    sample = ys
-    ##s=Skell(sample)
+    ##ys = yaml.safe_load(yaml_sample)
+    ##sample = ys
+    #s=Skell(sample)
     #print(s.get_sequences())
     ##s.insert()
     #print(blue)
@@ -27,22 +28,36 @@ def main():
     #tsh.insert()
     #pv = PressureVessel('n',2000,3000,15)
     #pv.insert()
-    #load_data()
-    #pp(pipes_dict)
-    p=Pipe('ddd', 300, 30)
-    p.insert()
+    load_data()
+    #pp(pipes)
+    #pp(flanges)
+    #p=Pipe('ddd', 300, 30)
+    #p.insert()
+    #f=Flange('z',500,300,50)
+    #f.insert()
+    #v=lkv(pipes2,'DN',str(100))
+    #vv=lkv(flanges,'MM',str(100))
+    #pp(v)
+    #pp(vv)
+    q=Pipe.dn('rrr',100)
+    qq=Pipe.dn('RRR',300)
+    q.insert()
+    qq.insert()
 
 
-def load_data():
-    global pipes_dict
-    with open(pipes_data_file) as f:
-        pipes_dict = json.load(f)
+
+def lkv(list,key,val):
+    return [i for i in list if i[key] == val ][0]
 
 
 
 ## constants
 pipes_data_file = 'pipes.json'
-pipes_dict = {}
+pipes_data_file2 = 'pipes.csv'
+pipes = {}
+pipes2 = {}
+flanges_data_file = 'flng.csv'
+flanges =[]
 ### colors
 blue                = [0, 0, 255]
 electric_indigo     = [100, 0, 255]
@@ -53,6 +68,15 @@ alone_in_the_dark   = [0, 0, 100]
 ### transparency
 low_transparency    = 0.3
 zero_transparency   = 0.0
+
+def load_data():
+    global pipes ,pipes2,flanges
+    with open(pipes_data_file) as f:
+        pipes = json.load(f)['pipes']
+    with open(flanges_data_file) as f:
+        flanges = list(csv.DictReader(f,delimiter='\t'))
+    with open(pipes_data_file2) as f:
+        pipes2 = list(csv.DictReader(f))
 
 def color(name,sep=' '):
     return sep.join([str(i) for i in list(wc.name_to_rgb(name))])
@@ -436,18 +460,39 @@ class Pipe:
         self.rotation = rotation or [1,0,0]
         self.location = location or [0,0,0]
 
+    @classmethod
+    def dn(cls,name,dn,length=1000,rotation=None,location=None):
+        record = lkv(pipes2,'DN',str(dn))
+        d=float(record['OD'])
+        t=float(record['SCH_STD'])
+        return cls(name,d,t,length,rotation,location)
+        
+
     def insert(self):
         vector = [i*self.length for i in self.rotation]
         rcc=RCC(self.name,self.location,vector,self.outer_diameter/2) 
         shell=Shell(rcc,self.thick,2)
         shell.insert()
 
-class FlangeDims:
-    def __init__(self,face_diameter=0 ,face_raise=0,hub_diameter=0 ,hub_height ,bore_d,hole_d,n_holes,location,rotation):
+#class FlangeDims:
+ #   def __init__(self,face_diameter=0 ,face_raise=0,hub_diameter=0 ,hub_height ,bore_d,hole_d,n_holes,location,rotation):
 class Flange:
-    def __init__(self,name,outer_dimeter,inner_diameter,thick,rotation=None,location=None,dimensions=None):
+    def __init__(self,name,outer_diameter,inner_diameter,thick,rotation=None,location=None,dimensions=None):
+        self.name = name
+        self.outer_diameter = outer_diameter
+        self.inner_diameter = inner_diameter
+        self.thick = thick
+        self.rotation = rotation or [1,0,0]
+        self.location = location or [0,0,0]
+        self.dimensions = dimensions
+    def insert(self):
+        desk=RCC(name+'-desk',self.location,[i*self.thick for i in self.rotation],self.outer_diameter/2)
+        hub=RCC(name+'-hub',self.location,[i*self.thick for i in self.rotation],self.inner_diameter/2)
+        dinserted = desk.insert()
+        hinserted = hub.insert()
+        print(f'c {self.name}-flng.c  {dinserted} - {hinserted}')
 
-
+#class Nozzle(
 class IBeam:
     def __init__(self, name, length,
         total_height,
