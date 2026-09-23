@@ -10,100 +10,110 @@ import yaml
 from itertools import product, zip_longest
 from copy import deepcopy
 
-#yaml sample
+# yaml sample
 ys = {}
+
+
 def main():
-    global ys 
+    global ys
     ##ys = yaml.safe_load(yaml_sample)
     ##sample = ys
-    #s=Skell(sample)
-    #print(s.get_sequences())
+    # s=Skell(sample)
+    # print(s.get_sequences())
     ##s.insert()
-    #print(blue)
-    #print(color('blue'))
-    #rcc = RCC('test',[0,0,0], [0,0,3000],1000)
-    #trcc = Shell(rcc,20)
-    #trcc.insert()
-    #tsh=ToriSphEnd('d',3000,15)
-    #tsh.insert()
-    #pv = PressureVessel('n',2000,3000,15)
-    #pv.insert()
+    # print(blue)
+    # print(color('blue'))
+    # rcc = RCC('test',[0,0,0], [0,0,3000],1000)
+    # trcc = Shell(rcc,20)
+    # trcc.insert()
+    # tsh=ToriSphEnd('d',3000,15)
+    # tsh.insert()
+    # pv = PressureVessel('n',2000,3000,15)
+    # pv.insert()
     load_data()
-    #pp(pipes)
-    #pp(flanges)
-    #p=Pipe('ddd', 300, 30)
-    #p.insert()
-    #f=Flange('z',500,300,50)
-    #f.insert()
-    #v=lkv(pipes2,'DN',str(100))
-    #vv=lkv(flanges,'MM',str(100))
-    #pp(v)
-    #pp(vv)
-    q=Pipe.dn('rrr',100)
-    qq=Pipe.dn('RRR',300)
+    # pp(pipes)
+    # pp(flanges)
+    # p=Pipe('ddd', 300, 30)
+    # p.insert()
+    # f=Flange('z',500,300,50)
+    # f.insert()
+    # v=lkv(pipes2,'DN',str(100))
+    # vv=lkv(flanges,'MM',str(100))
+    # pp(v)
+    # pp(vv)
+    q = Pipe.dn("rrr", 100)
+    qq = Pipe.dn("RRR", 300)
     q.insert()
     qq.insert()
 
 
-
-def lkv(list,key,val):
-    return [i for i in list if i[key] == val ][0]
-
+def lkv(list, key, val):
+    return [i for i in list if i[key] == val][0]
 
 
 ## constants
-pipes_data_file = 'pipes.json'
-pipes_data_file2 = 'pipes.csv'
+pipes_data_file = "pipes.json"
+pipes_data_file2 = "pipes.csv"
 pipes = {}
 pipes2 = {}
-flanges_data_file = 'flng.csv'
-flanges =[]
+flanges_data_file = "flng.csv"
+flanges = []
 ### colors
-blue                = [0, 0, 255]
-electric_indigo     = [100, 0, 255]
-blue_ribbon         = [0, 100, 255]
-alone_in_the_dark   = [0, 0, 100]
-#https://colordesigner.io/color-name-finder
+blue = [0, 0, 255]
+electric_indigo = [100, 0, 255]
+blue_ribbon = [0, 100, 255]
+alone_in_the_dark = [0, 0, 100]
+# https://colordesigner.io/color-name-finder
 
 ### transparency
-low_transparency    = 0.3
-zero_transparency   = 0.0
+low_transparency = 0.3
+zero_transparency = 0.0
+
 
 def load_data():
-    global pipes ,pipes2,flanges
+    global pipes, pipes2, flanges
     with open(pipes_data_file) as f:
-        pipes = json.load(f)['pipes']
+        pipes = json.load(f)["pipes"]
     with open(flanges_data_file) as f:
-        flanges = list(csv.DictReader(f,delimiter='\t'))
+        flanges = list(csv.DictReader(f, delimiter="\t"))
     with open(pipes_data_file2) as f:
         pipes2 = list(csv.DictReader(f))
 
-def color(name,sep=' '):
+
+def color(name, sep=" "):
     return sep.join([str(i) for i in list(wc.name_to_rgb(name))])
 
-def mater_plastic(color, transparency=0.0 , reflection=0.0):
+
+def mater_plastic(color, transparency=0.0, reflection=0.0):
     """construct mater command arguments supplied after group.
     mater group "shader" color inherent?
     """
-    color_string = ' '.join(map(str,color))
+    color_string = " ".join(map(str, color))
     return f'"plastic {{tr {transparency} re {reflection}}}" {color_string} 0'
-def pmater(name,clr='grey',tr=0.0,re=0.0):
-    color_code=color(clr)
-    s=f'mater  {name} "plastic {{ tr {tr} re {re} }}" {color_code} 0'
+
+
+def pmater(name, clr="grey", tr=0.0, re=0.0):
+    color_code = color(clr)
+    s = f'mater  {name} "plastic {{ tr {tr} re {re} }}" {color_code} 0'
     print(s)
-     #mater region1 "plastic {tr 0.5 re 0.2}" 210 100 100 0
+    # mater region1 "plastic {tr 0.5 re 0.2}" 210 100 100 0
+
 
 ### materials
-vertical_column_mater   = mater_plastic(blue, low_transparency)
-long_beam_mater         = mater_plastic(electric_indigo, low_transparency)
-cross_beam_mater        = mater_plastic(alone_in_the_dark, zero_transparency)
-base_mater              = mater_plastic(alone_in_the_dark, low_transparency)
-boundary_box_color      = mater_plastic(alone_in_the_dark, zero_transparency)
+vertical_column_mater = mater_plastic(blue, low_transparency)
+long_beam_mater = mater_plastic(electric_indigo, low_transparency)
+cross_beam_mater = mater_plastic(alone_in_the_dark, zero_transparency)
+base_mater = mater_plastic(alone_in_the_dark, low_transparency)
+boundary_box_color = mater_plastic(alone_in_the_dark, zero_transparency)
 
 
 def get_vector(from_point, to_point):
-    return [to_c - fro_c for to_c, fro_c in zip_longest(to_point, from_point, fillvalue=0)]
-yaml_sample =''' #yaml: 
+    return [
+        to_c - fro_c for to_c, fro_c in zip_longest(to_point, from_point, fillvalue=0)
+    ]
+
+
+yaml_sample = """ #yaml: 
 name: ea
 location: [0,0,0]
 rotation: [0,0,0]
@@ -173,8 +183,8 @@ beams:
 
 margin: 5000
 floor_depth: 2000
-'''
-pv_sample ='''#yaml
+"""
+pv_sample = """#yaml
 name: test
 location: [0,0,0] #or cen of 0-1, 
 rotation: [0,0,0]
@@ -185,40 +195,71 @@ end1_thick: -12
 end2_thick: -12
 supports:
 nozzles: 
-'''
+"""
 sample = {
-        'name':'ea',
-        'location':[0,0,0],
-        'rotation':[0,0,0],
-        'collumns': {'absolutes': {0:0, 1: 3000}, 'count': 5, 
-                     'offsets': {'default':2500, 2: 3500}},
-        'rows': {'absolutes': {0:0, 1:3000}, 'count': 7, 
-                 'offsets': {'default':2500,2: 3500} },
-        'plans': {'absolutes': {0:0,1: 4000}, 'count': 4, 
-                  'offsets': {'default':2500, 2: 3500}},
-
-    'long_beam': {'flange_thick': 10, 'flange_width': 100, 'handle': 'tos',
-                   'rotation': [0, 0, 0], 'total_height': 150, 'type': 'fi',
-                   'web_thick': 20},
-    'cross_beam': {'flange_thick': 10, 'flange_width': 100, 'handle': 'tos',
-                   'rotation': [0, 0, -90], 'total_height': 150, 'type': 'fi',
-                   'web_thick': 20},
-    'post': {'flange_thick': 10, 'flange_width': 100, 'handle':
-                        'cen', 'rotation': [0, 90, 0], 'total_height': 150, 'type':
-                        'fi', 'web_thick': 20},
-    'beams': {
-        '0_1_1_v': {'flange_thick': 10, 'flange_width': 100, 'rotation':
-                              [0, 90, 0], 'total_height': 150, 'type': 'fi',
-                              'web_thick': 20},
-              },
-    'margin': 5000,
-    'floor_depth': 2000,
-         }
+    "name": "ea",
+    "location": [0, 0, 0],
+    "rotation": [0, 0, 0],
+    "collumns": {
+        "absolutes": {0: 0, 1: 3000},
+        "count": 5,
+        "offsets": {"default": 2500, 2: 3500},
+    },
+    "rows": {
+        "absolutes": {0: 0, 1: 3000},
+        "count": 7,
+        "offsets": {"default": 2500, 2: 3500},
+    },
+    "plans": {
+        "absolutes": {0: 0, 1: 4000},
+        "count": 4,
+        "offsets": {"default": 2500, 2: 3500},
+    },
+    "long_beam": {
+        "flange_thick": 10,
+        "flange_width": 100,
+        "handle": "tos",
+        "rotation": [0, 0, 0],
+        "total_height": 150,
+        "type": "fi",
+        "web_thick": 20,
+    },
+    "cross_beam": {
+        "flange_thick": 10,
+        "flange_width": 100,
+        "handle": "tos",
+        "rotation": [0, 0, -90],
+        "total_height": 150,
+        "type": "fi",
+        "web_thick": 20,
+    },
+    "post": {
+        "flange_thick": 10,
+        "flange_width": 100,
+        "handle": "cen",
+        "rotation": [0, 90, 0],
+        "total_height": 150,
+        "type": "fi",
+        "web_thick": 20,
+    },
+    "beams": {
+        "0_1_1_v": {
+            "flange_thick": 10,
+            "flange_width": 100,
+            "rotation": [0, 90, 0],
+            "total_height": 150,
+            "type": "fi",
+            "web_thick": 20,
+        },
+    },
+    "margin": 5000,
+    "floor_depth": 2000,
+}
 
 
 class SequenceDescriptor:
-    def __init__(self, count=3, absolutes={0:0}, offsets={'default':3000}):
-        #print(count)
+    def __init__(self, count=3, absolutes={0: 0}, offsets={"default": 3000}):
+        # print(count)
         self.count = count
         self.absolutes = absolutes
         self.offsets = offsets
@@ -226,31 +267,32 @@ class SequenceDescriptor:
     def get_squence(self):
         sequence = [0] * self.count
         for i in range(self.count):
-            #always take zero from absolutes
+            # always take zero from absolutes
             if i in self.absolutes:
                 sequence[i] = self.absolutes[i]
                 continue
             elif i in self.offsets:
-                sequence[i] = sequence[i-1] + self.offsets[i]
+                sequence[i] = sequence[i - 1] + self.offsets[i]
             else:
-                sequence[i] = sequence[i-1] + self.offsets['default']
+                sequence[i] = sequence[i - 1] + self.offsets["default"]
         return sequence
 
 
 class Sph:
-    def __init__(self,name,vertex,radius):
+    def __init__(self, name, vertex, radius):
         self.name = name
         self.vertex = vertex
         self.radius = radius
 
-    def insert(self, prefix='',suffix='.s'):
+    def insert(self, prefix="", suffix=".s"):
         long_name = prefix + self.name + suffix
-        vertex_string = ' '.join(map(str,self.vertex))
-        print(f'in {long_name} sph {vertex_string} {self.radius}')
+        vertex_string = " ".join(map(str, self.vertex))
+        print(f"in {long_name} sph {vertex_string} {self.radius}")
         return long_name
 
+
 class RPP:
-    def __init__(self,name,xmin,xmax,ymin,ymax,zmin,zmax):
+    def __init__(self, name, xmin, xmax, ymin, ymax, zmin, zmax):
         self.name = name
         self.xmin = xmin
         self.xmax = xmax
@@ -259,12 +301,15 @@ class RPP:
         self.zmin = zmin
         self.zmax = zmax
 
-    def insert(self, prefix='',suffix='.s'):
+    def insert(self, prefix="", suffix=".s"):
         long_name = prefix + self.name + suffix
-        s=self
-        print(f'in {long_name} rpp {s.xmin} {s.xmax}  {s.ymin} {s.ymax} \
-                {s.zmin} {s.zmax}')
+        s = self
+        print(
+            f"in {long_name} rpp {s.xmin} {s.xmax}  {s.ymin} {s.ymax} \
+                {s.zmin} {s.zmax}"
+        )
         return long_name
+
 
 class Tor:
     def __init__(self, name, vertex, normal, radius_big, radius):
@@ -274,67 +319,75 @@ class Tor:
         self.radius_big = radius_big
         self.radius = radius
 
-    def insert(self, prefix='',suffix='.s'):
+    def insert(self, prefix="", suffix=".s"):
         long_name = prefix + self.name + suffix
-        vertex_string = ' '.join(map(str,self.vertex))
-        normal_string = ' '.join(map(str,self.normal))
-        print(f'in {long_name} tor {vertex_string} \
-                {normal_string} {self.radius_big} {self.radius}')
+        vertex_string = " ".join(map(str, self.vertex))
+        normal_string = " ".join(map(str, self.normal))
+        print(
+            f"in {long_name} tor {vertex_string} \
+                {normal_string} {self.radius_big} {self.radius}"
+        )
         return long_name
 
+
 class RCC:
-    def __init__(self, name, vertex,vector, radius):
+    def __init__(self, name, vertex, vector, radius):
         self.name = name
         self.vertex = vertex
         self.vector = vector
         self.radius = radius
-    
+
     @classmethod
-    def fromto(cls,name,from_p ,to_p,radius):
+    def fromto(cls, name, from_p, to_p, radius):
         vector = get_vector(from_p, to_p)
         vertex = from_p
-        return cls(name, vertex, vector, radius) 
+        return cls(name, vertex, vector, radius)
 
-    def insert(self, prefix='',suffix='.s'):
+    def insert(self, prefix="", suffix=".s"):
         long_name = prefix + self.name + suffix
-        vertex_string = ' '.join(map(str,self.vertex))
-        vector_string = ' '.join(map(str,self.vector))
-        print(f'in {long_name} rcc {vertex_string} \
-                {vector_string} {self.radius}')
+        vertex_string = " ".join(map(str, self.vertex))
+        vector_string = " ".join(map(str, self.vector))
+        print(
+            f"in {long_name} rcc {vertex_string} \
+                {vector_string} {self.radius}"
+        )
         return long_name
 
 
 class TRC:
-    def __init__(self, name, vertex,vector, radius, radius_top):
+    def __init__(self, name, vertex, vector, radius, radius_top):
         self.name = name
         self.vertex = vertex
         self.vector = vector
         self.radius = radius
         self.radius_top = radius_top
-    
+
     @classmethod
-    def fromto(cls,name,from_p ,to_p,radius, radius_top):
+    def fromto(cls, name, from_p, to_p, radius, radius_top):
         vector = get_vector(from_p, to_p)
         vertex = from_p
-        return cls(name, vertex, vector, radius, radius_top) 
+        return cls(name, vertex, vector, radius, radius_top)
 
-    def insert(self, prefix='',suffix='.s'):
+    def insert(self, prefix="", suffix=".s"):
         long_name = prefix + self.name + suffix
-        vertex_string = ' '.join(map(str,self.vertex))
-        vector_string = ' '.join(map(str,self.vector))
-        print(f'in {long_name} trc {vertex_string} \
-                {vector_string} {self.radius} {self.radius_top}')
+        vertex_string = " ".join(map(str, self.vertex))
+        vector_string = " ".join(map(str, self.vector))
+        print(
+            f"in {long_name} trc {vertex_string} \
+                {vector_string} {self.radius} {self.radius_top}"
+        )
         return long_name
 
-class Shell():
-    def __init__(self,rcc, thick, ref=0):
-        self.name =  rcc.name
+
+class Shell:
+    def __init__(self, rcc, thick, ref=0):
+        self.name = rcc.name
         self.thick = thick
         self.ref = 0
         self.inner_rcc = deepcopy(rcc)
-        self.inner_rcc.name += '-inner'
+        self.inner_rcc.name += "-inner"
         self.outer_rcc = deepcopy(rcc)
-        self.outer_rcc.name += '-outer'
+        self.outer_rcc.name += "-outer"
         if type(self) == TRC:
             self.trc = True
         else:
@@ -344,74 +397,125 @@ class Shell():
             if self.trc:
                 self.outer_rcc.radius_base += thick
         elif ref == 1:
-            self.inner_rcc.radius -= thick/2
-            self.outer_rcc.radius += thick/2
+            self.inner_rcc.radius -= thick / 2
+            self.outer_rcc.radius += thick / 2
             if self.trc:
-                self.inner_rcc.radius_base -= thick/2
-                self.outer_rcc.radius_base += thick/2
+                self.inner_rcc.radius_base -= thick / 2
+                self.outer_rcc.radius_base += thick / 2
         elif ref == 2:
             self.inner_rcc.radius -= thick
             if self.trc:
                 self.outer_rcc.radius_base -= thick
 
-    def insert(self, prefix='',suffix='.c'):
+    def insert(self, prefix="", suffix=".c"):
         long_name = prefix + self.name + suffix
         inner_name = self.inner_rcc.insert()
         outer_name = self.outer_rcc.insert()
-        print (f'comb {long_name} u {outer_name} - {inner_name}')
-        return {'name':long_name,'outer':outer_name,'inner':inner_name}
+        print(f"comb {long_name} u {outer_name} - {inner_name}")
+        return {"name": long_name, "outer": outer_name, "inner": inner_name}
 
 
 class ToriSphEnd:
-    def __init__(self,name,diameter,thick,ref=0):
+    def __init__(self, name, diameter, thick, ref=0):
         self.name = name
         self.diameter = diameter
         self.thick = thick
         self.ref = ref
         self.barrel_height = 3.5 * thick
 
-    def insert(self,prefix='',suffix='-tse.c'):
+    def insert(self, prefix="", suffix="-tse.c"):
         long_name = prefix + self.name + suffix
-        long_name_filled = prefix + self.name + '-filled'+suffix
-        group_name = long_name[:-2]+'.g'
-        tori_radius = self.diameter  / 10
-        #h J
-        #torus ring center height 
-        tori_height = ( (self.diameter - tori_radius)**2 - (self.diameter / 2 - tori_radius)**2 )**0.5
-        tori_ring_radius = self.diameter/2 - tori_radius
-        sph_z = - self.diameter + self.barrel_height + (self.diameter-tori_height)
+        long_name_filled = prefix + self.name + "-filled" + suffix
+        group_name = long_name[:-2] + ".g"
+        tori_radius = self.diameter / 10
+        # h J
+        # torus ring center height
+        tori_height = (
+            (self.diameter - tori_radius) ** 2 - (self.diameter / 2 - tori_radius) ** 2
+        ) ** 0.5
+        tori_ring_radius = self.diameter / 2 - tori_radius
+        sph_z = -self.diameter + self.barrel_height + (self.diameter - tori_height)
 
-        barrel = RCC(self.name+'-barrel',[0,0,0],[0,0,self.barrel_height],self.diameter/2)
-        shell_barrel = Shell(barrel,self.thick,self.ref)
+        barrel = RCC(
+            self.name + "-barrel",
+            [0, 0, 0],
+            [0, 0, self.barrel_height],
+            self.diameter / 2,
+        )
+        shell_barrel = Shell(barrel, self.thick, self.ref)
 
-        torus = Tor(self.name+'-tor',[0,0,self.barrel_height],[0,0,1],tori_ring_radius,tori_radius)
-        shell_torus = Shell(torus,self.thick,self.ref)
+        torus = Tor(
+            self.name + "-tor",
+            [0, 0, self.barrel_height],
+            [0, 0, 1],
+            tori_ring_radius,
+            tori_radius,
+        )
+        shell_torus = Shell(torus, self.thick, self.ref)
 
-        spher = Sph(self.name+'-sph',[0,0,sph_z],self.diameter)
-        shell_sph = Shell(spher, self.thick,self.ref)
+        spher = Sph(self.name + "-sph", [0, 0, sph_z], self.diameter)
+        shell_sph = Shell(spher, self.thick, self.ref)
 
         barrel_inserted = shell_barrel.insert()
         torus_inserted = shell_torus.insert()
         sph_inserted = shell_sph.insert()
-        cutter = RCC(self.name+'-cutter', [0,0,self.barrel_height],[0,0,-self.diameter-1] ,self.diameter/2 + self.thick+1)
-        #cutter = RCC(self.name+'-cutter', [0,0,self.barrel_height],[0,0,-self.barrel_height-tori_radius-1] ,self.diameter/2 + self.thick+1)
-        con_cutter= TRC(self.name+'-cutter2',[0,0,self.diameter+self.thick+sph_z+1],[0,0,-self.diameter-1],tori_ring_radius*(self.diameter+1)/tori_height,0.01) 
+        cutter = RCC(
+            self.name + "-cutter",
+            [0, 0, self.barrel_height],
+            [0, 0, -self.diameter - 1],
+            self.diameter / 2 + self.thick + 1,
+        )
+        # cutter = RCC(self.name+'-cutter', [0,0,self.barrel_height],[0,0,-self.barrel_height-tori_radius-1] ,self.diameter/2 + self.thick+1)
+        con_cutter = TRC(
+            self.name + "-cutter2",
+            [0, 0, self.diameter + self.thick + sph_z + 1],
+            [0, 0, -self.diameter - 1],
+            tori_ring_radius * (self.diameter + 1) / tori_height,
+            0.01,
+        )
         cutter_inserted = cutter.insert()
         con_cutter_inserted = con_cutter.insert()
 
-        print(f"comb {self.name}-knuckil.c u {torus_inserted['name']} - {con_cutter_inserted} - {cutter_inserted}")
-        print(f"comb {self.name}-dish.c u {sph_inserted['name']} + {con_cutter_inserted}")
-        print(f"comb {long_name} u  {self.name}-knuckil.c u {self.name}-dish.c u {barrel_inserted['name']}")
-        #print(f"comb {self.name}-filled-knuckil.c u {torus_inserted['inner']}")
-        #print(f"comb {self.name}-filled-knuckil.c u {torus_inserted['inner']} - {con_cutter_inserted} - {cutter_inserted}")
+        print(
+            f"comb {self.name}-knuckil.c u {torus_inserted['name']} - {con_cutter_inserted} - {cutter_inserted}"
+        )
+        print(
+            f"comb {self.name}-dish.c u {sph_inserted['name']} + {con_cutter_inserted}"
+        )
+        print(
+            f"comb {long_name} u  {self.name}-knuckil.c u {self.name}-dish.c u {barrel_inserted['name']}"
+        )
+        # print(f"comb {self.name}-filled-knuckil.c u {torus_inserted['inner']}")
+        # print(f"comb {self.name}-filled-knuckil.c u {torus_inserted['inner']} - {con_cutter_inserted} - {cutter_inserted}")
 
-        print(f"comb {long_name_filled} u  {sph_inserted['inner']} + {con_cutter_inserted} - {cutter_inserted} u  {torus_inserted['inner']} - {con_cutter_inserted} - {cutter_inserted} u {barrel_inserted['inner']}")
-        pmater(long_name_filled,'cyan', 0.0, 0.0)
+        print(
+            f"comb {long_name_filled} u  {sph_inserted['inner']} + {con_cutter_inserted} - {cutter_inserted} u  {torus_inserted['inner']} - {con_cutter_inserted} - {cutter_inserted} u {barrel_inserted['inner']}"
+        )
+        pmater(long_name_filled, "cyan", 0.0, 0.0)
         print(f"g {group_name} {long_name} {long_name_filled}")
-        return {'group':group_name,'name':long_name, 'filled':long_name_filled,'barrel':barrel_inserted,'torus':torus_inserted,'sph':sph_inserted}
+        return {
+            "group": group_name,
+            "name": long_name,
+            "filled": long_name_filled,
+            "barrel": barrel_inserted,
+            "torus": torus_inserted,
+            "sph": sph_inserted,
+        }
+
 
 class PressureVessel:
-    def __init__(self,name,diameter,length,shell_thick,ends_thick=0,nozzles=None,support=None,location=None,rotation=None):
+    def __init__(
+        self,
+        name,
+        diameter,
+        length,
+        shell_thick,
+        ends_thick=0,
+        nozzles=None,
+        support=None,
+        location=None,
+        rotation=None,
+    ):
         self.name = name
         self.diameter = diameter
         self.length = length
@@ -420,113 +524,178 @@ class PressureVessel:
         self.location = location
         self.rotation = rotation
         self.shell_thick = shell_thick
-        self.ends_thick = shell_thick if ends_thick==0 else ends_thick
+        self.ends_thick = shell_thick if ends_thick == 0 else ends_thick
 
-    def insert(self,prefix='',suffix='-pv.c'):
+    def insert(self, prefix="", suffix="-pv.c"):
         long_name = prefix + self.name + suffix
-        lower_end = ToriSphEnd(self.name+'-lowerend',self.diameter,self.ends_thick)
-        section = RCC(self.name+'-section',[0,0,0],[0,0,self.length],self.diameter/2)
-        section_shell = Shell(section,self.shell_thick)
-        upper_end = ToriSphEnd(self.name+'-upperend',self.diameter,self.ends_thick)
+        lower_end = ToriSphEnd(self.name + "-lowerend", self.diameter, self.ends_thick)
+        section = RCC(
+            self.name + "-section", [0, 0, 0], [0, 0, self.length], self.diameter / 2
+        )
+        section_shell = Shell(section, self.shell_thick)
+        upper_end = ToriSphEnd(self.name + "-upperend", self.diameter, self.ends_thick)
         lower_end_inserted = lower_end.insert()
         section_inserted = section_shell.insert()
         upper_end_inserted = upper_end.insert()
-        #pp(locals())
-        #input()
-        blast(upper_end_inserted['group'])
-        oed('/',f"{upper_end_inserted['group']}/{upper_end_inserted['name']}/{upper_end_inserted['barrel']['name']}/{upper_end_inserted['barrel']['inner']}")
-        print(f'translate 0 0 {self.length}')
+        # pp(locals())
+        # input()
+        blast(upper_end_inserted["group"])
+        oed(
+            "/",
+            f"{upper_end_inserted['group']}/{upper_end_inserted['name']}/{upper_end_inserted['barrel']['name']}/{upper_end_inserted['barrel']['inner']}",
+        )
+        print(f"translate 0 0 {self.length}")
         accept()
-        blast(lower_end_inserted['group'])
-        oed('/',f"{lower_end_inserted['group']}/{lower_end_inserted['name']}/{lower_end_inserted['barrel']['name']}/{lower_end_inserted['barrel']['inner']}")
+        blast(lower_end_inserted["group"])
+        oed(
+            "/",
+            f"{lower_end_inserted['group']}/{lower_end_inserted['name']}/{lower_end_inserted['barrel']['name']}/{lower_end_inserted['barrel']['inner']}",
+        )
         #####oed('/',f'{lower_end_inserted[0]}/{lower_end_inserted[1][1]}')
-        print(f'orot 180 0 0')
+        print(f"orot 180 0 0")
         accept()
-        print(f"comb  {long_name} u {lower_end_inserted['group']}/{lower_end_inserted['name']} u {section_inserted['name']} u {upper_end_inserted['group']}/{upper_end_inserted['name']}")
-        print(f"copymat {upper_end_inserted['group']}/{upper_end_inserted['name']} {long_name}/{upper_end_inserted['name']}")
-        print(f"copymat {lower_end_inserted['group']}/{lower_end_inserted['name']} {long_name}/{lower_end_inserted['name']}")
-        fill_name = long_name[:-2]+'fill.c'
-        print(f"comb  {fill_name} u {lower_end_inserted['group']}/{lower_end_inserted['filled']} u {section_inserted['inner']} u {upper_end_inserted['group']}/{upper_end_inserted['filled']}")
-        print(f"copymat {upper_end_inserted['group']}/{upper_end_inserted['filled']} {fill_name}/{upper_end_inserted['filled']}")
-        print(f"copymat {lower_end_inserted['group']}/{lower_end_inserted['filled']} {fill_name}/{lower_end_inserted['filled']}")
-        pmater(fill_name,'cyan')
+        print(
+            f"comb  {long_name} u {lower_end_inserted['group']}/{lower_end_inserted['name']} u {section_inserted['name']} u {upper_end_inserted['group']}/{upper_end_inserted['name']}"
+        )
+        print(
+            f"copymat {upper_end_inserted['group']}/{upper_end_inserted['name']} {long_name}/{upper_end_inserted['name']}"
+        )
+        print(
+            f"copymat {lower_end_inserted['group']}/{lower_end_inserted['name']} {long_name}/{lower_end_inserted['name']}"
+        )
+        fill_name = long_name[:-2] + "fill.c"
+        print(
+            f"comb  {fill_name} u {lower_end_inserted['group']}/{lower_end_inserted['filled']} u {section_inserted['inner']} u {upper_end_inserted['group']}/{upper_end_inserted['filled']}"
+        )
+        print(
+            f"copymat {upper_end_inserted['group']}/{upper_end_inserted['filled']} {fill_name}/{upper_end_inserted['filled']}"
+        )
+        print(
+            f"copymat {lower_end_inserted['group']}/{lower_end_inserted['filled']} {fill_name}/{lower_end_inserted['filled']}"
+        )
+        pmater(fill_name, "cyan")
+
 
 class Pipe:
-    def __init__(self,name,outer_diameter,thick,length=1000,rotation=None,location=None):
+    def __init__(
+        self, name, outer_diameter, thick, length=1000, rotation=None, location=None
+    ):
         self.name = name
         self.outer_diameter = outer_diameter
         self.thick = thick
         self.length = length
-        self.rotation = rotation or [1,0,0]
-        self.location = location or [0,0,0]
+        self.rotation = rotation or [1, 0, 0]
+        self.location = location or [0, 0, 0]
 
     @classmethod
-    def dn(cls,name,dn,length=1000,rotation=None,location=None):
-        record = lkv(pipes2,'DN',str(dn))
-        d=float(record['OD'])
-        t=float(record['SCH_STD'])
-        return cls(name,d,t,length,rotation,location)
-        
+    def dn(cls, name, dn, length=1000, rotation=None, location=None):
+        record = lkv(pipes2, "DN", str(dn))
+        d = float(record["OD"])
+        t = float(record["SCH_STD"])
+        return cls(name, d, t, length, rotation, location)
 
     def insert(self):
-        vector = [i*self.length for i in self.rotation]
-        rcc=RCC(self.name,self.location,vector,self.outer_diameter/2) 
-        shell=Shell(rcc,self.thick,2)
+        vector = [i * self.length for i in self.rotation]
+        rcc = RCC(self.name, self.location, vector, self.outer_diameter / 2)
+        shell = Shell(rcc, self.thick, 2)
         shell.insert()
 
-#class FlangeDims:
- #   def __init__(self,face_diameter=0 ,face_raise=0,hub_diameter=0 ,hub_height ,bore_d,hole_d,n_holes,location,rotation):
+
+# class FlangeDims:
+#   def __init__(self,face_diameter=0 ,face_raise=0,hub_diameter=0 ,hub_height ,bore_d,hole_d,n_holes,location,rotation):
 class Flange:
-    def __init__(self,name,outer_diameter,inner_diameter,thick,rotation=None,location=None,dimensions=None):
+    def __init__(
+        self,
+        name,
+        outer_diameter,
+        inner_diameter,
+        thick,
+        rotation=None,
+        location=None,
+        dimensions=None,
+    ):
         self.name = name
         self.outer_diameter = outer_diameter
         self.inner_diameter = inner_diameter
         self.thick = thick
-        self.rotation = rotation or [1,0,0]
-        self.location = location or [0,0,0]
+        self.rotation = rotation or [1, 0, 0]
+        self.location = location or [0, 0, 0]
         self.dimensions = dimensions
+
     def insert(self):
-        desk=RCC(name+'-desk',self.location,[i*self.thick for i in self.rotation],self.outer_diameter/2)
-        hub=RCC(name+'-hub',self.location,[i*self.thick for i in self.rotation],self.inner_diameter/2)
+        desk = RCC(
+            name + "-desk",
+            self.location,
+            [i * self.thick for i in self.rotation],
+            self.outer_diameter / 2,
+        )
+        hub = RCC(
+            name + "-hub",
+            self.location,
+            [i * self.thick for i in self.rotation],
+            self.inner_diameter / 2,
+        )
         dinserted = desk.insert()
         hinserted = hub.insert()
-        print(f'c {self.name}-flng.c  {dinserted} - {hinserted}')
+        print(f"c {self.name}-flng.c  {dinserted} - {hinserted}")
 
-#class Nozzle(
+
+class Nozzle:
+    def __init__(self, name, dn, length):
+        self.name = name
+        self.name = name
+        self.dn = dn
+        self.length = length
+    def insert(self):
+        pipe = Pipe.dn(self.dn,self.length)
+        flang = Flange.dn
+
+
+
 class IBeam:
-    def __init__(self, name, length,
+    def __init__(
+        self,
+        name,
+        length,
         total_height,
         web_thick,
         flange_thick,
         flange_width,
-        location = [0,0,0],
-        rotation = [0,0,0],
-        handle='cen',
-        **kargs):
+        location=[0, 0, 0],
+        rotation=[0, 0, 0],
+        handle="cen",
+        **kargs,
+    ):
         """--- --- ---"""
-        self.lower_flange = RPP(name + '-lflng',
+        self.lower_flange = RPP(
+            name + "-lflng",
             0,
             length,
-            -flange_width/2,
-            flange_width/2,
+            -flange_width / 2,
+            flange_width / 2,
             0,
-            flange_thick)
-        self.web = RPP(name + '-web',
-            0,
-            length,
-            -web_thick/2,
-            web_thick/2,
             flange_thick,
-            total_height - flange_thick) 
-        self.upper_flange = RPP(name + '-uflng',
+        )
+        self.web = RPP(
+            name + "-web",
             0,
             length,
-            -flange_width/2,
-            flange_width/2,
+            -web_thick / 2,
+            web_thick / 2,
+            flange_thick,
             total_height - flange_thick,
-            total_height)
-        self.orig = Sph(name+'-o',[0,0,total_height/2], web_thick/2)
-        self.tos = Sph(name + '-t' , [0,0,total_height] , web_thick/2)
+        )
+        self.upper_flange = RPP(
+            name + "-uflng",
+            0,
+            length,
+            -flange_width / 2,
+            flange_width / 2,
+            total_height - flange_thick,
+            total_height,
+        )
+        self.orig = Sph(name + "-o", [0, 0, total_height / 2], web_thick / 2)
+        self.tos = Sph(name + "-t", [0, 0, total_height], web_thick / 2)
         self.handle = handle
         self.rotation = rotation
         self.location = location
@@ -534,59 +703,62 @@ class IBeam:
         self.solids = [self.lower_flange, self.web, self.upper_flange]
         self.guides = [self.orig, self.tos]
 
-    def insert(self,prefix='',suffix='.c'):
+    def insert(self, prefix="", suffix=".c"):
         long_name = prefix + self.name + suffix
         unions = [i.insert() for i in self.solids]
-        unions_u_join = ' u '.join(unions)
+        unions_u_join = " u ".join(unions)
         addsubs = [i.insert() for i in self.guides]
-        addsubs_minus = [ f'{i} - {i}' for i in addsubs ]
-        addsubs_u_join = ' u '.join(addsubs_minus)
-        print(f'comb {long_name} u {unions_u_join} u {addsubs_u_join}')
-        handle_name=''
-        if self.handle == 'cen':
+        addsubs_minus = [f"{i} - {i}" for i in addsubs]
+        addsubs_u_join = " u ".join(addsubs_minus)
+        print(f"comb {long_name} u {unions_u_join} u {addsubs_u_join}")
+        handle_name = ""
+        if self.handle == "cen":
             handle_name = addsubs[0]
-        if self.handle == 'tos':
+        if self.handle == "tos":
             handle_name = addsubs[1]
-        #it shall be removed
-        print(f'B {long_name}')
-        print(f'oed / {long_name}/{handle_name}')
-        location_string = ' '.join(map(str,self.location))
-        rotation_string = ' '.join(map(str,self.rotation))
-        print(f'rot {rotation_string}')
-        print(f'translate {location_string}')
-        print(f'accept')
-        bound_box_name = long_name.replace('.c','-bb.s',1)
-        print(f'bb -c {bound_box_name} {long_name}')
-        return long_name, bound_box_name 
+        # it shall be removed
+        print(f"B {long_name}")
+        print(f"oed / {long_name}/{handle_name}")
+        location_string = " ".join(map(str, self.location))
+        rotation_string = " ".join(map(str, self.rotation))
+        print(f"rot {rotation_string}")
+        print(f"translate {location_string}")
+        print(f"accept")
+        bound_box_name = long_name.replace(".c", "-bb.s", 1)
+        print(f"bb -c {bound_box_name} {long_name}")
+        return long_name, bound_box_name
+
 
 def blast(object):
-    print(f'B {object}')
-def oed(lhs,rhs):
-    print(f'oed {lhs} {rhs}')
+    print(f"B {object}")
+
+
+def oed(lhs, rhs):
+    print(f"oed {lhs} {rhs}")
+
+
 def accept():
-    print(f'accept')
-
-
+    print(f"accept")
 
 
 class Skell:
-    #TODO handle live setter updates
+    # TODO handle live setter updates
     extension = 5000
 
     def __init__(self, data):
         """------"""
         self.extension = Skell.extension
-        collumns_data = data['collumns']
-        rows_data = data['rows']
-        plans_data = data['plans']
+        collumns_data = data["collumns"]
+        rows_data = data["rows"]
+        plans_data = data["plans"]
         self.collumns = SequenceDescriptor(**collumns_data)
-        self.rows = SequenceDescriptor(**rows_data) 
-        self.plans= SequenceDescriptor(**plans_data)
+        self.rows = SequenceDescriptor(**rows_data)
+        self.plans = SequenceDescriptor(**plans_data)
         self.descriptors = [self.collumns, self.rows, self.plans]
-        self.post = data['post']
-        self.long_beam = data['long_beam']
-        self.cross_beam = data['cross_beam']
-        self.beams = data['beams']
+        self.post = data["post"]
+        self.long_beam = data["long_beam"]
+        self.cross_beam = data["cross_beam"]
+        self.beams = data["beams"]
 
         self.nodes = []
         self.vaxs = []
@@ -616,100 +788,100 @@ class Skell:
         self.sec_elevs = []
         self.sec_crosses = []
         self.all_sections = []
-        self.whole_box = ''
+        self.whole_box = ""
 
     def get_sequences(self):
-        return [ i.get_squence() for i in self.descriptors ]
+        return [i.get_squence() for i in self.descriptors]
 
     def get_ranges(self):
-        return [ range(i.count) for i in self.descriptors ]
-    
-    def insert_function(self,i,j,k,collumns,rows,plans):
-        #TODO: to be moved to top
-        sequances=[collumns,rows,plans]
-        node_name = f'{i}-{j}-{k}'
+        return [range(i.count) for i in self.descriptors]
+
+    def insert_function(self, i, j, k, collumns, rows, plans):
+        # TODO: to be moved to top
+        sequances = [collumns, rows, plans]
+        node_name = f"{i}-{j}-{k}"
         node_radius = 40
         axis_radius = 10
         vertex = [collumns[i], rows[j], plans[k]]
-        name = 'node-' + node_name
-        node = Sph(name ,vertex,node_radius)
+        name = "node-" + node_name
+        node = Sph(name, vertex, node_radius)
         node_name = node.insert()
         self.nodes.append(node_name)
-        if k + 1< self.plans.count :
-            name = 'vax-'+ node_name
+        if k + 1 < self.plans.count:
+            name = "vax-" + node_name
             from_p = vertex
             to_p = vertex[:]
-            to_p[2]= plans[k+1]
-            vax=RCC.fromto(name, from_p, to_p, axis_radius)
+            to_p[2] = plans[k + 1]
+            vax = RCC.fromto(name, from_p, to_p, axis_radius)
             vax_name = vax.insert()
             self.vaxs.append(vax_name)
-            beam = self.find_beam(i,j,k,2,'p',sequances)
-            beam_name,bbox_name = beam.insert()
+            beam = self.find_beam(i, j, k, 2, "p", sequances)
+            beam_name, bbox_name = beam.insert()
             self.posts.append(beam_name)
             self.bb_posts.append(bbox_name)
-        if j + 1< self.rows.count and k != 0:
-            name ='cax-'+ node_name 
+        if j + 1 < self.rows.count and k != 0:
+            name = "cax-" + node_name
             from_p = vertex
             to_p = vertex[:]
-            to_p[1]= rows[j+1]
-            cax=RCC.fromto(name, from_p, to_p, axis_radius)
+            to_p[1] = rows[j + 1]
+            cax = RCC.fromto(name, from_p, to_p, axis_radius)
             cax_name = cax.insert()
             self.caxs.append(cax_name)
-            beam = self.find_beam(i,j,k,1,'c',sequances)
-            beam_name,bbox_name = beam.insert()
+            beam = self.find_beam(i, j, k, 1, "c", sequances)
+            beam_name, bbox_name = beam.insert()
             self.cbeams.append(beam_name)
             self.bb_cbeams.append(bbox_name)
-        if i + 1< self.collumns.count and k != 0:
-            name ='lax-'+ node_name 
+        if i + 1 < self.collumns.count and k != 0:
+            name = "lax-" + node_name
             from_p = vertex
             to_p = vertex[:]
-            to_p[0]= collumns[i+1]
-            lax=RCC.fromto(name, from_p, to_p, axis_radius)
+            to_p[0] = collumns[i + 1]
+            lax = RCC.fromto(name, from_p, to_p, axis_radius)
             lax_name = lax.insert()
             self.laxs.append(lax_name)
-            beam = self.find_beam(i,j,k,0,'l',sequances)
-            beam_name,bbox_name =  beam.insert()
+            beam = self.find_beam(i, j, k, 0, "l", sequances)
+            beam_name, bbox_name = beam.insert()
             self.lbeams.append(beam_name)
             self.bb_lbeams.append(bbox_name)
 
-    def find_beam(self,i,j,k,index,direction_indicator,sequances):
-        name=''
+    def find_beam(self, i, j, k, index, direction_indicator, sequances):
+        name = ""
         match direction_indicator:
-            case 'p':
-                name = 'post'
-            case 'c':
-                name = 'cbeam'
-            case 'l':
-                name = 'lbeam'
-        key = f'{name}-{i}-{j}-{k}'
-        dimension_index = [i,j,k][index]
+            case "p":
+                name = "post"
+            case "c":
+                name = "cbeam"
+            case "l":
+                name = "lbeam"
+        key = f"{name}-{i}-{j}-{k}"
+        dimension_index = [i, j, k][index]
         sequance = sequances[index]
-        location = [sequances[0][i],sequances[1][j],sequances[2][k]]
-        length = sequance[dimension_index + 1] - sequance[dimension_index] 
-        section={}
+        location = [sequances[0][i], sequances[1][j], sequances[2][k]]
+        length = sequance[dimension_index + 1] - sequance[dimension_index]
+        section = {}
         if key not in self.beams:
             match direction_indicator:
-                case 'p':
+                case "p":
                     section = self.post
-                case 'c':
+                case "c":
                     section = self.cross_beam
-                case 'l':
+                case "l":
                     section = self.long_beam
         else:
             section = self.beams[key]
-        beam = IBeam(name=key,length=length,location=location,**section) # pyright: ignore
+        beam = IBeam(name=key, length=length, location=location, **section)  # pyright: ignore
         return beam
 
     def insert_base(self):
         sequences = self.get_sequences()
-        base_name = 'base'
+        base_name = "base"
         extension = self.extension
         depth = 2000
         max_x = sequences[0][-1] + extension
         max_y = sequences[1][-1] + extension
         min_x = -extension
         min_y = -extension
-        base = RPP(base_name,min_x,max_x,min_y,max_y,-depth,0)
+        base = RPP(base_name, min_x, max_x, min_y, max_y, -depth, 0)
         return base.insert()
 
     def make_sections(self):
@@ -720,55 +892,69 @@ class Skell:
         ext = self.extension
         ext_seqs = []
         for seq in sequences:
-            new_seq = [ seq[0]-ext ] + seq + [ seq[-1] + ext ]
+            new_seq = [seq[0] - ext] + seq + [seq[-1] + ext]
             ext_seqs.append(new_seq)
-        #print(ext_seqs)
-        model_min_x = ext_seqs[0][0] 
-        model_max_x = ext_seqs[0][-1] 
-        model_min_y = ext_seqs[1][0] 
-        model_max_y = ext_seqs[1][-1] 
-        model_min_z = ext_seqs[2][0] 
-        model_max_z = ext_seqs[2][-1] 
-        whole_box=RPP('whole-box',model_min_x, model_max_x, model_min_y, model_max_y, model_min_z,model_max_z)
+        # print(ext_seqs)
+        model_min_x = ext_seqs[0][0]
+        model_max_x = ext_seqs[0][-1]
+        model_min_y = ext_seqs[1][0]
+        model_max_y = ext_seqs[1][-1]
+        model_min_z = ext_seqs[2][0]
+        model_max_z = ext_seqs[2][-1]
+        whole_box = RPP(
+            "whole-box",
+            model_min_x,
+            model_max_x,
+            model_min_y,
+            model_max_y,
+            model_min_z,
+            model_max_z,
+        )
         self.whole_box = whole_box.insert()
-        for i,val in enumerate(ext_seqs[2]):
-            if i+1 > len(ext_seqs[2])-1:
+        for i, val in enumerate(ext_seqs[2]):
+            if i + 1 > len(ext_seqs[2]) - 1:
                 continue
             plan = RPP(
-                    f'sec-plan-{i}',
-                    model_min_x,model_max_x,
-                    model_min_y,model_max_y,
-                    val,ext_seqs[2][i+1],
-                    )
+                f"sec-plan-{i}",
+                model_min_x,
+                model_max_x,
+                model_min_y,
+                model_max_y,
+                val,
+                ext_seqs[2][i + 1],
+            )
             plan_name = plan.insert()
             self.sec_plans.append(plan_name)
 
-        for i,val in enumerate(ext_seqs[1]):
-            if i+1 > len(ext_seqs[1])-1:
+        for i, val in enumerate(ext_seqs[1]):
+            if i + 1 > len(ext_seqs[1]) - 1:
                 continue
             elev = RPP(
-                    f'sec-elev-{i}',
-                    model_min_x, model_max_x,
-                    val, ext_seqs[1][i+1],
-                    model_min_z, model_max_z,
-                    )
+                f"sec-elev-{i}",
+                model_min_x,
+                model_max_x,
+                val,
+                ext_seqs[1][i + 1],
+                model_min_z,
+                model_max_z,
+            )
             elev_name = elev.insert()
             self.sec_elevs.append(elev_name)
 
-
-        for i,val in enumerate(ext_seqs[0]):
-            if i+1 > len(ext_seqs[0])-1:
+        for i, val in enumerate(ext_seqs[0]):
+            if i + 1 > len(ext_seqs[0]) - 1:
                 continue
             cross = RPP(
-                    f'sec-cross-{i}',
-                    val, ext_seqs[0][i+1],
-                    model_min_y,model_max_y,
-                    model_min_z, model_max_z,
-                    )
+                f"sec-cross-{i}",
+                val,
+                ext_seqs[0][i + 1],
+                model_min_y,
+                model_max_y,
+                model_min_z,
+                model_max_z,
+            )
             cross_name = cross.insert()
             self.sec_crosses.append(cross_name)
-
-
 
     def insert(self):
         sequences = self.get_sequences()
@@ -780,59 +966,48 @@ class Skell:
         self.posts = []
         self.cbeams = []
         self.lbeams = []
-        for i,j,k in product(*ranges):
-            print('#',i,j,k)
-            self.insert_function(i,j,k,*sequences)
+        for i, j, k in product(*ranges):
+            print("#", i, j, k)
+            self.insert_function(i, j, k, *sequences)
         base_name = self.insert_base()
         self.make_sections()
 
-        nodes_group = 'node.g'
-        vax_group = 'vax.g'
-        cax_group = 'cax.g'
-        lax_group = 'lax.g'
-        post_group = 'post.g'
-        bb_post_group = 'bb-post.g'
-        cbeam_group = 'cbeam.g'
-        bb_cbeam_group = 'bb-cbeam.g'
-        lbeam_group = 'lbeam.g'
-        bb_lbeam_group = 'bb-lbeam.g'
-        ax_group = 'ax.g'
-        skell_region = 'skell.r'
-        all_group = 'all-skell.g'
-        sec_plan_group = 'sec-plan.g'
-        sec_elev_group = 'sec-elev.g'
-        sec_cross_group = 'sec-cross.g'
-        all_sec_c = 'all-sec.g'
-        groups={
-                nodes_group: self.nodes,
-                sec_cross_group: self.sec_crosses,
-                }
-        for key,alist in groups.items():
-            concated = ' '.join(alist)
-            print(f'g {key} {concated}')
-        print(f'c -r {skell_region}')
-        blue=color('blue')
+        nodes_group = "node.g"
+        vax_group = "vax.g"
+        cax_group = "cax.g"
+        lax_group = "lax.g"
+        post_group = "post.g"
+        bb_post_group = "bb-post.g"
+        cbeam_group = "cbeam.g"
+        bb_cbeam_group = "bb-cbeam.g"
+        lbeam_group = "lbeam.g"
+        bb_lbeam_group = "bb-lbeam.g"
+        ax_group = "ax.g"
+        skell_region = "skell.r"
+        all_group = "all-skell.g"
+        sec_plan_group = "sec-plan.g"
+        sec_elev_group = "sec-elev.g"
+        sec_cross_group = "sec-cross.g"
+        all_sec_c = "all-sec.g"
+        groups = {
+            nodes_group: self.nodes,
+            sec_cross_group: self.sec_crosses,
+        }
+        for key, alist in groups.items():
+            concated = " ".join(alist)
+            print(f"g {key} {concated}")
+        print(f"c -r {skell_region}")
+        blue = color("blue")
         print(f'mater {skell_region} "plastic" {blue} 0')
-        all_sections = (self.sec_plans+
-                       self.sec_elevs+
-                       self.sec_crosses)
-        for secrpp in all_sections:       
-            sec_name = secrpp[:-2]+'.c'
-            #print(f'comb {sec_name} u {secrpp} + {all_group}')
-            print(f'comb {sec_name} u {all_group} + {secrpp}')
+        all_sections = self.sec_plans + self.sec_elevs + self.sec_crosses
+        for secrpp in all_sections:
+            sec_name = secrpp[:-2] + ".c"
+            # print(f'comb {sec_name} u {secrpp} + {all_group}')
+            print(f"comb {sec_name} u {all_group} + {secrpp}")
             self.all_sections.append(sec_name)
-        concated = ' '.join(self.all_sections)
-        print(f'g {all_sec_c} {concated}')
-        
+        concated = " ".join(self.all_sections)
+        print(f"g {all_sec_c} {concated}")
 
 
-                
-
-
-
-
-
-
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
