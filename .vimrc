@@ -58,8 +58,14 @@ augroup PythonYamlString
         \ let b:current_syntax = 'python'
 augroup END
 
-autocmd FileType python setlocal formatprg=black\ -q\ 2>/dev/null\ --stdin-filename\ %\ -
-highlight SignColumn ctermbg=darkgrey guibg=darkgrey
+"autocmd FileType python setlocal formatprg=black\ -q\ 2>/dev/null\ --stdin-filename\ %\ -
+"highlight SignColumn ctermbg=darkgrey guibg=darkgrey
+
+augroup equalprgs
+  autocmd!
+  autocmd FileType python setlocal equalprg=ruff\ format\ --stdin-filename\ \%
+augroup END
+
 "set t_ti= t_te=
 "set wildmenu      " Visual menu for command-line completion
 "set wildmode=list:longest,full  " Set how completion cycles through matches
