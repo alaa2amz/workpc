@@ -45,6 +45,10 @@ def main():
     qq = Pipe.dn("RRR", 300)
     q.insert()
     qq.insert()
+    f = Flange.dn("ff", 100)
+    f.insert()
+    nz = Nozzle("z", 200)
+    nz.insert()
 
 
 def lkv(list, key, val):
@@ -56,7 +60,7 @@ pipes_data_file = "pipes.json"
 pipes_data_file2 = "pipes.csv"
 pipes = {}
 pipes2 = {}
-flanges_data_file = "flng.csv"
+flanges_data_file = "f150.csv"
 flanges = []
 ### colors
 blue = [0, 0, 255]
@@ -75,7 +79,7 @@ def load_data():
     with open(pipes_data_file) as f:
         pipes = json.load(f)["pipes"]
     with open(flanges_data_file) as f:
-        flanges = list(csv.DictReader(f, delimiter="\t"))
+        flanges = list(csv.DictReader(f))
     with open(pipes_data_file2) as f:
         pipes2 = list(csv.DictReader(f))
 
@@ -193,9 +197,12 @@ length: 2500
 thick: -12
 end1_thick: -12
 end2_thick: -12
-supports:
-nozzles: 
+supports: {type: pipe ,size: dn100 ,number: 4 , at: 0}
+nozzles:
+    - lower:
+        - 
 """
+
 sample = {
     "name": "ea",
     "location": [0, 0, 0],
@@ -589,6 +596,12 @@ class Pipe:
 
     @classmethod
     def dn(cls, name, dn, length=1000, rotation=None, location=None):
+        """
+        NPS,DN,OD,SCH_5s,SCH_10s,SCH_10,SCH_20,SCH_30,SCH_40s,SCH_STD,SCH_40,
+        SCH_60,SCH_80s,SCH_XS,SCH_80,SCH_100,SCH_120,SCH_140,SCH_160,SCH_XXS
+        1/8,6,10.3,1.24,1.73,1.73,,,,1.73,2.41,2.41,,2.41,,,,,,
+        1/4,8,13.7,1.65,2.24,2.24,,,,2.24,3.02,3.02,,3.02,,,,,,
+        """
         record = lkv(pipes2, "DN", str(dn))
         d = float(record["OD"])
         t = float(record["SCH_STD"])
@@ -622,15 +635,34 @@ class Flange:
         self.location = location or [0, 0, 0]
         self.dimensions = dimensions
 
+    @classmethod
+    def dn(cls, name, dn, rotation=None, location=None):
+        """
+        mm,inch,D,B2,t,T2,X,h,n,K,G,f,kg
+        15,1/2,88.9,22.35,11.18,15.75,30.23,15.75,4,60.45,35.05,1.6,0.4
+        20,3/4,98.55,27.69,12.7,15.75,38.1,15.75,4,69.85,42.93,1.6,0.57
+        25,1,107.95,34.54,14.22,17.53,49.28,15.75,4,79.25,50.8,1.6,0.78
+        32,1 1/4,117.35,43.18,15.75,20.57,58.67,15.75,4,88.9,63.5,1.6,1.02
+        """
+        record = lkv(flanges, "mm", str(dn))
+        return cls(
+            name,
+            float(record["D"]),
+            float(record["B2"]),
+            float(record["T2"]),
+            rotation,
+            location,
+        )
+
     def insert(self):
         desk = RCC(
-            name + "-desk",
+            self.name + "-desk",
             self.location,
             [i * self.thick for i in self.rotation],
             self.outer_diameter / 2,
         )
         hub = RCC(
-            name + "-hub",
+            self.name + "-hub",
             self.location,
             [i * self.thick for i in self.rotation],
             self.inner_diameter / 2,
@@ -641,15 +673,19 @@ class Flange:
 
 
 class Nozzle:
-    def __init__(self, name, dn, length):
+    def __init__(self, name, dn, length=400):
         self.name = name
         self.name = name
         self.dn = dn
         self.length = length
-    def insert(self):
-        pipe = Pipe.dn(self.dn,self.length)
-        flang = Flange.dn
 
+    def insert(self):
+        pipe = Pipe.dn(self.name + "-pipe", self.dn, self.length)
+        flange = Flange.dn(self.name + "-flange", self.dn)
+        flange.location = [pipe.length + pipe.thick, 0, 0]
+        flange.rotation = [-1, 0, 0]
+        pipe.insert()
+        flange.insert()
 
 
 class IBeam:
