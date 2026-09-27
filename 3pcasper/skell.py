@@ -16,6 +16,8 @@ ys = {}
 
 def main():
     global ys
+    #pv=yaml.safe_load(pv_sample)
+    #pp(pv)
     ##ys = yaml.safe_load(yaml_sample)
     ##sample = ys
     # s=Skell(sample)
@@ -45,10 +47,10 @@ def main():
     qq = Pipe.dn("RRR", 300)
     q.insert()
     qq.insert()
-    f = Flange.dn("ff", 100)
-    f.insert()
-    nz = Nozzle("z", 200)
-    nz.insert()
+    #f = Flange.dn("ff", 100)
+    #f.insert()
+    #nz = Nozzle("z", 200)
+    #nz.insert()
 
 
 def lkv(list, key, val):
@@ -199,8 +201,14 @@ end1_thick: -12
 end2_thick: -12
 supports: {type: pipe ,size: dn100 ,number: 4 , at: 0}
 nozzles:
-    - lower:
-        - 
+    lower:
+        discharge: {dn: 100,x: 0 ,y: 0 }
+        drain: {dn: 50,r: 500  ,theta: 0 }
+    section1:
+        drain: {dn: 50,h: 500  ,theta: 0 }
+    upper:
+        discharge: {dn: 100,x: 0 ,y: 0 }
+        drain: {dn: 50,r: 500  ,theta: 0 }
 """
 
 sample = {
@@ -581,6 +589,14 @@ class PressureVessel:
             f"copymat {lower_end_inserted['group']}/{lower_end_inserted['filled']} {fill_name}/{lower_end_inserted['filled']}"
         )
         pmater(fill_name, "cyan")
+        if self.nozzles != None:
+            self.insert_nozzles()
+        def insert_nozzles(self):
+            for group_name,group in self.nozzles:
+                if group_name == 'lower':
+                    for lnzl_name, lnzl_data in group:
+                        nzl = Nozzle(self.name+'-lnzl-'+lnzl_name,lnzl_data['dn'])
+                        nzl_inserted = nzl.insert()
 
 
 class Pipe:
@@ -607,11 +623,12 @@ class Pipe:
         t = float(record["SCH_STD"])
         return cls(name, d, t, length, rotation, location)
 
-    def insert(self):
+    def insert(self, prefix="", suffix="-spl.c"):
+        #long_name = prefix + self.name + suffix
         vector = [i * self.length for i in self.rotation]
         rcc = RCC(self.name, self.location, vector, self.outer_diameter / 2)
         shell = Shell(rcc, self.thick, 2)
-        shell.insert()
+        shell.insert(prefix=prefix, suffix=suffix)
 
 
 # class FlangeDims:

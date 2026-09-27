@@ -1,0 +1,513 @@
+############### MGEDRC_HEADER ###############
+# You can modify the values below. However, if you want
+# to add new lines, add them above the MGEDRC_HEADER.
+# Note - it's not a good idea to set the same variables
+# above the MGEDRC_HEADER that are set below (i.e. the last
+# value set wins).
+
+# Activate/deactivate globbing against database objects
+set glob_compat_mode 1
+
+# Used by the opendb command to determine what version
+# of the database to use when creating a new database.
+set mged_default(db_version) 5
+
+# Used by the opendb command to determine whether or
+# not to warn the user when reading an old style database.
+# 0 - no warn,   1 - warn
+set mged_default(db_warn) 0
+
+# Used by the opendb command to determine whether or
+# not to automatically upgrade the database.
+# 0 - no upgrade,   1 - upgrade
+set mged_default(db_upgrade) 0
+
+# Used by the arrow keys to control how fast to rotate
+set mged_default(rot_factor) 1
+
+# Used by the arrow keys to control how fast to translate
+set mged_default(tran_factor) 0.01
+
+# Determines the maximum number of lines of
+# output displayed in the command window
+set mged_default(max_text_lines) 10000
+
+# Determines the border width in the geometry window
+set mged_default(bd) 2
+
+# X display string used to determine the screen
+# on which to display the GUI's windows
+set mged_default(display) :0
+
+# Configures the GUI. Note - this is only
+# useful if the GUI combines the geometry and text windows
+# in the same toplevel window (i.e. mged_default(comb) is 1
+# or the "gui" command is issued with the -c option.
+# Valid values are:
+# b - show both geometry and command window
+# c - show only the command window
+# g - show only the geometry window
+set mged_default(config) b
+
+# The maximum number of milliseconds between button clicks
+# in order to be interpreted as a double-click
+set mged_default(doubleClickTol) 500
+
+# Determines the height of the command window in
+# number of lines. Note - this is only useful
+# if the GUI combines the geometry and text windows
+# in the same toplevel window (i.e. mged_default(comb) is 1
+# or the "gui" command is issued with the -c option.
+set mged_default(num_lines) 10
+
+# Determines where to look for MGED's html documentation
+set mged_default(html_dir) "/home/alaad13/.local/BRL-CAD_7.42.0_Linux_x86_64/share/doc/html/manuals/mged"
+
+# Combines geometry and command windows
+set mged_default(comb) 0
+
+# Activate/deactivate display lists. Note - display lists
+# increase the interactivity with the geometry, especially if
+# displaying remotely. However, if the geometry is huge
+# w.r.t. the amount of RAM on the machine used to display
+# the geometry, it may cause the machine to thrash.
+set mged_default(dlist) 0
+
+# Display manager type (X, ogl, wgl, etc.)
+set mged_default(dm_type) ogl
+
+# Sets the type of command line editing (emacs or vi)
+set mged_default(edit_style) emacs
+
+# Position/size of command window
+set mged_default(geom) 1054x1024+0+54
+
+# Position/size of geometry window or both if combined
+set mged_default(ggeom) 862x140+1056+408
+
+# Activate/deactivate zclipping, F2
+set mged_default(zclip) 0
+
+# zbuffer
+set mged_default(zbuffer) 1
+
+# lighting
+set mged_default(lighting) 1
+
+# Activate/deactivate perspective mode, F3
+set mged_default(perspective_mode) 0
+
+# Activate/Deactivate status bar
+set mged_default(status_bar) 1
+
+# Activate/deactivate old mged faceplate, F7
+set mged_default(faceplate) 0
+
+# Activate/deactivate old mged faceplate GUI, F8
+set mged_default(orig_gui) 0
+
+# Specifies the active pane
+set mged_default(pane) ur
+
+# Activate/deactivate multi-pane mode (i.e. four geometry windows or one)
+set mged_default(multi_pane) 0
+
+# Specifies the web browser
+set mged_default(web_browser) "/usr/bin/netscape"
+
+# Used by the font GUI to demonstrate overstrike
+set mged_default(overstrike_font) {
+	-family "new century schoolbook" -size 16 -weight normal -slant roman -underline 0 -overstrike 1
+    }
+
+# Used by the font GUI to demonstrate underline
+set mged_default(underline_font) {
+	-family "new century schoolbook" -size 16 -weight normal -slant roman -underline 1 -overstrike 0
+    }
+
+# Used by the font GUI to demonstrate italic
+set mged_default(italic_font) {
+	-family "new century schoolbook" -size 16 -weight normal -slant italic -underline 0 -overstrike 0
+    }
+
+# Used by the font GUI to demonstrate bold
+set mged_default(bold_font) {
+	-family "new century schoolbook" -size 16 -weight bold -slant roman -underline 0 -overstrike 0
+    }
+
+# Font to use everywhere 
+set mged_default(all_font) {
+	-family helvetica -size 22 -weight bold -slant roman -underline 0 -overstrike 0
+    }
+
+# Font to use in button widgets
+set mged_default(button_font) {
+	-family helvetica -size 12 -weight bold -slant roman -underline 0 -overstrike 0
+    }
+
+# Font to use in entry widgets
+set mged_default(entry_font) {
+	-family helvetica -size 12 -weight bold -slant roman -underline 0 -overstrike 0
+    }
+
+# Font to use in label widgets
+set mged_default(label_font) {
+	-family helvetica -size 12 -weight bold -slant roman -underline 0 -overstrike 0
+    }
+
+# Font to use in list widgets
+set mged_default(list_font) {
+	-family helvetica -size 12 -weight bold -slant roman -underline 0 -overstrike 0
+    }
+
+# Font to use in menu widgets
+set mged_default(menu_font) {
+	-family helvetica -size 12 -weight bold -slant roman -underline 0 -overstrike 0
+    }
+
+# Font to use in menubutton widgets
+set mged_default(menubutton_font) {
+	-family helvetica -size 12 -weight bold -slant roman -underline 0 -overstrike 0
+    }
+
+# Font to use for text widgets
+set mged_default(text_font) {
+	-family courier -size 20 -weight normal -slant roman -underline 0 -overstrike 0
+    }
+
+###################### Rubber Band Settings ######################
+# 0 - do not draw rubberband
+# 1 - draw rubberband
+rset r draw 0
+
+# rubberband line width
+rset r linewidth 0
+
+# s - solid lines
+# d - dashed lines
+rset r linestyle s
+
+###################### Grid Settings ######################
+# 0 - do not draw grid
+# 1 - draw grid
+rset g draw 0
+
+# 0 - snap to grid off
+# 1 - snap to grid on
+rset g snap 0
+
+# anchor grid to the specified point
+rset g anchor 0 0 0
+
+# horizontal distance between ticks
+rset g rh 1
+
+# vertical distance between ticks
+rset g rv 1
+
+# horizontal ticks per major (vertical) line
+rset g mrh 5
+
+# vertical ticks per major (horizontal) line
+rset g mrv 5
+
+###################### Axes Settings ######################
+# The size of all axes are specified in
+# relative screen dimensions, where the
+# width of the screen is 4096.
+
+# 0 - do not draw model axes
+# 1 - draw model axes
+rset ax model_draw 0
+
+# See above explanation of axes size
+rset ax model_size 500
+
+# line width of model axes
+rset ax model_linewidth 1
+
+# position in model coordinates
+rset ax model_pos 0 0 0
+
+# 0 - do not draw view axes, 1 - draw view axes
+rset ax view_draw 0
+
+# See above explanation of axes size
+rset ax view_size 500
+
+# line width of view axes
+rset ax view_linewidth 1
+
+# position in relative screen dimensions, where the
+# screen center is (0 0) and the range is +-2048.
+rset ax view_pos 0 0
+
+# The edit axes are a pair of axes. The first set of
+# axes is drawn with no edits applied. The second
+# set is drawn with the current edits applied.
+
+# 0 - do not draw edit axes
+# 1 - draw edit axes
+rset ax edit_draw 0
+
+# Specify the size of the first set of edit axes
+# See above explanation of axes size
+rset ax edit_size1 500
+
+# Specify the size of the second set of edit axes
+# See above explanation of axes size
+rset ax edit_size2 500
+
+# line width of the first set of edit axes
+rset ax edit_linewidth1 1
+
+# line width of the second set of edit axes
+rset ax edit_linewidth2 1
+
+###################### Color Scheme Settings ######################
+# The MGED GUI has four panes (geometry windows) and typically only
+# one of these is considered to be the active pane (i.e. the pane that
+# is affected by interacting with the GUI). The other three panes are
+# considered to be inactive. MGED colors the active panes one way and
+# the inactive panes another. Each attribute of the pane has three
+# variables for specifying its color. The first variable specifies the
+# current color (i.e. bg specifies the pane's current background color).
+# The second variable specifies the active color and the variable name
+# always ends with a trailing _a (i.e. bg_a specifies the pane's active
+# background color). The third variable specifies the inactive color and
+# the variable name always ends with a trailing _ia (i.e. bg_ia specifies
+# the pane's inactive background color).
+
+# Pane Background Colors
+rset cs bg 0 0 50
+rset cs bg_a 0 0 50
+rset cs bg_ia 0 0 0
+
+# Angle Distance Cursor Colors
+rset cs adc_line 255 255 0
+rset cs adc_line_a 255 255 0
+rset cs adc_line_ia 255 255 0
+rset cs adc_tick 255 255 255
+rset cs adc_tick_a 255 255 255
+rset cs adc_tick_ia 255 255 255
+
+# Default Geometry Colors
+rset cs geo_def 255 0 0
+rset cs geo_def_a 255 0 0
+rset cs geo_def_ia 255 0 0
+
+# Geometry Highlight Colors
+rset cs geo_hl 255 255 255
+rset cs geo_hl_a 255 255 255
+rset cs geo_hl_ia 255 255 255
+
+# Geometry Label Colors
+rset cs geo_label 255 255 0
+rset cs geo_label_a 255 255 0
+rset cs geo_label_ia 255 255 0
+
+# Model Axes Colors
+rset cs model_axes 100 255 100
+rset cs model_axes_a 100 255 100
+rset cs model_axes_ia 100 255 100
+rset cs model_axes_label 255 255 0
+rset cs model_axes_label_a 255 255 0
+rset cs model_axes_label_ia 255 255 0
+
+# View Axes Colors
+rset cs view_axes 100 100 255
+rset cs view_axes_a 100 100 255
+rset cs view_axes_ia 100 100 255
+rset cs view_axes_label 255 255 0
+rset cs view_axes_label_a 255 255 0
+rset cs view_axes_label_ia 255 255 0
+
+# Edit Axes Colors
+rset cs edit_axes1 255 255 255
+rset cs edit_axes1_a 255 255 255
+rset cs edit_axes1_ia 255 255 255
+rset cs edit_axes2 255 255 255
+rset cs edit_axes2_a 255 255 255
+rset cs edit_axes2_ia 255 255 255
+rset cs edit_axes_label1 255 255 0
+rset cs edit_axes_label1_a 255 255 0
+rset cs edit_axes_label1_ia 255 255 0
+rset cs edit_axes_label2 255 255 0
+rset cs edit_axes_label2_a 255 255 0
+rset cs edit_axes_label2_ia 255 255 0
+
+# Rubberband Colors
+rset cs rubber_band 255 255 255
+rset cs rubber_band_a 255 255 255
+rset cs rubber_band_ia 255 255 255
+
+# Grid Colors
+rset cs grid 255 255 255
+rset cs grid_a 255 255 255
+rset cs grid_ia 255 255 255
+
+# Predictor Colors
+rset cs predictor 255 255 255
+rset cs predictor_a 255 255 255
+rset cs predictor_ia 255 255 255
+
+# Faceplate Menu Colors
+rset cs menu_line 255 255 0
+rset cs menu_line_a 255 255 0
+rset cs menu_line_ia 255 255 0
+rset cs menu_text1 255 255 255
+rset cs menu_text1_a 255 255 255
+rset cs menu_text1_ia 255 255 255
+rset cs menu_text2 255 255 0
+rset cs menu_text2_a 255 255 0
+rset cs menu_text2_ia 255 255 0
+rset cs menu_title 255 0 0
+rset cs menu_title_a 255 0 0
+rset cs menu_title_ia 255 0 0
+rset cs menu_arrow 255 255 255
+rset cs menu_arrow_a 255 255 255
+rset cs menu_arrow_ia 255 255 255
+
+# Faceplate Slider Colors
+rset cs slider_line 255 255 0
+rset cs slider_line_a 255 255 0
+rset cs slider_line_ia 255 255 0
+rset cs slider_text1 255 255 255
+rset cs slider_text1_a 255 255 255
+rset cs slider_text1_ia 255 255 255
+rset cs slider_text2 255 0 0
+rset cs slider_text2_a 255 0 0
+rset cs slider_text2_ia 255 0 0
+
+# Faceplate Line Colors
+rset cs other_line 255 255 0
+rset cs other_line_a 255 255 0
+rset cs other_line_ia 255 255 0
+
+# Faceplate Status Colors
+rset cs status_text1 255 255 255
+rset cs status_text1_a 255 255 255
+rset cs status_text1_ia 255 255 255
+rset cs status_text2 255 255 0
+rset cs status_text2_a 255 255 0
+rset cs status_text2_ia 255 255 0
+
+# Faceplate State Colors
+rset cs state_text1 255 255 255
+rset cs state_text1_a 255 255 255
+rset cs state_text1_ia 255 255 255
+rset cs state_text2 255 255 0
+rset cs state_text2_a 255 255 0
+rset cs state_text2_ia 255 255 0
+
+# Faceplate Edit Information Colors
+rset cs edit_info 255 255 0
+rset cs edit_info_a 255 255 0
+rset cs edit_info_ia 255 255 0
+
+# Faceplate Center Dot Colors
+rset cs center_dot 255 255 0
+rset cs center_dot_a 255 255 0
+rset cs center_dot_ia 255 255 0
+
+###################### Other Variable Settings ######################
+# 0 - display framebuffer only in the rectangular area
+# 1 - display framebuffer in the entire geometry window
+rset var fb_all 1
+
+# 0 - underlay (place framebuffer below everything)
+# 1 - interlay (place framebuffer above the wireframe and below the faceplate)
+# 2 - overlay  (place framebuffer above everything)
+rset var fb_overlay 0
+
+# Constraint coordinate system
+# m - model
+# v - view
+rset var coords v
+
+# Center about which to rotate
+# m - model origin
+# v - view center
+# e - eye point
+rset var rotate_about v
+
+# v - apply mouse events to the view
+# a - apply mouse events to the angle distance cursor
+#     if active, otherwise apply to the view
+# e - apply mouse events to the current edit
+rset var transform v
+
+# set the perspective angle
+rset var perspective -1
+
+###################### Query Ray Settings ######################
+# Set the basename of the fake solids generated by nirt
+qray basename query_ray
+
+# Specifies the kind of output generated by nirt.
+# g - graphics
+# t - text
+# b - both graphics and text
+qray effects b
+
+# 0 - command echo off
+# 1 - command echo on
+qray echo 0
+
+# Color of odd ray segments
+qray oddcolor 0 255 255
+
+# Color of even ray segments
+qray evencolor 255 255 0
+
+# Color of ray segments that go
+# through areas void of geometry
+qray voidcolor 255 0 255
+
+# Color of ray segments that go
+# through areas of overlapping geometry
+qray overlapcolor 255 255 255
+
+# Ray format string.
+qray fmt r {"\nOrigin (x y z) = (%.2f %.2f %.2f)  (h v d) = (%.2f %.2f %.2f)\nDirection (x y z) = (%.4f %.4f %.4f)  (az el) = (%.2f %.2f)\n"  x_orig y_orig z_orig h v d_orig x_dir y_dir z_dir a e}
+
+# Head format string.
+qray fmt h {"    Region Name                   Entry (x y z)              LOS   Obliq_in  Attrib\n"}
+
+# Partition format string.
+qray fmt p {"%-20s (%9.3f %9.3f %9.3f) %8.2f %8.3f  %s\n" reg_name x_in y_in z_in los obliq_in attributes}
+
+# Foot format string.
+qray fmt f {""}
+
+# Miss format string.
+qray fmt m {"You missed the target\n"}
+
+# Overlap format string.
+qray fmt o {"OVERLAP: '%s' and '%s' xyz_in=(%g %g %g) los=%g\n" ov_reg1_name ov_reg2_name ov_x_in ov_y_in ov_z_in ov_los}
+
+###################### Primitive Editor Variables ######################
+# When using the Primitive Editor the following
+# variables determine the default geometry
+# attributes for specific solids.
+set solid_data(attr,arb8) {V1 {1 -1 -1}  V2 {1 1 -1}  V3 {1 1 1}  V4 {1 -1 1}  V5 {-1 -1 -1} V6 {-1 1 -1} V7 {-1 1 1} V8 {-1 -1 1}}
+set solid_data(attr,sph) {V {0 0 0} A {1 0 0} B {0 1 0} C {0 0 1}}
+set solid_data(attr,ell) {V {0 0 0} A {2 0 0} B {0 1 0} C {0 0 1}}
+set solid_data(attr,tor) {V {0 0 0} H {1 0 0} r_h 2 r_a 1}
+set solid_data(attr,tgc) {V {0 0 0} H {0 0 4} A {1 0 0} B {0 .5 0} C {.5 0 0} D {0 1 0}}
+set solid_data(attr,rec) {V {0 0 0} H {0 0 4} A {1 0 0} B {0 .5 0} C {1 0 0} D {0 .5 0}}
+set solid_data(attr,half) {N {0 0 1} d -1}
+set solid_data(attr,rpc) {V {0 0 0} H {0 0 1} B {0 .5 0} r .25}
+set solid_data(attr,rhc) {V {0 0 0} H {0 0 1} B {0 .5 0} r .25 c .1}
+set solid_data(attr,epa) {V {0 0 0} H {0 0 1} A {0 1 0} r_1 .5 r_2 .25}
+set solid_data(attr,ehy) {V {0 0 0} H {0 0 1} A {0 1 0} r_1 .5 r_2 .25 c .25}
+set solid_data(attr,eto) {V {0 0 0} N {0 0 1} C {.1 0 .1} r .5 r_d .05}
+set solid_data(attr,part) {V {0 0 0} H {0 0 1} r_v 0.5 r_h 0.25}
+set solid_data(attr,dsp) {file "" sm 1 w 1 n 1 stom {1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1}}
+set solid_data(attr,hf) {cfile "" dfile "" fmt "" w 1 n 1 shorts 1 file2mm 1.0 v {0 0 0}  x {0 0 0} y {0 0 0} xlen 1 ylen 1 zscale 1}
+set solid_data(attr,ebm) {file "" w 1 n 1 d 1 mat {1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1}}
+set solid_data(attr,vol) {file "" w 1 n 1 d 1 lo 0 hi 1 size {1 1 1} mat {1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1}}
+
+
+set mged_default(font) {Helvetica -24}
+set mged_default(fixed_font) {Courier -24}
