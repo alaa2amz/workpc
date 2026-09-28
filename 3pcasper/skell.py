@@ -1,9 +1,10 @@
-from glob import translate
+#from glob import translate
 from os import name
 from pprint import pp
 import json
 import csv
 from typing import Self
+import math
 
 import wc
 import yaml
@@ -15,14 +16,16 @@ ys = {}
 
 
 def main():
+    load_data()
     global ys
-    #pv=yaml.safe_load(pv_sample)
+    pvn=yaml.safe_load(pv_sample)
     #pp(pv)
-    ##ys = yaml.safe_load(yaml_sample)
-    ##sample = ys
-    # s=Skell(sample)
+    if False:
+        ys = yaml.safe_load(yaml_sample)
+        sample = ys
+        s=Skell(sample)
+        s.insert()
     # print(s.get_sequences())
-    ##s.insert()
     # print(blue)
     # print(color('blue'))
     # rcc = RCC('test',[0,0,0], [0,0,3000],1000)
@@ -30,9 +33,8 @@ def main():
     # trcc.insert()
     # tsh=ToriSphEnd('d',3000,15)
     # tsh.insert()
-    # pv = PressureVessel('n',2000,3000,15)
-    # pv.insert()
-    load_data()
+    pv = PressureVessel('n',2000,3000,15,nozzles=pvn['nozzles'])
+    pv.insert()
     # pp(pipes)
     # pp(flanges)
     # p=Pipe('ddd', 300, 30)
@@ -43,10 +45,10 @@ def main():
     # vv=lkv(flanges,'MM',str(100))
     # pp(v)
     # pp(vv)
-    q = Pipe.dn("rrr", 100)
-    qq = Pipe.dn("RRR", 300)
-    q.insert()
-    qq.insert()
+    #q = Pipe.dn("rrr", 100)
+    #qq = Pipe.dn("RRR", 300)
+    #q.insert()
+    #qq.insert()
     #f = Flange.dn("ff", 100)
     #f.insert()
     #nz = Nozzle("z", 200)
@@ -104,6 +106,14 @@ def pmater(name, clr="grey", tr=0.0, re=0.0):
     print(s)
     # mater region1 "plastic {tr 0.5 re 0.2}" 210 100 100 0
 
+def orot(angles):
+    angles_string = " ".join(map(str, angles))
+    print(f'orot {angles_string}')
+
+
+def translate(point):
+    point_string = " ".join(map(str, point))
+    print(f'translate {point_string}')
 
 ### materials
 vertical_column_mater = mater_plastic(blue, low_transparency)
@@ -422,7 +432,7 @@ class Shell:
             if self.trc:
                 self.outer_rcc.radius_base -= thick
 
-    def insert(self, prefix="", suffix=".c"):
+    def insert(self, prefix="", suffix="-sh.c"):
         long_name = prefix + self.name + suffix
         inner_name = self.inner_rcc.insert()
         outer_name = self.outer_rcc.insert()
@@ -437,6 +447,7 @@ class ToriSphEnd:
         self.thick = thick
         self.ref = ref
         self.barrel_height = 3.5 * thick
+        self.sph_z = 0
 
     def insert(self, prefix="", suffix="-tse.c"):
         long_name = prefix + self.name + suffix
@@ -450,6 +461,7 @@ class ToriSphEnd:
         ) ** 0.5
         tori_ring_radius = self.diameter / 2 - tori_radius
         sph_z = -self.diameter + self.barrel_height + (self.diameter - tori_height)
+        self.sph_z = abs(sph_z)
 
         barrel = RCC(
             self.name + "-barrel",
@@ -540,6 +552,7 @@ class PressureVessel:
         self.rotation = rotation
         self.shell_thick = shell_thick
         self.ends_thick = shell_thick if ends_thick == 0 else ends_thick
+        self.sph_z = 0
 
     def insert(self, prefix="", suffix="-pv.c"):
         long_name = prefix + self.name + suffix
@@ -552,6 +565,7 @@ class PressureVessel:
         lower_end_inserted = lower_end.insert()
         section_inserted = section_shell.insert()
         upper_end_inserted = upper_end.insert()
+        self.sph_z = lower_end.sph_z
         # pp(locals())
         # input()
         blast(upper_end_inserted["group"])
@@ -589,14 +603,35 @@ class PressureVessel:
             f"copymat {lower_end_inserted['group']}/{lower_end_inserted['filled']} {fill_name}/{lower_end_inserted['filled']}"
         )
         pmater(fill_name, "cyan")
-        if self.nozzles != None:
-            self.insert_nozzles()
-        def insert_nozzles(self):
-            for group_name,group in self.nozzles:
-                if group_name == 'lower':
-                    for lnzl_name, lnzl_data in group:
-                        nzl = Nozzle(self.name+'-lnzl-'+lnzl_name,lnzl_data['dn'])
-                        nzl_inserted = nzl.insert()
+
+        #if self.nozzles != None:
+        #    self.insert_nozzles()
+
+    #def insert_nozzles(self):
+        for group_name,group in self.nozzles.items():
+            if group_name == 'lower':
+                for lnzl_name, lnzl_data in group.items():
+                    
+                    z = self.diameter - self.sph_z
+                    nzl = Nozzle(self.name+lnzl_name,lnzl_data['dn'],length=z+200)
+                    nzl_inserted = nzl.insert()
+                    blast(nzl_inserted['name'])
+                    oed('/',f"{nzl_inserted['name']}/{nzl_inserted['pipe']['name']}/{nzl_inserted['pipe']['inner']}")
+                    orot([0,90,0])
+                    x,y = 0,0
+                    if 'x' and 'y' in lnzl_data:
+                        x,y = lnzl_data['x'], lnzl_data['y']
+                    if 'r' and 'theta' in lnzl_data:
+                        r,theta = lnzl_data['r'], lnzl_data['theta']
+                        theta_rad = math.radians(theta)
+                        x = r * math.cos(theta_rad)
+                        y = r * math.sin(theta_rad)
+                    translate([x,y,0])
+                    accept()
+                    comb = f"comb {long_name} - {nzl_inserted['name']}/{nzl_inserted['pipe']['name']}/{nzl_inserted['pipe']['outer']}"
+                    print(comb)
+
+                    
 
 
 class Pipe:
@@ -628,7 +663,7 @@ class Pipe:
         vector = [i * self.length for i in self.rotation]
         rcc = RCC(self.name, self.location, vector, self.outer_diameter / 2)
         shell = Shell(rcc, self.thick, 2)
-        shell.insert(prefix=prefix, suffix=suffix)
+        return shell.insert(prefix=prefix, suffix=suffix)
 
 
 # class FlangeDims:
@@ -671,7 +706,8 @@ class Flange:
             location,
         )
 
-    def insert(self):
+    def insert(self, prefix="", suffix="-flng.c"):
+        long_name = prefix + self.name + suffix
         desk = RCC(
             self.name + "-desk",
             self.location,
@@ -686,7 +722,9 @@ class Flange:
         )
         dinserted = desk.insert()
         hinserted = hub.insert()
-        print(f"c {self.name}-flng.c  {dinserted} - {hinserted}")
+        print(f"c {long_name}  {dinserted} - {hinserted}")
+        return {"name": long_name, "desk": dinserted, "hub": hinserted}
+
 
 
 class Nozzle:
@@ -696,13 +734,16 @@ class Nozzle:
         self.dn = dn
         self.length = length
 
-    def insert(self):
-        pipe = Pipe.dn(self.name + "-pipe", self.dn, self.length)
-        flange = Flange.dn(self.name + "-flange", self.dn)
+    def insert(self, prefix="", suffix="-nzle.c"):
+        long_name = prefix + self.name + suffix
+        pipe = Pipe.dn(self.name ,self.dn, self.length)
+        flange = Flange.dn(self.name  , self.dn)
         flange.location = [pipe.length + pipe.thick, 0, 0]
         flange.rotation = [-1, 0, 0]
-        pipe.insert()
-        flange.insert()
+        pipe_inserted = pipe.insert()
+        flange_inserted = flange.insert()
+        print(f"c {long_name}  {pipe_inserted['name']} u {flange_inserted['name']}")
+        return {"name": long_name, "pipe": pipe_inserted, "flange": flange_inserted}
 
 
 class IBeam:
