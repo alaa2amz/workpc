@@ -555,6 +555,8 @@ class PressureVessel:
         self.sph_z = 0
 
     def insert(self, prefix="", suffix="-pv.c"):
+        uncut_name = self.name + "-uncut"
+        punch_name = self.name + "-punch"
         long_name = prefix + self.name + suffix
         lower_end = ToriSphEnd(self.name + "-lowerend", self.diameter, self.ends_thick)
         section = RCC(
@@ -583,14 +585,15 @@ class PressureVessel:
         #####oed('/',f'{lower_end_inserted[0]}/{lower_end_inserted[1][1]}')
         print(f"orot 180 0 0")
         accept()
+
         print(
-            f"comb  {long_name} u {lower_end_inserted['group']}/{lower_end_inserted['name']} u {section_inserted['name']} u {upper_end_inserted['group']}/{upper_end_inserted['name']}"
+            f"comb  {uncut_name} u {lower_end_inserted['group']}/{lower_end_inserted['name']} u {section_inserted['name']} u {upper_end_inserted['group']}/{upper_end_inserted['name']}"
         )
         print(
-            f"copymat {upper_end_inserted['group']}/{upper_end_inserted['name']} {long_name}/{upper_end_inserted['name']}"
+            f"copymat {upper_end_inserted['group']}/{upper_end_inserted['name']} {uncut_name}/{upper_end_inserted['name']}"
         )
         print(
-            f"copymat {lower_end_inserted['group']}/{lower_end_inserted['name']} {long_name}/{lower_end_inserted['name']}"
+            f"copymat {lower_end_inserted['group']}/{lower_end_inserted['name']} {uncut_name}/{lower_end_inserted['name']}"
         )
         fill_name = long_name[:-2] + "fill.c"
         print(
@@ -606,6 +609,7 @@ class PressureVessel:
 
         #if self.nozzles != None:
         #    self.insert_nozzles()
+        #print(f"c {punch_name}")
 
     #def insert_nozzles(self):
         for group_name,group in self.nozzles.items():
@@ -628,11 +632,20 @@ class PressureVessel:
                         y = r * math.sin(theta_rad)
                     translate([x,y,0])
                     accept()
-                    comb = f"comb {long_name} - {nzl_inserted['name']}/{nzl_inserted['pipe']['name']}/{nzl_inserted['pipe']['outer']}"
+                    comb = f"comb {punch_name} u {nzl_inserted['name']}/{nzl_inserted['pipe']['name']}/{nzl_inserted['pipe']['outer']}"
                     print(comb)
-
+                    #copy_mat = f"copymat {nzl_inserted['name']}/{nzl_inserted['pipe']['name']}/{nzl_inserted['pipe']['outer']} {long_name}/{nzl_inserted['name']}/{nzl_inserted['pipe']['name']}/{nzl_inserted['pipe']['outer']}"
+                    copy_mat = f"copymat {nzl_inserted['name']}/{nzl_inserted['pipe']['name']} {punch_name}/{nzl_inserted['pipe']['outer']}"
+                    print(copy_mat)
                     
-
+        bb_name = self.name+'-bb.s'
+        print(f"c {long_name} {uncut_name} - {punch_name}")
+        print(f"bb -c {bb_name} {long_name}")
+        print(f"c {bb_name}-1.c {bb_name}")
+        blast(bb_name+'-1.c')
+        print(f"oed / {bb_name}-1.c/{bb_name}")
+        print(f"sca 0.5 1 1")
+        accept()
 
 class Pipe:
     def __init__(
