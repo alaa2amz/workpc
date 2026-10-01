@@ -1,55 +1,18 @@
 
-Start-Date: 2026-09-02  07:59:38
-Commandline: apt install httrack --install-suggests
+Start-Date: 2026-10-01  12:25:51
+Commandline: apt install gnome-mines
 Requested-By: alaad13 (1000)
-Install: httrack-doc:amd64 (3.49.6-1, automatic), httrack:amd64 (3.49.6-1), webhttrack:amd64 (3.49.6-1, automatic), libhttrack2:amd64 (3.49.6-1, automatic), webhttrack-common:amd64 (3.49.6-1, automatic)
-End-Date: 2026-09-02  07:59:55
+Install: libgee-0.8-2:amd64 (0.20.8-1, automatic), libgnome-games-support-common2:amd64 (2.0.1-1, automatic), gnome-mines:amd64 (1:48.1-2+b1), libgnome-games-support-2-4:amd64 (2.0.1-1+b1, automatic)
+End-Date: 2026-10-01  12:26:05
 
-Start-Date: 2026-09-02  08:30:29
-Commandline: apt install wget2
+Start-Date: 2026-10-01  12:44:10
+Commandline: apt install 3dchess
 Requested-By: alaad13 (1000)
-Install: libwget3:amd64 (2.2.0+ds-1+deb13u1, automatic), wget2:amd64 (2.2.0+ds-1+deb13u1)
-End-Date: 2026-09-02  08:30:37
+Install: 3dchess:amd64 (0.8.1-23), xaw3dg:amd64 (1.5+F-2+b1, automatic)
+End-Date: 2026-10-01  12:44:17
 
-Start-Date: 2026-09-03  09:36:06
-Commandline: apt-get install -y --no-install-recommends libasound2t64 libatk-bridge2.0-0t64 libatk1.0-0t64 libatspi2.0-0t64 libcairo2 libcups2t64 libdbus-1-3 libdrm2 libgbm1 libglib2.0-0t64 libnspr4 libnss3 libpango-1.0-0 libx11-6 libxcb1 libxcomposite1 libxdamage1 libxext6 libxfixes3 libxkbcommon0 libxrandr2 libasound2 libavcodec61 libcairo-gobject2 libdbus-glib-1-2 libfontconfig1 libfreetype6 libgdk-pixbuf-2.0-0 libgtk-3-0t64 libharfbuzz0b libpangocairo-1.0-0 libx11-xcb1 libxcb-shm0 libxcursor1 libxi6 libxrender1 libxtst6 libsoup-3.0-0 gstreamer1.0-libav gstreamer1.0-plugins-bad gstreamer1.0-plugins-base gstreamer1.0-plugins-good libegl1 libenchant-2-2 libepoxy0 libevdev2 libgles2 libglx0 libgstreamer-gl1.0-0 libgstreamer-plugins-base1.0-0 libgstreamer1.0-0 libgtk-4-1 libgudev-1.0-0 libharfbuzz-icu0 libhyphen0 libicu76 libjpeg62-turbo liblcms2-2 libmanette-0.2-0 libnotify4 libopengl0 libopenjp2-7 libopus0 libpng16-16t64 libproxy1v5 libsecret-1-0 libwayland-client0 libwayland-egl1 libwayland-server0 libwebp7 libwebpdemux2 libwoff1 libxml2 libxslt1.1 libatomic1 libevent-2.1-7t64 libavif16 xvfb fonts-noto-color-emoji fonts-unifont xfonts-scalable fonts-liberation fonts-ipafont-gothic fonts-wqy-zenhei fonts-tlwg-loma-otf fonts-freefont-ttf
+Start-Date: 2026-10-01  12:45:18
+Commandline: apt install dreamchess
 Requested-By: alaad13 (1000)
-Install: fonts-wqy-zenhei:amd64 (0.9.45-8), xvfb:amd64 (2:21.1.16-1.3+deb13u3), fonts-tlwg-loma-otf:amd64 (1:0.7.3-1), fonts-unifont:amd64 (1:15.1.01-1), fonts-ipafont-gothic:amd64 (00303-23)
-Upgrade: xserver-xorg-core:amd64 (2:21.1.16-1.3+deb13u2, 2:21.1.16-1.3+deb13u3), xserver-xorg-legacy:amd64 (2:21.1.16-1.3+deb13u2, 2:21.1.16-1.3+deb13u3), libgstreamer-plugins-bad1.0-0:amd64 (1.26.2-3+deb13u1, 1.26.2-3+deb13u3), xserver-common:amd64 (2:21.1.16-1.3+deb13u2, 2:21.1.16-1.3+deb13u3), libnss3:amd64 (2:3.110-1+deb13u1, 2:3.110-1+deb13u4), xserver-xephyr:amd64 (2:21.1.16-1.3+deb13u2, 2:21.1.16-1.3+deb13u3), gstreamer1.0-plugins-bad:amd64 (1.26.2-3+deb13u1, 1.26.2-3+deb13u3), gstreamer1.0-libav:amd64 (1.26.2-1, 1.26.2-1+deb13u1)
-End-Date: 2026-09-03  09:36:43
-
-Start-Date: 2026-09-06  07:57:05
-Commandline: apt install dunst
-Requested-By: alaad13 (1000)
-Install: dunst:amd64 (1.12.2-1)
-End-Date: 2026-09-06  07:57:23
-
-Start-Date: 2026-09-14  09:03:10
-Commandline: apt install mpv
-Requested-By: alaad13 (1000)
-Install: yt-dlp:amd64 (2025.04.30-1, automatic), mpv:amd64 (0.40.0-3+deb13u1), python3-websockets:amd64 (15.0.1-1, automatic), libavdevice61:amd64 (7:7.1.5-0+deb13u1, automatic), ffmpeg:amd64 (7:7.1.5-0+deb13u1, automatic), libsndio7.0:amd64 (1.10.0-0.1, automatic), python3-pycryptodome:amd64 (3.20.0+dfsg-3, automatic), libsixel1:amd64 (1.10.5-1, automatic)
-End-Date: 2026-09-14  09:03:34
-
-Start-Date: 2026-09-14  09:18:14
-Commandline: apt install groff groff
-Requested-By: alaad13 (1000)
-Install: groff:amd64 (1.23.0-9), python3-puremagic:amd64 (1.28-1, automatic), psutils:amd64 (3.3.8-1, automatic), python3-pypdf:amd64 (5.4.0-1, automatic), python3-pil:amd64 (11.1.0-5+deb13u4, automatic), python3-psutils:amd64 (3.3.8-1, automatic), python3-olefile:amd64 (0.47-1, automatic), libraqm0:amd64 (0.10.2-1, automatic)
-End-Date: 2026-09-14  09:18:32
-
-Start-Date: 2026-09-16  08:16:53
-Commandline: apt install ydotool
-Requested-By: alaad13 (1000)
-Install: ydotool:amd64 (1.0.4-2~bpo13+1)
-End-Date: 2026-09-16  08:17:05
-
-Start-Date: 2026-09-20  11:50:25
-Commandline: apt install qemu-system-x86
-Requested-By: alaad13 (1000)
-Install: librados2:amd64 (18.2.7+ds-1+deb13u1, automatic), qemu-system-x86:amd64 (1:10.0.13+ds-0+deb13u1), ovmf:amd64 (2025.02-8+deb13u1, automatic), libfdt1:amd64 (1.7.2-2+b1, automatic), libcapstone5:amd64 (5.0.7-1~deb13u1, automatic), libglusterfs0:amd64 (11.1-6, automatic), libgfapi0:amd64 (11.1-6, automatic), librdmacm1t64:amd64 (56.1-1, automatic), qemu-system-modules-opengl:amd64 (1:10.0.13+ds-0+deb13u1, automatic), libgfrpc0:amd64 (11.1-6, automatic), libibverbs1:amd64 (56.1-1, automatic), librbd1:amd64 (18.2.7+ds-1+deb13u1, automatic), libexecs1:amd64 (1.4-2+b2, automatic), libgfxdr0:amd64 (11.1-6, automatic), libvdeplug2t64:amd64 (4.0.1-5.1+b1, automatic), qemu-system-modules-spice:amd64 (1:10.0.13+ds-0+deb13u1, automatic), libslirp0:amd64 (4.8.0-1+deb13u1, automatic), libspice-server1:amd64 (0.15.2-1+b1, automatic), ipxe-qemu:amd64 (1.21.1+git20250501.dad20602+dfsg-1, automatic), qemu-utils:amd64 (1:10.0.13+ds-0+deb13u1, automatic), libusbredirparser1t64:amd64 (0.15.0-1, automatic), libaio1t64:amd64 (0.3.113-8+b1, automatic), libdaxctl1:amd64 (81-1, automatic), liburing2:amd64 (2.9-1, automatic), seabios:amd64 (1.16.3-2, automatic), libfmt10:amd64 (10.1.1+ds1-4, automatic), libcacard0:amd64 (1:2.8.0-3+b2, automatic), ibverbs-providers:amd64 (56.1-1, automatic), qemu-system-common:amd64 (1:10.0.13+ds-0+deb13u1, automatic), qemu-block-extra:amd64 (1:10.0.13+ds-0+deb13u1, automatic), libndctl6:amd64 (81-1, automatic), libblkio1:amd64 (1.5.0-2, automatic), libvirglrenderer1:amd64 (1.1.0-2, automatic), libpmem1:amd64 (1.13.1-1.1+b1, automatic), qemu-system-data:amd64 (1:10.0.13+ds-0+deb13u1, automatic), qemu-system-gui:amd64 (1:10.0.13+ds-0+deb13u1, automatic), libiscsi7:amd64 (1.20.0-4, automatic)
-End-Date: 2026-09-20  11:51:16
-
-Start-Date: 2026-09-30  08:39:08
-Commandline: apt install wikipedia2text
-Requested-By: alaad13 (1000)
-Install: wikipedia2text:amd64 (0.14-4)
-End-Date: 2026-09-30  08:39:16
+Install: libsdl2-image-2.0-0:amd64 (2.8.8+dfsg-1+deb13u1, automatic), libopusfile0:amd64 (0.12-4+b3, automatic), libxmp4:amd64 (4.6.2-2, automatic), dreamchess:amd64 (0.3.0-2), libglew2.2:amd64 (2.2.0-4+b2, automatic), dreamchess-data:amd64 (0.3.0-2, automatic), libsdl2-mixer-2.0-0:amd64 (2.8.1+dfsg-2, automatic)
+End-Date: 2026-10-01  12:45:26
