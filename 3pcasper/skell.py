@@ -1,4 +1,4 @@
-#from glob import translate
+# from glob import translate
 from os import name
 from pprint import pp
 import json
@@ -18,12 +18,12 @@ ys = {}
 def main():
     load_data()
     global ys
-    pvn=yaml.safe_load(pv_sample)
-    #pp(pv)
+    pvn = yaml.safe_load(pv_sample)
+    # pp(pv)
     if False:
         ys = yaml.safe_load(yaml_sample)
         sample = ys
-        s=Skell(sample)
+        s = Skell(sample)
         s.insert()
     # print(s.get_sequences())
     # print(blue)
@@ -33,7 +33,7 @@ def main():
     # trcc.insert()
     # tsh=ToriSphEnd('d',3000,15)
     # tsh.insert()
-    pv = PressureVessel('n',2000,3000,15,nozzles=pvn['nozzles'])
+    pv = PressureVessel("n", 2000, 3000, 15, nozzles=pvn["nozzles"])
     pv.insert()
     # pp(pipes)
     # pp(flanges)
@@ -45,14 +45,14 @@ def main():
     # vv=lkv(flanges,'MM',str(100))
     # pp(v)
     # pp(vv)
-    #q = Pipe.dn("rrr", 100)
-    #qq = Pipe.dn("RRR", 300)
-    #q.insert()
-    #qq.insert()
-    #f = Flange.dn("ff", 100)
-    #f.insert()
-    #nz = Nozzle("z", 200)
-    #nz.insert()
+    # q = Pipe.dn("rrr", 100)
+    # qq = Pipe.dn("RRR", 300)
+    # q.insert()
+    # qq.insert()
+    # f = Flange.dn("ff", 100)
+    # f.insert()
+    # nz = Nozzle("z", 200)
+    # nz.insert()
 
 
 def lkv(list, key, val):
@@ -106,14 +106,16 @@ def pmater(name, clr="grey", tr=0.0, re=0.0):
     print(s)
     # mater region1 "plastic {tr 0.5 re 0.2}" 210 100 100 0
 
+
 def orot(angles):
     angles_string = " ".join(map(str, angles))
-    print(f'orot {angles_string}')
+    print(f"orot {angles_string}")
 
 
 def translate(point):
     point_string = " ".join(map(str, point))
-    print(f'translate {point_string}')
+    print(f"translate {point_string}")
+
 
 ### materials
 vertical_column_mater = mater_plastic(blue, low_transparency)
@@ -558,47 +560,44 @@ class PressureVessel:
         uncut_name = self.name + "-uncut"
         punch_name = self.name + "-punch"
         long_name = prefix + self.name + suffix
-        lower_end = ToriSphEnd(self.name + "-lowerend", self.diameter, self.ends_thick)
-        section = RCC(
-            self.name + "-section", [0, 0, 0], [0, 0, self.length], self.diameter / 2
-        )
+        fill_name = long_name[:-2] + "fill.c"
+        lower_end = ToriSphEnd( self.name + "-lowerend",
+                self.diameter,
+                self.ends_thick,)
+
+        #
+        section = RCC( self.name + "-section",
+            [0, 0, 0],
+            [0, 0, self.length],
+            self.diameter / 2,)
         section_shell = Shell(section, self.shell_thick)
-        upper_end = ToriSphEnd(self.name + "-upperend", self.diameter, self.ends_thick)
+        upper_end = ToriSphEnd(self.name + "-upperend",
+                               self.diameter,
+                               self.ends_thick,)
         lower_end_inserted = lower_end.insert()
         section_inserted = section_shell.insert()
         upper_end_inserted = upper_end.insert()
         self.sph_z = lower_end.sph_z
-        # pp(locals())
-        # input()
+
         blast(upper_end_inserted["group"])
-        oed(
-            "/",
-            f"{upper_end_inserted['group']}/{upper_end_inserted['name']}/{upper_end_inserted['barrel']['name']}/{upper_end_inserted['barrel']['inner']}",
-        )
+        upper_end_path = f"{upper_end_inserted['group']}/{upper_end_inserted['name']}/{upper_end_inserted['barrel']['name']}/{upper_end_inserted['barrel']['inner']}"
+        oed("/", upper_end_path)
         print(f"translate 0 0 {self.length}")
         accept()
         blast(lower_end_inserted["group"])
-        oed(
-            "/",
-            f"{lower_end_inserted['group']}/{lower_end_inserted['name']}/{lower_end_inserted['barrel']['name']}/{lower_end_inserted['barrel']['inner']}",
-        )
-        #####oed('/',f'{lower_end_inserted[0]}/{lower_end_inserted[1][1]}')
+        lower_end_path = f"{lower_end_inserted['group']}/{lower_end_inserted['name']}/{lower_end_inserted['barrel']['name']}/{lower_end_inserted['barrel']['inner']}"
+        oed("/", lower_end_path)
         print(f"orot 180 0 0")
         accept()
+        uncut_comb=f"comb  {uncut_name} u {lower_end_inserted['group']}/{lower_end_inserted['name']} u {section_inserted['name']} u {upper_end_inserted['group']}/{upper_end_inserted['name']}"
+        print(uncut_comb)
+        copymat_upper=f"copymat {upper_end_inserted['group']}/{upper_end_inserted['name']} {uncut_name}/{upper_end_inserted['name']}"
+        print(copymat_upper)
+        copymat_lower= f"copymat {lower_end_inserted['group']}/{lower_end_inserted['name']} {uncut_name}/{lower_end_inserted['name']}"
+        print(copymat_lower)
+        fill_comb = f"comb  {fill_name} u {lower_end_inserted['group']}/{lower_end_inserted['filled']} u {section_inserted['inner']} u {upper_end_inserted['group']}/{upper_end_inserted['filled']}"
+        print(fill_comb)
 
-        print(
-            f"comb  {uncut_name} u {lower_end_inserted['group']}/{lower_end_inserted['name']} u {section_inserted['name']} u {upper_end_inserted['group']}/{upper_end_inserted['name']}"
-        )
-        print(
-            f"copymat {upper_end_inserted['group']}/{upper_end_inserted['name']} {uncut_name}/{upper_end_inserted['name']}"
-        )
-        print(
-            f"copymat {lower_end_inserted['group']}/{lower_end_inserted['name']} {uncut_name}/{lower_end_inserted['name']}"
-        )
-        fill_name = long_name[:-2] + "fill.c"
-        print(
-            f"comb  {fill_name} u {lower_end_inserted['group']}/{lower_end_inserted['filled']} u {section_inserted['inner']} u {upper_end_inserted['group']}/{upper_end_inserted['filled']}"
-        )
         print(
             f"copymat {upper_end_inserted['group']}/{upper_end_inserted['filled']} {fill_name}/{upper_end_inserted['filled']}"
         )
@@ -607,45 +606,69 @@ class PressureVessel:
         )
         pmater(fill_name, "cyan")
 
-        #if self.nozzles != None:
+        # if self.nozzles != None:
         #    self.insert_nozzles()
-        #print(f"c {punch_name}")
+        # print(f"c {punch_name}")
 
-    #def insert_nozzles(self):
-        for group_name,group in self.nozzles.items():
-            if group_name == 'lower':
+        # def insert_nozzles(self):
+        for group_name, group in self.nozzles.items():
+            if group_name == "lower":
                 for lnzl_name, lnzl_data in group.items():
-                    
                     z = self.diameter - self.sph_z
-                    nzl = Nozzle(self.name+lnzl_name,lnzl_data['dn'],length=z+200)
+                    nzl = Nozzle(self.name + lnzl_name, lnzl_data["dn"], length=z + 200)
                     nzl_inserted = nzl.insert()
-                    blast(nzl_inserted['name'])
-                    oed('/',f"{nzl_inserted['name']}/{nzl_inserted['pipe']['name']}/{nzl_inserted['pipe']['inner']}")
-                    orot([0,90,0])
-                    x,y = 0,0
-                    if 'x' and 'y' in lnzl_data:
-                        x,y = lnzl_data['x'], lnzl_data['y']
-                    if 'r' and 'theta' in lnzl_data:
-                        r,theta = lnzl_data['r'], lnzl_data['theta']
+                    blast(nzl_inserted["name"])
+                    oed(
+                        "/",
+                        f"{nzl_inserted['name']}/{nzl_inserted['pipe']['name']}/{nzl_inserted['pipe']['inner']}",
+                    )
+                    orot([0, 90, 0])
+                    x, y = 0, 0
+                    if "x" and "y" in lnzl_data:
+                        x, y = lnzl_data["x"], lnzl_data["y"]
+                    if "r" and "theta" in lnzl_data:
+                        r, theta = lnzl_data["r"], lnzl_data["theta"]
                         theta_rad = math.radians(theta)
                         x = r * math.cos(theta_rad)
                         y = r * math.sin(theta_rad)
-                    translate([x,y,0])
+                    translate([x, y, 0])
                     accept()
                     comb = f"comb {punch_name} u {nzl_inserted['name']}/{nzl_inserted['pipe']['name']}/{nzl_inserted['pipe']['outer']}"
                     print(comb)
-                    #copy_mat = f"copymat {nzl_inserted['name']}/{nzl_inserted['pipe']['name']}/{nzl_inserted['pipe']['outer']} {long_name}/{nzl_inserted['name']}/{nzl_inserted['pipe']['name']}/{nzl_inserted['pipe']['outer']}"
                     copy_mat = f"copymat {nzl_inserted['name']}/{nzl_inserted['pipe']['name']} {punch_name}/{nzl_inserted['pipe']['outer']}"
                     print(copy_mat)
-                    
-        bb_name = self.name+'-bb.s'
         print(f"c {long_name} {uncut_name} - {punch_name}")
-        print(f"bb -c {bb_name} {long_name}")
-        print(f"c {bb_name}-1.c {bb_name}")
-        blast(bb_name+'-1.c')
-        print(f"oed / {bb_name}-1.c/{bb_name}")
-        print(f"sca 0.5 1 1")
-        accept()
+
+        ## handling sections
+        for sign, index in product([-0.5, +0.5], [0, 1, 2]):
+            # sign should be renamed to sign factor
+            print("#", sign, index, int(index))
+            sname = "minus" if sign == -0.5 else "plus"
+            iname = ""
+            match index:
+                case 0:
+                    iname = "x"
+                case 1:
+                    iname = "y"
+                case 2:
+                    iname = "z"
+            bb_name = f"bb-{long_name[:-2]}-{iname}-{sname}.s"
+            bb_name_comb = bb_name[:-2] + ".c"
+            sec_name = "sec-" + bb_name_comb
+            print(f"bb -c {bb_name} {long_name}")
+            print(f"c {bb_name_comb} {bb_name}")
+            blast(bb_name_comb)
+            print(f"oed / {bb_name_comb}/{bb_name}")
+            int_index = int(index)
+            vector = [1, 1, 1]
+            vector[int_index] = vector[int_index] * sign
+            vector_string = " ".join(map(str, vector))
+            print(f"sca {vector_string}")
+            accept()
+            print(f"c {sec_name} {long_name} + {bb_name_comb}")
+
+        # exit()
+
 
 class Pipe:
     def __init__(
@@ -672,7 +695,7 @@ class Pipe:
         return cls(name, d, t, length, rotation, location)
 
     def insert(self, prefix="", suffix="-spl.c"):
-        #long_name = prefix + self.name + suffix
+        # long_name = prefix + self.name + suffix
         vector = [i * self.length for i in self.rotation]
         rcc = RCC(self.name, self.location, vector, self.outer_diameter / 2)
         shell = Shell(rcc, self.thick, 2)
@@ -739,7 +762,6 @@ class Flange:
         return {"name": long_name, "desk": dinserted, "hub": hinserted}
 
 
-
 class Nozzle:
     def __init__(self, name, dn, length=400):
         self.name = name
@@ -749,8 +771,8 @@ class Nozzle:
 
     def insert(self, prefix="", suffix="-nzle.c"):
         long_name = prefix + self.name + suffix
-        pipe = Pipe.dn(self.name ,self.dn, self.length)
-        flange = Flange.dn(self.name  , self.dn)
+        pipe = Pipe.dn(self.name, self.dn, self.length)
+        flange = Flange.dn(self.name, self.dn)
         flange.location = [pipe.length + pipe.thick, 0, 0]
         flange.rotation = [-1, 0, 0]
         pipe_inserted = pipe.insert()
@@ -1118,3 +1140,6 @@ class Skell:
 
 if __name__ == "__main__":
     main()
+
+    # copy_mat = f"copymat {nzl_inserted['name']}/{nzl_inserted['pipe']['name']}/{nzl_inserted['pipe']['outer']} {long_name}/{nzl_inserted['name']}/{nzl_inserted['pipe']['name']}/{nzl_inserted['pipe']['outer']}"
+        #####oed('/',f'{lower_end_inserted[0]}/{lower_end_inserted[1][1]}')
