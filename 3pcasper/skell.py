@@ -213,14 +213,11 @@ end1_thick: -12
 end2_thick: -12
 supports: {type: pipe ,size: dn100 ,number: 4 , at: 0}
 nozzles:
-    lower:
-        discharge: {dn: 100,x: 0 ,y: 0 }
-        drain: {dn: 50,r: 500  ,theta: 0 }
-    section1:
-        drain: {dn: 50,h: 500  ,theta: 0 }
-    upper:
-        discharge: {dn: 100,x: 0 ,y: 0 }
-        drain: {dn: 50,r: 500  ,theta: 0 }
+    discharge: {grp: lower, dn: 100,x: 0 ,y: 0 }
+    drain1: {grp: lower, dn: 50,r: 500  ,theta: 0 }
+    drain2: {grp: section, dn: 50,h: 500  ,theta: 0 }
+    discharge2: {grp: upper, dn: 100,x: 0 ,y: 0 }
+    drain3: {grp: upper, dn: 50,r: 500  ,theta: 0 }
 """
 
 sample = {
@@ -611,32 +608,58 @@ class PressureVessel:
         # print(f"c {punch_name}")
 
         # def insert_nozzles(self):
-        for group_name, group in self.nozzles.items():
-            if group_name == "lower":
-                for lnzl_name, lnzl_data in group.items():
-                    z = self.diameter - self.sph_z
-                    nzl = Nozzle(self.name + lnzl_name, lnzl_data["dn"], length=z + 200)
-                    nzl_inserted = nzl.insert()
-                    blast(nzl_inserted["name"])
-                    oed(
-                        "/",
-                        f"{nzl_inserted['name']}/{nzl_inserted['pipe']['name']}/{nzl_inserted['pipe']['inner']}",
+        for nzl_name, nzl_data in self.nozzles.items():
+            group = nzl_data['grp']
+            nzl_length = 200
+            match group:
+                case 'lower'|'upper':
+                    nzl_length += self.diameter - self.sph_z 
+                case 'section':
+                    nzl_length += self.diameter - (self.diameter**2 - (nzl_data['dn']/2)**2)**0.50
+            
+            #TODO: add thicknesses and turn dn into od
+            #z = self.diameter - self.sph_z
+            #nzl = Nozzle(self.name + nzl_name, nzl_data["dn"], length=z + 200)
+            
+            nzl = Nozzle(self.name + nzl_name, nzl_data["dn"], length=nzl_length)
+            nzl_inserted = nzl.insert()
+            blast(nzl_inserted["name"])
+            oed_path = (
+                    #f"{nzl_inserted['name']}/{nzl_inserted['pipe']['name']}/{nzl_inserted['pipe']['inner']}"
+                    f"{nzl_inserted['name']}/"
+                    f"{nzl_inserted['pipe']['name']}/"
+                    f"{nzl_inserted['pipe']['inner']}"
                     )
+            oed( "/", oed_path)
+            match group:
+                case 'lower':
                     orot([0, 90, 0])
-                    x, y = 0, 0
-                    if "x" and "y" in lnzl_data:
-                        x, y = lnzl_data["x"], lnzl_data["y"]
-                    if "r" and "theta" in lnzl_data:
-                        r, theta = lnzl_data["r"], lnzl_data["theta"]
+                case 'upper':
+                    orot([0, -90, 0])
+                case 'secttion':
+                    orot([0, 0, nzl_data['theta']])
+            x, y , z = 0, 0 , 0
+            match group:
+                case  "upper" | "lower":
+                    if {"x","y"}.issubset(nzl_data) :
+                        x, y = nzl_data["x"], nzl_data["y"]
+                    if {"r" ,"theta"}.issubset(nzl_data):
+                        r, theta = nzl_data["r"], nzl_data["theta"]
                         theta_rad = math.radians(theta)
                         x = r * math.cos(theta_rad)
                         y = r * math.sin(theta_rad)
-                    translate([x, y, 0])
-                    accept()
-                    comb = f"comb {punch_name} u {nzl_inserted['name']}/{nzl_inserted['pipe']['name']}/{nzl_inserted['pipe']['outer']}"
-                    print(comb)
-                    copy_mat = f"copymat {nzl_inserted['name']}/{nzl_inserted['pipe']['name']} {punch_name}/{nzl_inserted['pipe']['outer']}"
-                    print(copy_mat)
+            match group:
+                case "upper":
+                    z = self.length
+                case "section":
+                    z = nzl_data["h"]
+
+            translate([x, y, z])
+            accept()
+            comb = f"comb {punch_name} u {nzl_inserted['name']}/{nzl_inserted['pipe']['name']}/{nzl_inserted['pipe']['outer']}"
+            print(comb)
+            copy_mat = f"copymat {nzl_inserted['name']}/{nzl_inserted['pipe']['name']} {punch_name}/{nzl_inserted['pipe']['outer']}"
+            print(copy_mat)
         print(f"c {long_name} {uncut_name} - {punch_name}")
 
         ## handling sections
