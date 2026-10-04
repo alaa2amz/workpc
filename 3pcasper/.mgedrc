@@ -3,6 +3,6 @@ set mged_default(font) {Helvetica -24}
 set mged_default(fixed_font) {Courier -24}
 set global_compat_mod 0
 #eval e [tops]
-e {*}[expand *.c]
+e {*}[expand n-pv.c *nzl*.c]
 echo hhhhhh
 

@@ -13,6 +13,7 @@ from copy import deepcopy
 
 # yaml sample
 ys = {}
+draw_list = []
 
 
 def main():
@@ -215,7 +216,7 @@ supports: {type: pipe ,size: dn100 ,number: 4 , at: 0}
 nozzles:
     discharge: {grp: lower, dn: 100,x: 0 ,y: 0 }
     drain1: {grp: lower, dn: 50,r: 500  ,theta: 0 }
-    drain2: {grp: section, dn: 50,h: 500  ,theta: 0 }
+    drain2: {grp: section, dn: 500,h: 500  ,theta: 125 }
     discharge2: {grp: upper, dn: 100,x: 0 ,y: 0 }
     drain3: {grp: upper, dn: 50,r: 500  ,theta: 0 }
 """
@@ -611,11 +612,12 @@ class PressureVessel:
         for nzl_name, nzl_data in self.nozzles.items():
             group = nzl_data['grp']
             nzl_length = 200
+            nzl_sub = self.diameter/2 - ((self.diameter/2)**2 - (nzl_data['dn']/2)**2)**0.50
             match group:
                 case 'lower'|'upper':
                     nzl_length += self.diameter - self.sph_z 
                 case 'section':
-                    nzl_length += self.diameter - (self.diameter**2 - (nzl_data['dn']/2)**2)**0.50
+                    nzl_length += nzl_sub
             
             #TODO: add thicknesses and turn dn into od
             #z = self.diameter - self.sph_z
@@ -624,6 +626,7 @@ class PressureVessel:
             nzl = Nozzle(self.name + nzl_name, nzl_data["dn"], length=nzl_length)
             nzl_inserted = nzl.insert()
             blast(nzl_inserted["name"])
+            pmater(nzl_inserted['name'],'green')
             oed_path = (
                     #f"{nzl_inserted['name']}/{nzl_inserted['pipe']['name']}/{nzl_inserted['pipe']['inner']}"
                     f"{nzl_inserted['name']}/"
@@ -631,13 +634,6 @@ class PressureVessel:
                     f"{nzl_inserted['pipe']['inner']}"
                     )
             oed( "/", oed_path)
-            match group:
-                case 'lower':
-                    orot([0, 90, 0])
-                case 'upper':
-                    orot([0, -90, 0])
-                case 'secttion':
-                    orot([0, 0, nzl_data['theta']])
             x, y , z = 0, 0 , 0
             match group:
                 case  "upper" | "lower":
@@ -649,12 +645,23 @@ class PressureVessel:
                         x = r * math.cos(theta_rad)
                         y = r * math.sin(theta_rad)
             match group:
-                case "upper":
+                case 'lower':
+                    orot([0, 90, 0])
+                case 'upper':
                     z = self.length
-                case "section":
+                    orot([0, -90, 0])
+            match group:
+                case  'upper' | 'lower':
+                    translate([x, y, z])
+            match group:
+                case 'section':
                     z = nzl_data["h"]
-
-            translate([x, y, z])
+                    x = self.diameter/2 - nzl_sub -50
+                    translate([x, y, z])
+                    accept()
+                    oed( "/", oed_path)
+                    print('keypoint 0 0 0')
+                    orot([0, 0, nzl_data['theta']])
             accept()
             comb = f"comb {punch_name} u {nzl_inserted['name']}/{nzl_inserted['pipe']['name']}/{nzl_inserted['pipe']['outer']}"
             print(comb)
@@ -663,31 +670,24 @@ class PressureVessel:
         print(f"c {long_name} {uncut_name} - {punch_name}")
 
         ## handling sections
-        for sign, index in product([-0.5, +0.5], [0, 1, 2]):
+        for index, direction in enumerate(['x','y','z']):
+            vector = [1, 1, 1]
             # sign should be renamed to sign factor
-            print("#", sign, index, int(index))
-            sname = "minus" if sign == -0.5 else "plus"
-            iname = ""
-            match index:
-                case 0:
-                    iname = "x"
-                case 1:
-                    iname = "y"
-                case 2:
-                    iname = "z"
-            bb_name = f"bb-{long_name[:-2]}-{iname}-{sname}.s"
+            bb_name = f"bb-{long_name[:-2]}-{direction}.s"
             bb_name_comb = bb_name[:-2] + ".c"
+            bb_name_comb_mir = bb_name[:-2] + '-mir' + ".c"
             sec_name = "sec-" + bb_name_comb
             print(f"bb -c {bb_name} {long_name}")
             print(f"c {bb_name_comb} {bb_name}")
             blast(bb_name_comb)
             print(f"oed / {bb_name_comb}/{bb_name}")
             int_index = int(index)
-            vector = [1, 1, 1]
             vector[int_index] = vector[int_index] * sign
             vector_string = " ".join(map(str, vector))
             print(f"sca {vector_string}")
             accept()
+            print(f"mirror -{direction} {bb_name_comb} {bb_name_comb_mir")
+            print(f"c {sec_name} {long_name} + {bb_name_comb}")
             print(f"c {sec_name} {long_name} + {bb_name_comb}")
 
         # exit()
