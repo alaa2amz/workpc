@@ -675,8 +675,8 @@ class PressureVessel:
             # sign should be renamed to sign factor
             bb_name = f"bb-{long_name[:-2]}-{direction}.s"
             bb_name_comb = bb_name[:-2] + ".c"
-            bb_name_comb_mir = bb_name[:-2] + '-mir' + ".c"
             sec_name = "sec-" + bb_name_comb
+            sec_name_mir = "sec-mir" + bb_name_comb
             print(f"bb -c {bb_name} {long_name}")
             print(f"c {bb_name_comb} {bb_name}")
             blast(bb_name_comb)
@@ -685,7 +685,7 @@ class PressureVessel:
             vector[int_index] = vector[int_index] * sign
             vector_string = " ".join(map(str, vector))
             print(f"sca {vector_string}")
-            accept()
+            accept(f"mirror -{direction} {sec_name}")
             print(f"mirror -{direction} {bb_name_comb} {bb_name_comb_mir")
             print(f"c {sec_name} {long_name} + {bb_name_comb}")
             print(f"c {sec_name} {long_name} + {bb_name_comb}")
