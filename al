@@ -49,6 +49,8 @@ fi ; }
 for com in rm cp mv
 do
 alias $com="$com -iv"
+alias murasaki="xsetroot  -solid '#4F284B'"
+alias shark="xsetroot  -solid '#2e3440'"
 done
 alias xm="xmessage -geometry 350x150 -xrm 'xmessage*minWidth: 350' -xrm 'xmessage*minHeight: 150' -xrm 'xmessage*maxWidth: 350' -xrm 'xmessage*maxHeight: 150'"
 
