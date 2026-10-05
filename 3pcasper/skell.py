@@ -57,6 +57,7 @@ def main():
 
 
 def lkv(list, key, val):
+    """look list of dicts for key and val contained elements"""
     return [i for i in list if i[key] == val][0]
 
 
@@ -90,6 +91,9 @@ def load_data():
 
 
 def color(name, sep=" "):
+    """take color string and return corosponding
+    rgb components separated by sep
+    """
     return sep.join([str(i) for i in list(wc.name_to_rgb(name))])
 
 
@@ -102,6 +106,12 @@ def mater_plastic(color, transparency=0.0, reflection=0.0):
 
 
 def pmater(name, clr="grey", tr=0.0, re=0.0):
+    """take object and return command
+    to set its mater to plastic with
+    - color clr
+    - tranparency tr
+    - reflection re
+    """
     color_code = color(clr)
     s = f'mater  {name} "plastic {{ tr {tr} re {re} }}" {color_code} 0'
     print(s)
@@ -127,6 +137,8 @@ boundary_box_color = mater_plastic(alone_in_the_dark, zero_transparency)
 
 
 def get_vector(from_point, to_point):
+    """ convert from and to points to point and vector 
+    """
     return [
         to_c - fro_c for to_c, fro_c in zip_longest(to_point, from_point, fillvalue=0)
     ]
@@ -283,6 +295,7 @@ sample = {
 
 
 class SequenceDescriptor:
+    """python range like but allowing excptions"""
     def __init__(self, count=3, absolutes={0: 0}, offsets={"default": 3000}):
         # print(count)
         self.count = count
@@ -557,6 +570,7 @@ class PressureVessel:
     def insert(self, prefix="", suffix="-pv.c"):
         uncut_name = self.name + "-uncut"
         punch_name = self.name + "-punch"
+        trim_name = self.name + "-trim"
         long_name = prefix + self.name + suffix
         fill_name = long_name[:-2] + "fill.c"
         lower_end = ToriSphEnd( self.name + "-lowerend",
@@ -602,7 +616,7 @@ class PressureVessel:
         print(
             f"copymat {lower_end_inserted['group']}/{lower_end_inserted['filled']} {fill_name}/{lower_end_inserted['filled']}"
         )
-        pmater(fill_name, "cyan")
+        pmater(fill_name, "cyan",tr=0.5)
 
         # if self.nozzles != None:
         #    self.insert_nozzles()
@@ -625,6 +639,7 @@ class PressureVessel:
             
             nzl = Nozzle(self.name + nzl_name, nzl_data["dn"], length=nzl_length)
             nzl_inserted = nzl.insert()
+            nzl_trimmrd = nzl_name +'-trimmed.c'
             blast(nzl_inserted["name"])
             pmater(nzl_inserted['name'],'green')
             oed_path = (
@@ -667,28 +682,31 @@ class PressureVessel:
             print(comb)
             copy_mat = f"copymat {nzl_inserted['name']}/{nzl_inserted['pipe']['name']} {punch_name}/{nzl_inserted['pipe']['outer']}"
             print(copy_mat)
-        print(f"c {long_name} {uncut_name} - {punch_name}")
+            print(f"c {nzl_trimmrd} {nzl_inserted['name']} - {fill_name}")
+            print(f"comb {trim_name} u {nzl_trimmrd}")
+        print(f"c {long_name} {uncut_name} - {punch_name} u {trim_name}")
 
         ## handling sections
+        #TODO: tobe abstracted and separated
         for index, direction in enumerate(['x','y','z']):
-            vector = [1, 1, 1]
+            vector = [1.0, 1.0, 1.0]
             # sign should be renamed to sign factor
             bb_name = f"bb-{long_name[:-2]}-{direction}.s"
             bb_name_comb = bb_name[:-2] + ".c"
+            bb_name_comb_mir = bb_name[:-2] +'-mir'+ ".c"
             sec_name = "sec-" + bb_name_comb
-            sec_name_mir = "sec-mir" + bb_name_comb
+            sec_name_mir = "sec-" + bb_name_comb_mir
             print(f"bb -c {bb_name} {long_name}")
             print(f"c {bb_name_comb} {bb_name}")
             blast(bb_name_comb)
             print(f"oed / {bb_name_comb}/{bb_name}")
-            int_index = int(index)
-            vector[int_index] = vector[int_index] * sign
+            vector[index] = vector[index] * 0.5
             vector_string = " ".join(map(str, vector))
             print(f"sca {vector_string}")
-            accept(f"mirror -{direction} {sec_name}")
-            print(f"mirror -{direction} {bb_name_comb} {bb_name_comb_mir")
+            accept()
+            print(f"c {bb_name_comb_mir} {bb_name} - {bb_name_comb}")
             print(f"c {sec_name} {long_name} + {bb_name_comb}")
-            print(f"c {sec_name} {long_name} + {bb_name_comb}")
+            print(f"c {sec_name_mir} {long_name} + {fill_name} + {bb_name_comb_mir}")
 
         # exit()
 
