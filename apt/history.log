@@ -16,3 +16,45 @@ Commandline: apt install dreamchess
 Requested-By: alaad13 (1000)
 Install: libsdl2-image-2.0-0:amd64 (2.8.8+dfsg-1+deb13u1, automatic), libopusfile0:amd64 (0.12-4+b3, automatic), libxmp4:amd64 (4.6.2-2, automatic), dreamchess:amd64 (0.3.0-2), libglew2.2:amd64 (2.2.0-4+b2, automatic), dreamchess-data:amd64 (0.3.0-2, automatic), libsdl2-mixer-2.0-0:amd64 (2.8.1+dfsg-2, automatic)
 End-Date: 2026-10-01  12:45:26
+
+Start-Date: 2026-10-06  08:53:15
+Commandline: apt install fonts-noto-cjk fonts-ipafont-gothic fonts-ipafont-mincho
+Requested-By: alaad13 (1000)
+Install: fonts-ipafont-mincho:amd64 (00303-23)
+End-Date: 2026-10-06  08:53:25
+
+Start-Date: 2026-10-06  09:17:56
+Commandline: apt install fonts-noto-core
+Requested-By: alaad13 (1000)
+Install: fonts-noto-core:amd64 (20201225-2)
+End-Date: 2026-10-06  09:17:58
+
+Start-Date: 2026-10-06  10:02:00
+Commandline: apt install fonts-ancient-scripts
+Requested-By: alaad13 (1000)
+Install: fonts-ancient-scripts:amd64 (2.60-2)
+End-Date: 2026-10-06  10:02:03
+
+Start-Date: 2026-10-06  10:19:39
+Commandline: apt install fonts-hanazono
+Requested-By: alaad13 (1000)
+Install: fonts-hanazono:amd64 (20170904-3)
+End-Date: 2026-10-06  10:19:51
+
+Start-Date: 2026-10-06  10:24:31
+Commandline: apt install fonts-babelstone-*
+Requested-By: alaad13 (1000)
+Install: fonts-babelstone-han:amd64 (16.0.1-1), fonts-babelstone-modern:amd64 (6.002-3)
+End-Date: 2026-10-06  10:24:35
+
+Start-Date: 2026-10-06  10:39:43
+Commandline: apt install fonts-noto*
+Requested-By: alaad13 (1000)
+Install: fonts-noto-unhinted:amd64 (20201225-2), fonts-noto-cjk-extra:amd64 (1:20240730+repack1-1), fonts-noto-hinted:amd64 (20201225-2), fonts-noto-ui-extra:amd64 (20201225-2), fonts-noto:amd64 (20201225-2), fonts-noto-extra:amd64 (20201225-2), fonts-noto-ui-core:amd64 (20201225-2)
+End-Date: 2026-10-06  10:40:02
+
+Start-Date: 2026-10-06  10:47:50
+Commandline: apt install fonts-jetbrains-mono
+Requested-By: alaad13 (1000)
+Install: fonts-jetbrains-mono:amd64 (2.304+ds-5)
+End-Date: 2026-10-06  10:47:54

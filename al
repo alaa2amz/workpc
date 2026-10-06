@@ -54,4 +54,11 @@ alias shark="xsetroot  -solid '#2e3440'"
 done
 alias xm="xmessage -geometry 350x150 -xrm 'xmessage*minWidth: 350' -xrm 'xmessage*minHeight: 150' -xrm 'xmessage*maxWidth: 350' -xrm 'xmessage*maxHeight: 150'"
 
+
+# Wrap any command to colorize its stderr in red
+color_stderr() {
+    "$@" 2> >(sed $'s,.+,\x1b[31m&\x1b[0m,' >&2)
+}
+
+
 fort
