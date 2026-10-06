@@ -50,8 +50,8 @@ def main():
     # qq = Pipe.dn("RRR", 300)
     # q.insert()
     # qq.insert()
-    # f = Flange.dn("ff", 100)
-    # f.insert()
+    #f = Flange.dn("ff", 500)
+    #f.insert()
     # nz = Nozzle("z", 200)
     # nz.insert()
 
@@ -228,7 +228,7 @@ supports: {type: pipe ,size: dn100 ,number: 4 , at: 0}
 nozzles:
     discharge: {grp: lower, dn: 100,x: 0 ,y: 0 }
     drain1: {grp: lower, dn: 50,r: 500  ,theta: 0 }
-    drain2: {grp: section, dn: 500,h: 500  ,theta: 125 }
+    d500: {grp: section, dn: 500,h: 500  ,theta: 125 }
     discharge2: {grp: upper, dn: 100,x: 0 ,y: 0 }
     drain3: {grp: upper, dn: 50,r: 500  ,theta: 0 }
 """
@@ -778,7 +778,7 @@ class Flange:
             name,
             float(record["D"]),
             float(record["B2"]),
-            float(record["T2"]),
+            float(record["t"]),
             rotation,
             location,
         )
