@@ -13,7 +13,8 @@ from copy import deepcopy
 
 # yaml sample
 ys = {}
-draw_list = []
+draws = []
+nozzles =[]
 
 
 def main():
@@ -54,6 +55,7 @@ def main():
     #f.insert()
     # nz = Nozzle("z", 200)
     # nz.insert()
+    [ print(f'echo {i}db get {i}') for i in nozzles ]
 
 
 def lkv(list, key, val):
@@ -684,6 +686,8 @@ class PressureVessel:
             print(copy_mat)
             print(f"c {nzl_trimmrd} {nzl_inserted['name']} - {fill_name}")
             print(f"comb {trim_name} u {nzl_trimmrd}")
+            desk_path = f"{long_name}/{trim_name}/{nzl_trimmrd}/{nzl_inserted['name']}/{nzl_inserted['flange']['name']}/{nzl_inserted['flange']['desk']}"
+            nozzles.append(desk_path)
         print(f"c {long_name} {uncut_name} - {punch_name} u {trim_name}")
 
         ## handling sections
