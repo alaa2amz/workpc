@@ -58,3 +58,21 @@ Commandline: apt install fonts-jetbrains-mono
 Requested-By: alaad13 (1000)
 Install: fonts-jetbrains-mono:amd64 (2.304+ds-5)
 End-Date: 2026-10-06  10:47:54
+
+Start-Date: 2026-10-10  08:13:19
+Commandline: apt install sway
+Requested-By: alaad13 (1000)
+Install: libwlroots-0.18:amd64 (0.18.2-3, automatic), foot:amd64 (1.21.0-2, automatic), libseat1:amd64 (0.9.1-1, automatic), libfcft4t64:amd64 (3.3.1-1, automatic), swaybg:amd64 (1.2.1-1, automatic), wmenu:amd64 (0.1.9-2, automatic), libutf8proc3:amd64 (2.9.0-1+b2, automatic), sway:amd64 (1.10.1-2), libliftoff0:amd64 (0.5.0-1.1, automatic), libxcb-errors0:amd64 (1.0.1-4, automatic)
+End-Date: 2026-10-10  08:13:48
+
+Start-Date: 2026-10-10  09:41:03
+Commandline: apt install fonts-vlgothic fonts-takao-gothic
+Requested-By: alaad13 (1000)
+Install: fonts-takao-gothic:amd64 (00303.01-3), fonts-vlgothic:amd64 (20220612-1)
+End-Date: 2026-10-10  09:41:06
+
+Start-Date: 2026-10-10  13:41:25
+Commandline: apt install fonts-firacode fonts-hack
+Requested-By: alaad13 (1000)
+Install: fonts-hack:amd64 (3.003-3), fonts-firacode:amd64 (6.2-2)
+End-Date: 2026-10-10  13:41:34
