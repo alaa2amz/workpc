@@ -9,11 +9,10 @@ check $?
 mged -c "$f.g" <<EOF
 set glob_compat_mode 0
 
-set fp [open "stderr_log.txt" w]
+#set fp [open "stderr_log.txt" w]
 
 
-if {[catch {source a.tcl} err];puts $fp "\$err"} {
-    puts stderr "Error: \$err"
+if {[catch {source a.tcl} err]} {
     # Force MGED to quit with an explicit status
     exit 1
 }

@@ -55,7 +55,29 @@ def main():
     #f.insert()
     # nz = Nozzle("z", 200)
     # nz.insert()
-    [ print(f'echo {i}db get {i}') for i in nozzles ]
+    ascript = '''
+    set glob_compat_mode 0
+    set con_file [open connections w]
+
+
+    '''
+    print(ascript)
+    [ print(f'''
+    puts $con_file "{i}:";
+    puts $con_file "  H: \\[ [join [db get {i} H] ", "] \\]";
+    puts $con_file "  V: \\[ [join [db get {i} V] ", "] \\]"
+            ''') for i in nozzles ]
+    print(f'''
+        flush $con_file
+        close $con_file
+          ''')
+    with open('connections') as f:
+        d = yaml.safe_load(f)
+    ff=open('ff','w')
+    json.dump(d,ff)
+
+    #[ print(f'''set n [db get {i}]
+     #       puts $con_file [dict get $n H]''') for i in nozzles ]
 
 
 def lkv(list, key, val):
@@ -626,6 +648,7 @@ class PressureVessel:
 
         # def insert_nozzles(self):
         for nzl_name, nzl_data in self.nozzles.items():
+            nzl_name=self.name+'-'+nzl_name
             group = nzl_data['grp']
             nzl_length = 200
             nzl_sub = self.diameter/2 - ((self.diameter/2)**2 - (nzl_data['dn']/2)**2)**0.50
@@ -639,7 +662,8 @@ class PressureVessel:
             #z = self.diameter - self.sph_z
             #nzl = Nozzle(self.name + nzl_name, nzl_data["dn"], length=z + 200)
             
-            nzl = Nozzle(self.name + nzl_name, nzl_data["dn"], length=nzl_length)
+            #nzl = Nozzle(self.name + nzl_name, nzl_data["dn"], length=nzl_length)
+            nzl = Nozzle(nzl_name, nzl_data["dn"], length=nzl_length)
             nzl_inserted = nzl.insert()
             nzl_trimmrd = nzl_name +'-trimmed.c'
             blast(nzl_inserted["name"])
