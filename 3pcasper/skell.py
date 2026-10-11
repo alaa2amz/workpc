@@ -5,7 +5,6 @@ import json
 import csv
 from typing import Self
 import math
-
 import wc
 import yaml
 from itertools import product, zip_longest
@@ -16,70 +15,76 @@ ys = {}
 draws = []
 nozzles =[]
 
-
 def main():
+    #asme pipes and flanges 
     load_data()
-    global ys
-    pvn = yaml.safe_load(pv_sample)
-    # pp(pv)
-    if False:
-        ys = yaml.safe_load(yaml_sample)
-        sample = ys
-        s = Skell(sample)
-        s.insert()
+
+    ###Skell
+    #global ys
+    #ys = yaml.safe_load(yaml_sample)
+    #sample = ys
+    #s = Skell(sample)
+    #s.insert()
+
     # print(s.get_sequences())
+
     # print(blue)
     # print(color('blue'))
+    
     # rcc = RCC('test',[0,0,0], [0,0,3000],1000)
     # trcc = Shell(rcc,20)
     # trcc.insert()
+    
     # tsh=ToriSphEnd('d',3000,15)
     # tsh.insert()
+    
+    pvn = yaml.safe_load(pv_sample)
+    # pp(pv)
     pv = PressureVessel("n", 2000, 3000, 15, nozzles=pvn["nozzles"])
     pv.insert()
+    
     # pp(pipes)
     # pp(flanges)
+    
     # p=Pipe('ddd', 300, 30)
     # p.insert()
     # f=Flange('z',500,300,50)
     # f.insert()
-    # v=lkv(pipes2,'DN',str(100))
-    # vv=lkv(flanges,'MM',str(100))
-    # pp(v)
-    # pp(vv)
     # q = Pipe.dn("rrr", 100)
     # qq = Pipe.dn("RRR", 300)
     # q.insert()
     # qq.insert()
     #f = Flange.dn("ff", 500)
     #f.insert()
+
+    # v=lkv(pipes2,'DN',str(100))
+    # vv=lkv(flanges,'MM',str(100))
+    # pp(v)
+    # pp(vv)
+
     # nz = Nozzle("z", 200)
     # nz.insert()
-    ascript = '''
+    get_rccs_data(nozzles)
+    
+def get_rccs_data(rcc_list,file_name='rccs_data.yaml'):
+    ascript_p = f'''
     set glob_compat_mode 0
-    set con_file [open connections w]
-
-
+    set con_file [open {file_name} w]
     '''
-    print(ascript)
-    [ print(f'''
-    puts $con_file "{i}:";
-    puts $con_file "  H: \\[ [join [db get {i} H] ", "] \\]";
-    puts $con_file "  V: \\[ [join [db get {i} V] ", "] \\]"
-            ''') for i in nozzles ]
-    print(f'''
-        flush $con_file
-        close $con_file
-          ''')
-    with open('connections') as f:
-        d = yaml.safe_load(f)
-    ff=open('ff','w')
-    json.dump(d,ff)
-
-    #[ print(f'''set n [db get {i}]
-     #       puts $con_file [dict get $n H]''') for i in nozzles ]
-
-
+    print(ascript_p)
+    for i in rcc_list:
+        ascript_p = f'''
+        puts $con_file "{i}:";
+        puts $con_file "  H: \\[ [join [db get {i} H] ", "] \\]";
+        puts $con_file "  V: \\[ [join [db get {i} V] ", "] \\]"
+        '''
+        print(ascript_p)
+    ascript_p = f'''
+    flush $con_file
+    close $con_file
+    '''
+    print(ascript_p)
+    
 def lkv(list, key, val):
     """look list of dicts for key and val contained elements"""
     return [i for i in list if i[key] == val][0]
@@ -163,11 +168,13 @@ boundary_box_color = mater_plastic(alone_in_the_dark, zero_transparency)
 def get_vector(from_point, to_point):
     """ convert from and to points to point and vector 
     """
-    return [
-        to_c - fro_c for to_c, fro_c in zip_longest(to_point, from_point, fillvalue=0)
-    ]
+    return [to_c - fro_c for to_c, fro_c in zip_longest(
+            to_point,
+            from_point,
+            fillvalue=0,)]
 
 
+##Skell data yaml sample
 yaml_sample = """ #yaml: 
 name: ea
 location: [0,0,0]
@@ -257,6 +264,7 @@ nozzles:
     drain3: {grp: upper, dn: 50,r: 500  ,theta: 0 }
 """
 
+##Skell json data sample
 sample = {
     "name": "ea",
     "location": [0, 0, 0],
@@ -317,7 +325,7 @@ sample = {
     "floor_depth": 2000,
 }
 
-
+#TODO: fix deafault dict arguments
 class SequenceDescriptor:
     """python range like but allowing excptions"""
     def __init__(self, count=3, absolutes={0: 0}, offsets={"default": 3000}):
@@ -410,8 +418,8 @@ class RCC:
         vertex_string = " ".join(map(str, self.vertex))
         vector_string = " ".join(map(str, self.vector))
         print(
-            f"in {long_name} rcc {vertex_string} \
-                {vector_string} {self.radius}"
+            f"in {long_name} rcc {vertex_string} "
+            f"{vector_string} {self.radius}"
         )
         return long_name
 
@@ -435,8 +443,8 @@ class TRC:
         vertex_string = " ".join(map(str, self.vertex))
         vector_string = " ".join(map(str, self.vector))
         print(
-            f"in {long_name} trc {vertex_string} \
-                {vector_string} {self.radius} {self.radius_top}"
+            f"in {long_name} trc {vertex_string} "
+            f"{vector_string} {self.radius} {self.radius_top}"
         )
         return long_name
 
@@ -494,7 +502,8 @@ class ToriSphEnd:
         # h J
         # torus ring center height
         tori_height = (
-            (self.diameter - tori_radius) ** 2 - (self.diameter / 2 - tori_radius) ** 2
+            (self.diameter - tori_radius) ** 2 -
+            (self.diameter / 2 - tori_radius) ** 2
         ) ** 0.5
         tori_ring_radius = self.diameter / 2 - tori_radius
         sph_z = -self.diameter + self.barrel_height + (self.diameter - tori_height)
@@ -539,21 +548,34 @@ class ToriSphEnd:
         )
         cutter_inserted = cutter.insert()
         con_cutter_inserted = con_cutter.insert()
+        #TODO:un hard coded strings
+        print(
+            f"comb {self.name}-knuckil.c"
+            f" u {torus_inserted['name']}"
+            f" - {con_cutter_inserted}"
+            f" - {cutter_inserted}"
+        )
+        print(
+            f"comb {self.name}-dish.c"
+            f" u {sph_inserted['name']}"
+            f" + {con_cutter_inserted}"
+        )
+        print(
+            f"comb {long_name}"
+            f" u  {self.name}-knuckil.c"
+            f" u {self.name}-dish.c"
+            f" u {barrel_inserted['name']}"
+        )
 
         print(
-            f"comb {self.name}-knuckil.c u {torus_inserted['name']} - {con_cutter_inserted} - {cutter_inserted}"
-        )
-        print(
-            f"comb {self.name}-dish.c u {sph_inserted['name']} + {con_cutter_inserted}"
-        )
-        print(
-            f"comb {long_name} u  {self.name}-knuckil.c u {self.name}-dish.c u {barrel_inserted['name']}"
-        )
-        # print(f"comb {self.name}-filled-knuckil.c u {torus_inserted['inner']}")
-        # print(f"comb {self.name}-filled-knuckil.c u {torus_inserted['inner']} - {con_cutter_inserted} - {cutter_inserted}")
-
-        print(
-            f"comb {long_name_filled} u  {sph_inserted['inner']} + {con_cutter_inserted} - {cutter_inserted} u  {torus_inserted['inner']} - {con_cutter_inserted} - {cutter_inserted} u {barrel_inserted['inner']}"
+            f"comb {long_name_filled}"
+            f" u  {sph_inserted['inner']}"
+            f" + {con_cutter_inserted}"
+            f" - {cutter_inserted}"
+            f" u  {torus_inserted['inner']}"
+            f" - {con_cutter_inserted}"
+            f" - {cutter_inserted}"
+            f" u {barrel_inserted['inner']}"
         )
         pmater(long_name_filled, "cyan", 0.0, 0.0)
         print(f"g {group_name} {long_name} {long_name_filled}")
@@ -592,16 +614,16 @@ class PressureVessel:
         self.sph_z = 0
 
     def insert(self, prefix="", suffix="-pv.c"):
-        uncut_name = self.name + "-uncut"
-        punch_name = self.name + "-punch"
-        trim_name = self.name + "-trim"
+        uncut_name = self.name + "-uncut.c"
+        punch_name = self.name + "-punch.c"
+        trim_name = self.name + "-trim.c"
         long_name = prefix + self.name + suffix
         fill_name = long_name[:-2] + "fill.c"
         lower_end = ToriSphEnd( self.name + "-lowerend",
                 self.diameter,
                 self.ends_thick,)
 
-        #
+        #TODO:rename print vars to ..._p 
         section = RCC( self.name + "-section",
             [0, 0, 0],
             [0, 0, self.length],
@@ -616,7 +638,12 @@ class PressureVessel:
         self.sph_z = lower_end.sph_z
 
         blast(upper_end_inserted["group"])
-        upper_end_path = f"{upper_end_inserted['group']}/{upper_end_inserted['name']}/{upper_end_inserted['barrel']['name']}/{upper_end_inserted['barrel']['inner']}"
+        upper_end_path = (
+            f"{upper_end_inserted['group']}/"
+            f"{upper_end_inserted['name']}/"
+            f"{upper_end_inserted['barrel']['name']}/"
+            f"{upper_end_inserted['barrel']['inner']}"
+        )
         oed("/", upper_end_path)
         print(f"translate 0 0 {self.length}")
         accept()
@@ -1212,3 +1239,7 @@ if __name__ == "__main__":
 
     # copy_mat = f"copymat {nzl_inserted['name']}/{nzl_inserted['pipe']['name']}/{nzl_inserted['pipe']['outer']} {long_name}/{nzl_inserted['name']}/{nzl_inserted['pipe']['name']}/{nzl_inserted['pipe']['outer']}"
         #####oed('/',f'{lower_end_inserted[0]}/{lower_end_inserted[1][1]}')
+    #[ print(f'''set n [db get {i}]
+     #       puts $con_file [dict get $n H]''') for i in nozzles ]
+        # print(f"comb {self.name}-filled-knuckil.c u {torus_inserted['inner']}")
+        # print(f"comb {self.name}-filled-knuckil.c u {torus_inserted['inner']} - {con_cutter_inserted} - {cutter_inserted}")
