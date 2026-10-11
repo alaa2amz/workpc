@@ -14,6 +14,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'dense-analysis/ale'
 Plug 'preservim/tagbar'
 Plug 'liuchengxu/vista.vim'
+Plug 'vim-polyglot/vim-polyglot'
 call plug#end()
 
 set background=dark

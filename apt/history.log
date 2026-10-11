@@ -76,3 +76,33 @@ Commandline: apt install fonts-firacode fonts-hack
 Requested-By: alaad13 (1000)
 Install: fonts-hack:amd64 (3.003-3), fonts-firacode:amd64 (6.2-2)
 End-Date: 2026-10-10  13:41:34
+
+Start-Date: 2026-10-11  08:21:57
+Commandline: apt install nsxiv
+Requested-By: alaad13 (1000)
+Install: nsxiv:amd64 (33-1)
+End-Date: 2026-10-11  08:22:10
+
+Start-Date: 2026-10-11  08:23:06
+Commandline: apt install fzf
+Requested-By: alaad13 (1000)
+Install: fzf:amd64 (0.60.3-1+b2)
+End-Date: 2026-10-11  08:23:13
+
+Start-Date: 2026-10-11  08:31:11
+Commandline: apt install libharfbuzz-bin
+Requested-By: alaad13 (1000)
+Install: libchafa0t64:amd64 (1.14.5-1, automatic), libharfbuzz-bin:amd64 (10.2.0-1+deb13u1)
+End-Date: 2026-10-11  08:31:19
+
+Start-Date: 2026-10-11  09:18:02
+Commandline: apt install autoconf automake libtool
+Requested-By: alaad13 (1000)
+Install: automake:amd64 (1:1.17-4), libltdl-dev:amd64 (2.5.4-4, automatic), autoconf:amd64 (2.72-3.1), autotools-dev:amd64 (20240727.1, automatic), libtool:amd64 (2.5.4-4), m4:amd64 (1.4.19-8, automatic)
+End-Date: 2026-10-11  09:18:22
+
+Start-Date: 2026-10-11  09:22:13
+Commandline: apt install libboost1.92-dev
+Requested-By: alaad13 (1000)
+Install: libboost1.92-dev:amd64 (1.92.0-3~bpo13+1), libboost-regex1.92.0:amd64 (1.92.0-3~bpo13+1, automatic), libboost-regex1.92-dev:amd64 (1.92.0-3~bpo13+1, automatic)
+End-Date: 2026-10-11  09:22:25
