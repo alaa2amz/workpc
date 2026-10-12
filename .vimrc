@@ -16,7 +16,7 @@ Plug 'preservim/tagbar'
 Plug 'liuchengxu/vista.vim'
 Plug 'vim-polyglot/vim-polyglot'
 call plug#end()
-
+source $HOME/workpc/y/plugs.vim
 set background=dark
 colorscheme torte
 
