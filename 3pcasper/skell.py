@@ -13,39 +13,40 @@ from copy import deepcopy
 # yaml sample
 ys = {}
 draws = []
-nozzles =[]
+nozzles = []
+
 
 def main():
-    #asme pipes and flanges 
+    # asme pipes and flanges
     load_data()
 
     ###Skell
-    #global ys
-    #ys = yaml.safe_load(yaml_sample)
-    #sample = ys
-    #s = Skell(sample)
-    #s.insert()
+    # global ys
+    # ys = yaml.safe_load(yaml_sample)
+    # sample = ys
+    # s = Skell(sample)
+    # s.insert()
 
     # print(s.get_sequences())
 
     # print(blue)
     # print(color('blue'))
-    
+
     # rcc = RCC('test',[0,0,0], [0,0,3000],1000)
     # trcc = Shell(rcc,20)
     # trcc.insert()
-    
+
     # tsh=ToriSphEnd('d',3000,15)
     # tsh.insert()
-    
+
     pvn = yaml.safe_load(pv_sample)
     # pp(pv)
     pv = PressureVessel("n", 2000, 3000, 15, nozzles=pvn["nozzles"])
     pv.insert()
-    
+
     # pp(pipes)
     # pp(flanges)
-    
+
     # p=Pipe('ddd', 300, 30)
     # p.insert()
     # f=Flange('z',500,300,50)
@@ -54,8 +55,8 @@ def main():
     # qq = Pipe.dn("RRR", 300)
     # q.insert()
     # qq.insert()
-    #f = Flange.dn("ff", 500)
-    #f.insert()
+    # f = Flange.dn("ff", 500)
+    # f.insert()
 
     # v=lkv(pipes2,'DN',str(100))
     # vv=lkv(flanges,'MM',str(100))
@@ -65,26 +66,28 @@ def main():
     # nz = Nozzle("z", 200)
     # nz.insert()
     get_rccs_data(nozzles)
-    
-def get_rccs_data(rcc_list,file_name='rccs_data.yaml'):
-    ascript_p = f'''
+
+
+def get_rccs_data(rcc_list, file_name="rccs_data.yaml"):
+    ascript_p = f"""
     set glob_compat_mode 0
     set con_file [open {file_name} w]
-    '''
+    """
     print(ascript_p)
     for i in rcc_list:
-        ascript_p = f'''
+        ascript_p = f"""
         puts $con_file "{i}:";
         puts $con_file "  H: \\[ [join [db get {i} H] ", "] \\]";
         puts $con_file "  V: \\[ [join [db get {i} V] ", "] \\]"
-        '''
+        """
         print(ascript_p)
-    ascript_p = f'''
+    ascript_p = f"""
     flush $con_file
     close $con_file
-    '''
+    """
     print(ascript_p)
-    
+
+
 def lkv(list, key, val):
     """look list of dicts for key and val contained elements"""
     return [i for i in list if i[key] == val][0]
@@ -166,12 +169,15 @@ boundary_box_color = mater_plastic(alone_in_the_dark, zero_transparency)
 
 
 def get_vector(from_point, to_point):
-    """ convert from and to points to point and vector 
-    """
-    return [to_c - fro_c for to_c, fro_c in zip_longest(
+    """convert from and to points to point and vector"""
+    return [
+        to_c - fro_c
+        for to_c, fro_c in zip_longest(
             to_point,
             from_point,
-            fillvalue=0,)]
+            fillvalue=0,
+        )
+    ]
 
 
 ##Skell data yaml sample
@@ -325,9 +331,11 @@ sample = {
     "floor_depth": 2000,
 }
 
-#TODO: fix deafault dict arguments
+
+# TODO: fix deafault dict arguments
 class SequenceDescriptor:
     """python range like but allowing excptions"""
+
     def __init__(self, count=3, absolutes={0: 0}, offsets={"default": 3000}):
         # print(count)
         self.count = count
@@ -374,10 +382,8 @@ class RPP:
     def insert(self, prefix="", suffix=".s"):
         long_name = prefix + self.name + suffix
         s = self
-        print(
-            f"in {long_name} rpp {s.xmin} {s.xmax}  {s.ymin} {s.ymax} \
-                {s.zmin} {s.zmax}"
-        )
+        print(f"in {long_name} rpp {s.xmin} {s.xmax}  {s.ymin} {s.ymax} \
+                {s.zmin} {s.zmax}")
         return long_name
 
 
@@ -393,10 +399,8 @@ class Tor:
         long_name = prefix + self.name + suffix
         vertex_string = " ".join(map(str, self.vertex))
         normal_string = " ".join(map(str, self.normal))
-        print(
-            f"in {long_name} tor {vertex_string} \
-                {normal_string} {self.radius_big} {self.radius}"
-        )
+        print(f"in {long_name} tor {vertex_string} \
+                {normal_string} {self.radius_big} {self.radius}")
         return long_name
 
 
@@ -417,10 +421,7 @@ class RCC:
         long_name = prefix + self.name + suffix
         vertex_string = " ".join(map(str, self.vertex))
         vector_string = " ".join(map(str, self.vector))
-        print(
-            f"in {long_name} rcc {vertex_string} "
-            f"{vector_string} {self.radius}"
-        )
+        print(f"in {long_name} rcc {vertex_string} " f"{vector_string} {self.radius}")
         return long_name
 
 
@@ -502,8 +503,7 @@ class ToriSphEnd:
         # h J
         # torus ring center height
         tori_height = (
-            (self.diameter - tori_radius) ** 2 -
-            (self.diameter / 2 - tori_radius) ** 2
+            (self.diameter - tori_radius) ** 2 - (self.diameter / 2 - tori_radius) ** 2
         ) ** 0.5
         tori_ring_radius = self.diameter / 2 - tori_radius
         sph_z = -self.diameter + self.barrel_height + (self.diameter - tori_height)
@@ -548,7 +548,7 @@ class ToriSphEnd:
         )
         cutter_inserted = cutter.insert()
         con_cutter_inserted = con_cutter.insert()
-        #TODO:un hard coded strings
+        # TODO:un hard coded strings
         print(
             f"comb {self.name}-knuckil.c"
             f" u {torus_inserted['name']}"
@@ -619,19 +619,25 @@ class PressureVessel:
         trim_name = self.name + "-trim.c"
         long_name = prefix + self.name + suffix
         fill_name = long_name[:-2] + "fill.c"
-        lower_end = ToriSphEnd( self.name + "-lowerend",
-                self.diameter,
-                self.ends_thick,)
+        lower_end = ToriSphEnd(
+            self.name + "-lowerend",
+            self.diameter,
+            self.ends_thick,
+        )
 
-        #TODO:rename print vars to ..._p 
-        section = RCC( self.name + "-section",
+        # TODO:rename print vars to ..._p
+        section = RCC(
+            self.name + "-section",
             [0, 0, 0],
             [0, 0, self.length],
-            self.diameter / 2,)
+            self.diameter / 2,
+        )
         section_shell = Shell(section, self.shell_thick)
-        upper_end = ToriSphEnd(self.name + "-upperend",
-                               self.diameter,
-                               self.ends_thick,)
+        upper_end = ToriSphEnd(
+            self.name + "-upperend",
+            self.diameter,
+            self.ends_thick,
+        )
         lower_end_inserted = lower_end.insert()
         section_inserted = section_shell.insert()
         upper_end_inserted = upper_end.insert()
@@ -648,15 +654,20 @@ class PressureVessel:
         print(f"translate 0 0 {self.length}")
         accept()
         blast(lower_end_inserted["group"])
-        lower_end_path = f"{lower_end_inserted['group']}/{lower_end_inserted['name']}/{lower_end_inserted['barrel']['name']}/{lower_end_inserted['barrel']['inner']}"
+        lower_end_path = (
+            f"{lower_end_inserted['group']}/"
+            f"{lower_end_inserted['name']}/"
+            f"{lower_end_inserted['barrel']['name']}/"
+            f"{lower_end_inserted['barrel']['inner']}"
+        )
         oed("/", lower_end_path)
         print(f"orot 180 0 0")
         accept()
-        uncut_comb=f"comb  {uncut_name} u {lower_end_inserted['group']}/{lower_end_inserted['name']} u {section_inserted['name']} u {upper_end_inserted['group']}/{upper_end_inserted['name']}"
+        uncut_comb = f"comb  {uncut_name} u {lower_end_inserted['group']}/{lower_end_inserted['name']} u {section_inserted['name']} u {upper_end_inserted['group']}/{upper_end_inserted['name']}"
         print(uncut_comb)
-        copymat_upper=f"copymat {upper_end_inserted['group']}/{upper_end_inserted['name']} {uncut_name}/{upper_end_inserted['name']}"
+        copymat_upper = f"copymat {upper_end_inserted['group']}/{upper_end_inserted['name']} {uncut_name}/{upper_end_inserted['name']}"
         print(copymat_upper)
-        copymat_lower= f"copymat {lower_end_inserted['group']}/{lower_end_inserted['name']} {uncut_name}/{lower_end_inserted['name']}"
+        copymat_lower = f"copymat {lower_end_inserted['group']}/{lower_end_inserted['name']} {uncut_name}/{lower_end_inserted['name']}"
         print(copymat_lower)
         fill_comb = f"comb  {fill_name} u {lower_end_inserted['group']}/{lower_end_inserted['filled']} u {section_inserted['inner']} u {upper_end_inserted['group']}/{upper_end_inserted['filled']}"
         print(fill_comb)
@@ -667,7 +678,7 @@ class PressureVessel:
         print(
             f"copymat {lower_end_inserted['group']}/{lower_end_inserted['filled']} {fill_name}/{lower_end_inserted['filled']}"
         )
-        pmater(fill_name, "cyan",tr=0.5)
+        pmater(fill_name, "cyan", tr=0.5)
 
         # if self.nozzles != None:
         #    self.insert_nozzles()
@@ -675,61 +686,64 @@ class PressureVessel:
 
         # def insert_nozzles(self):
         for nzl_name, nzl_data in self.nozzles.items():
-            nzl_name=self.name+'-'+nzl_name
-            group = nzl_data['grp']
+            nzl_name = self.name + "-" + nzl_name
+            group = nzl_data["grp"]
             nzl_length = 200
-            nzl_sub = self.diameter/2 - ((self.diameter/2)**2 - (nzl_data['dn']/2)**2)**0.50
+            nzl_sub = (
+                self.diameter / 2
+                - ((self.diameter / 2) ** 2 - (nzl_data["dn"] / 2) ** 2) ** 0.50
+            )
             match group:
-                case 'lower'|'upper':
-                    nzl_length += self.diameter - self.sph_z 
-                case 'section':
+                case "lower" | "upper":
+                    nzl_length += self.diameter - self.sph_z
+                case "section":
                     nzl_length += nzl_sub
-            
-            #TODO: add thicknesses and turn dn into od
-            #z = self.diameter - self.sph_z
-            #nzl = Nozzle(self.name + nzl_name, nzl_data["dn"], length=z + 200)
-            
-            #nzl = Nozzle(self.name + nzl_name, nzl_data["dn"], length=nzl_length)
+
+            # TODO: add thicknesses and turn dn into od
+            # z = self.diameter - self.sph_z
+            # nzl = Nozzle(self.name + nzl_name, nzl_data["dn"], length=z + 200)
+
+            # nzl = Nozzle(self.name + nzl_name, nzl_data["dn"], length=nzl_length)
             nzl = Nozzle(nzl_name, nzl_data["dn"], length=nzl_length)
             nzl_inserted = nzl.insert()
-            nzl_trimmrd = nzl_name +'-trimmed.c'
+            nzl_trimmrd = nzl_name + "-trimmed.c"
             blast(nzl_inserted["name"])
-            pmater(nzl_inserted['name'],'green')
+            pmater(nzl_inserted["name"], "green")
             oed_path = (
-                    #f"{nzl_inserted['name']}/{nzl_inserted['pipe']['name']}/{nzl_inserted['pipe']['inner']}"
-                    f"{nzl_inserted['name']}/"
-                    f"{nzl_inserted['pipe']['name']}/"
-                    f"{nzl_inserted['pipe']['inner']}"
-                    )
-            oed( "/", oed_path)
-            x, y , z = 0, 0 , 0
+                # f"{nzl_inserted['name']}/{nzl_inserted['pipe']['name']}/{nzl_inserted['pipe']['inner']}"
+                f"{nzl_inserted['name']}/"
+                f"{nzl_inserted['pipe']['name']}/"
+                f"{nzl_inserted['pipe']['inner']}"
+            )
+            oed("/", oed_path)
+            x, y, z = 0, 0, 0
             match group:
-                case  "upper" | "lower":
-                    if {"x","y"}.issubset(nzl_data) :
+                case "upper" | "lower":
+                    if {"x", "y"}.issubset(nzl_data):
                         x, y = nzl_data["x"], nzl_data["y"]
-                    if {"r" ,"theta"}.issubset(nzl_data):
+                    if {"r", "theta"}.issubset(nzl_data):
                         r, theta = nzl_data["r"], nzl_data["theta"]
                         theta_rad = math.radians(theta)
                         x = r * math.cos(theta_rad)
                         y = r * math.sin(theta_rad)
             match group:
-                case 'lower':
+                case "lower":
                     orot([0, 90, 0])
-                case 'upper':
+                case "upper":
                     z = self.length
                     orot([0, -90, 0])
             match group:
-                case  'upper' | 'lower':
+                case "upper" | "lower":
                     translate([x, y, z])
             match group:
-                case 'section':
+                case "section":
                     z = nzl_data["h"]
-                    x = self.diameter/2 - nzl_sub -50
+                    x = self.diameter / 2 - nzl_sub - 50
                     translate([x, y, z])
                     accept()
-                    oed( "/", oed_path)
-                    print('keypoint 0 0 0')
-                    orot([0, 0, nzl_data['theta']])
+                    oed("/", oed_path)
+                    print("keypoint 0 0 0")
+                    orot([0, 0, nzl_data["theta"]])
             accept()
             comb = f"comb {punch_name} u {nzl_inserted['name']}/{nzl_inserted['pipe']['name']}/{nzl_inserted['pipe']['outer']}"
             print(comb)
@@ -742,13 +756,13 @@ class PressureVessel:
         print(f"c {long_name} {uncut_name} - {punch_name} u {trim_name}")
 
         ## handling sections
-        #TODO: tobe abstracted and separated
-        for index, direction in enumerate(['x','y','z']):
+        # TODO: tobe abstracted and separated
+        for index, direction in enumerate(["x", "y", "z"]):
             vector = [1.0, 1.0, 1.0]
             # sign should be renamed to sign factor
             bb_name = f"bb-{long_name[:-2]}-{direction}.s"
             bb_name_comb = bb_name[:-2] + ".c"
-            bb_name_comb_mir = bb_name[:-2] +'-mir'+ ".c"
+            bb_name_comb_mir = bb_name[:-2] + "-mir" + ".c"
             sec_name = "sec-" + bb_name_comb
             sec_name_mir = "sec-" + bb_name_comb_mir
             print(f"bb -c {bb_name} {long_name}")
@@ -1094,7 +1108,9 @@ class Skell:
                     section = self.long_beam
         else:
             section = self.beams[key]
-        beam = IBeam(name=key, length=length, location=location, **section)  # pyright: ignore
+        beam = IBeam(
+            name=key, length=length, location=location, **section
+        )  # pyright: ignore
         return beam
 
     def insert_base(self):
@@ -1238,8 +1254,8 @@ if __name__ == "__main__":
     main()
 
     # copy_mat = f"copymat {nzl_inserted['name']}/{nzl_inserted['pipe']['name']}/{nzl_inserted['pipe']['outer']} {long_name}/{nzl_inserted['name']}/{nzl_inserted['pipe']['name']}/{nzl_inserted['pipe']['outer']}"
-        #####oed('/',f'{lower_end_inserted[0]}/{lower_end_inserted[1][1]}')
-    #[ print(f'''set n [db get {i}]
-     #       puts $con_file [dict get $n H]''') for i in nozzles ]
-        # print(f"comb {self.name}-filled-knuckil.c u {torus_inserted['inner']}")
-        # print(f"comb {self.name}-filled-knuckil.c u {torus_inserted['inner']} - {con_cutter_inserted} - {cutter_inserted}")
+    #####oed('/',f'{lower_end_inserted[0]}/{lower_end_inserted[1][1]}')
+    # [ print(f'''set n [db get {i}]
+    #       puts $con_file [dict get $n H]''') for i in nozzles ]
+    # print(f"comb {self.name}-filled-knuckil.c u {torus_inserted['inner']}")
+    # print(f"comb {self.name}-filled-knuckil.c u {torus_inserted['inner']} - {con_cutter_inserted} - {cutter_inserted}")

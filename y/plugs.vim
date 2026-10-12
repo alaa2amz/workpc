@@ -16,8 +16,8 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'psf/black', { 'branch': 'stable' }
 
 " Git Integration
-Plug 'tpope/vim-fugitive'
-Plug 'airblade/vim-gitgutter'
+"Plug 'tpope/vim-fugitive'
+"Plug 'airblade/vim-gitgutter'
 
 " Visuals & Status Lines
 Plug 'vim-airline/vim-airline'
