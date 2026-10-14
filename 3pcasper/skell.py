@@ -663,14 +663,34 @@ class PressureVessel:
         oed("/", lower_end_path)
         print(f"orot 180 0 0")
         accept()
-        uncut_comb = f"comb  {uncut_name} u {lower_end_inserted['group']}/{lower_end_inserted['name']} u {section_inserted['name']} u {upper_end_inserted['group']}/{upper_end_inserted['name']}"
-        print(uncut_comb)
-        copymat_upper = f"copymat {upper_end_inserted['group']}/{upper_end_inserted['name']} {uncut_name}/{upper_end_inserted['name']}"
-        print(copymat_upper)
-        copymat_lower = f"copymat {lower_end_inserted['group']}/{lower_end_inserted['name']} {uncut_name}/{lower_end_inserted['name']}"
-        print(copymat_lower)
-        fill_comb = f"comb  {fill_name} u {lower_end_inserted['group']}/{lower_end_inserted['filled']} u {section_inserted['inner']} u {upper_end_inserted['group']}/{upper_end_inserted['filled']}"
-        print(fill_comb)
+
+        uncut_comb_p = (
+            f"comb  {uncut_name}"
+            f" u {lower_end_inserted['group']}/{lower_end_inserted['name']} "
+            f" u {section_inserted['name']}"
+            f" u {upper_end_inserted['group']}/{upper_end_inserted['name']}"
+        )
+        print(uncut_comb_p)
+
+        copymat_upper_p = (
+            f"copymat {upper_end_inserted['group']}/{upper_end_inserted['name']}"
+            f" {uncut_name}/{upper_end_inserted['name']}"
+        )
+        print(copymat_upper_p)
+
+        copymat_lower_p = (
+            f"copymat {lower_end_inserted['group']}/{lower_end_inserted['name']}"
+            f" {uncut_name}/{lower_end_inserted['name']}"
+        )
+        print(copymat_lower_p)
+
+        fill_comb_p = (
+            f"comb  {fill_name}"
+            f" u {lower_end_inserted['group']}/{lower_end_inserted['filled']}"
+            f" u {section_inserted['inner']}"
+            f" u {upper_end_inserted['group']}/{upper_end_inserted['filled']}"
+        )
+        print(fill_comb_p)
 
         print(
             f"copymat {upper_end_inserted['group']}/{upper_end_inserted['filled']} {fill_name}/{upper_end_inserted['filled']}"
