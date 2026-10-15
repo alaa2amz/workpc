@@ -261,7 +261,7 @@ length: 2500
 thick: -12
 end1_thick: -12
 end2_thick: -12
-supports: {type: pipe ,size: dn100 ,number: 4 , at: 0}
+supports: {type: pipe ,dn: 100 ,number: 4 , start_at: 0 ,heght: 1000}
 nozzles:
     discharge: {grp: lower, dn: 100,x: 0 ,y: 0 }
     drain1: {grp: lower, dn: 50,r: 500  ,theta: 0 }
@@ -587,6 +587,7 @@ class ToriSphEnd:
             "torus": torus_inserted,
             "sph": sph_inserted,
         }
+        # inserting supports
 
 
 class PressureVessel:
@@ -693,18 +694,15 @@ class PressureVessel:
         print(fill_comb_p)
 
         print(
-            f"copymat {upper_end_inserted['group']}/{upper_end_inserted['filled']} {fill_name}/{upper_end_inserted['filled']}"
+            f"copymat {upper_end_inserted['group']}/{upper_end_inserted['filled']} "
+            f"{fill_name}/{upper_end_inserted['filled']}"
         )
         print(
-            f"copymat {lower_end_inserted['group']}/{lower_end_inserted['filled']} {fill_name}/{lower_end_inserted['filled']}"
+            f"copymat {lower_end_inserted['group']}/{lower_end_inserted['filled']} "
+            f"{fill_name}/{lower_end_inserted['filled']}"
         )
         pmater(fill_name, "cyan", tr=0.5)
 
-        # if self.nozzles != None:
-        #    self.insert_nozzles()
-        # print(f"c {punch_name}")
-
-        # def insert_nozzles(self):
         for nzl_name, nzl_data in self.nozzles.items():
             nzl_name = self.name + "-" + nzl_name
             group = nzl_data["grp"]
@@ -720,17 +718,12 @@ class PressureVessel:
                     nzl_length += nzl_sub
 
             # TODO: add thicknesses and turn dn into od
-            # z = self.diameter - self.sph_z
-            # nzl = Nozzle(self.name + nzl_name, nzl_data["dn"], length=z + 200)
-
-            # nzl = Nozzle(self.name + nzl_name, nzl_data["dn"], length=nzl_length)
             nzl = Nozzle(nzl_name, nzl_data["dn"], length=nzl_length)
             nzl_inserted = nzl.insert()
             nzl_trimmrd = nzl_name + "-trimmed.c"
             blast(nzl_inserted["name"])
             pmater(nzl_inserted["name"], "green")
             oed_path = (
-                # f"{nzl_inserted['name']}/{nzl_inserted['pipe']['name']}/{nzl_inserted['pipe']['inner']}"
                 f"{nzl_inserted['name']}/"
                 f"{nzl_inserted['pipe']['name']}/"
                 f"{nzl_inserted['pipe']['inner']}"
@@ -765,13 +758,30 @@ class PressureVessel:
                     print("keypoint 0 0 0")
                     orot([0, 0, nzl_data["theta"]])
             accept()
-            comb = f"comb {punch_name} u {nzl_inserted['name']}/{nzl_inserted['pipe']['name']}/{nzl_inserted['pipe']['outer']}"
-            print(comb)
-            copy_mat = f"copymat {nzl_inserted['name']}/{nzl_inserted['pipe']['name']} {punch_name}/{nzl_inserted['pipe']['outer']}"
-            print(copy_mat)
+            # TODO: undict all formated strings
+            comb_p = (
+                f"comb {punch_name}"
+                f" u {nzl_inserted['name']}/"
+                f"{nzl_inserted['pipe']['name']}/"
+                f"{nzl_inserted['pipe']['outer']}"
+            )
+            print(comb_p)
+            copy_mat_p = (
+                f"copymat {nzl_inserted['name']}/"
+                f"{nzl_inserted['pipe']['name']} "
+                f"{punch_name}/{nzl_inserted['pipe']['outer']}"
+            )
+            print(copy_mat_p)
             print(f"c {nzl_trimmrd} {nzl_inserted['name']} - {fill_name}")
             print(f"comb {trim_name} u {nzl_trimmrd}")
-            desk_path = f"{long_name}/{trim_name}/{nzl_trimmrd}/{nzl_inserted['name']}/{nzl_inserted['flange']['name']}/{nzl_inserted['flange']['desk']}"
+            desk_path = (
+                f"{long_name}/"
+                f"{trim_name}/"
+                f"{nzl_trimmrd}/"
+                f"{nzl_inserted['name']}/"
+                f"{nzl_inserted['flange']['name']}/"
+                f"{nzl_inserted['flange']['desk']}"
+            )
             nozzles.append(desk_path)
         print(f"c {long_name} {uncut_name} - {punch_name} u {trim_name}")
 
@@ -1279,3 +1289,13 @@ if __name__ == "__main__":
     #       puts $con_file [dict get $n H]''') for i in nozzles ]
     # print(f"comb {self.name}-filled-knuckil.c u {torus_inserted['inner']}")
     # print(f"comb {self.name}-filled-knuckil.c u {torus_inserted['inner']} - {con_cutter_inserted} - {cutter_inserted}")
+    # if self.nozzles != None:
+    #    self.insert_nozzles()
+    # print(f"c {punch_name}")
+
+    # def insert_nozzles(self):
+    # z = self.diameter - self.sph_z
+    # nzl = Nozzle(self.name + nzl_name, nzl_data["dn"], length=z + 200)
+
+    # nzl = Nozzle(self.name + nzl_name, nzl_data["dn"], length=nzl_length)
+    # f"{nzl_inserted['name']}/{nzl_inserted['pipe']['name']}/{nzl_inserted['pipe']['inner']}"
