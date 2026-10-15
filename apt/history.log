@@ -113,3 +113,9 @@ Requested-By: alaad13 (1000)
 Install: libjs-bootstrap:amd64 (3.4.1+dfsg-6, automatic), libjs-jquery-easing:amd64 (12-4, automatic), fonts-glyphicons-halflings:amd64 (1.009~3.4.1+dfsg-6, automatic), imagemagick-7-doc:amd64 (8:7.1.1.43+dfsg1-1+deb13u12), libjs-jquery-fancybox:amd64 (12-4, automatic), fonts-tuffy:amd64 (20120614-3, automatic), libjs-jquery-mousewheel:amd64 (1:3.1.13-5, automatic)
 Upgrade: libmagickcore-7.q16-10:amd64 (8:7.1.1.43+dfsg1-1+deb13u11, 8:7.1.1.43+dfsg1-1+deb13u12), imagemagick-7-common:amd64 (8:7.1.1.43+dfsg1-1+deb13u11, 8:7.1.1.43+dfsg1-1+deb13u12), imagemagick:amd64 (8:7.1.1.43+dfsg1-1+deb13u11, 8:7.1.1.43+dfsg1-1+deb13u12), libmagickwand-7.q16-10:amd64 (8:7.1.1.43+dfsg1-1+deb13u11, 8:7.1.1.43+dfsg1-1+deb13u12), libmagickcore-7.q16-10-extra:amd64 (8:7.1.1.43+dfsg1-1+deb13u11, 8:7.1.1.43+dfsg1-1+deb13u12), imagemagick-7.q16:amd64 (8:7.1.1.43+dfsg1-1+deb13u11, 8:7.1.1.43+dfsg1-1+deb13u12)
 End-Date: 2026-10-12  09:07:41
+
+Start-Date: 2026-10-15  08:07:22
+Commandline: apt install rxvt-unicode
+Requested-By: alaad13 (1000)
+Install: rxvt-unicode:amd64 (9.31-3+b2), libptytty0:amd64 (2.0-1+b2, automatic)
+End-Date: 2026-10-15  08:07:50
