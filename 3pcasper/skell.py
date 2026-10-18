@@ -590,6 +590,7 @@ class ToriSphEnd:
         # inserting supports
 
 
+# TODO: implement outer od and inner thickness
 class PressureVessel:
     def __init__(
         self,
@@ -644,6 +645,12 @@ class PressureVessel:
         upper_end_inserted = upper_end.insert()
         self.sph_z = lower_end.sph_z
 
+        ## group key contains both steel
+        #  end and water fill portion.
+        ##  decide: using textwrap.dedent will imped new lines into
+        #   string
+
+        ## raising upper end group from ground.
         blast(upper_end_inserted["group"])
         upper_end_path = (
             f"{upper_end_inserted['group']}/"
@@ -654,6 +661,9 @@ class PressureVessel:
         oed("/", upper_end_path)
         print(f"translate 0 0 {self.length}")
         accept()
+
+        ## flipping lower end on the ground ie. from dome to
+        #  arabic(tasa) :)
         blast(lower_end_inserted["group"])
         lower_end_path = (
             f"{lower_end_inserted['group']}/"
@@ -665,6 +675,7 @@ class PressureVessel:
         print(f"orot 180 0 0")
         accept()
 
+        # whole shell before cutting nozzles holes
         uncut_comb_p = (
             f"comb  {uncut_name}"
             f" u {lower_end_inserted['group']}/{lower_end_inserted['name']} "
@@ -673,6 +684,7 @@ class PressureVessel:
         )
         print(uncut_comb_p)
 
+        # TODO: consider test replacing push command with copymat
         copymat_upper_p = (
             f"copymat {upper_end_inserted['group']}/{upper_end_inserted['name']}"
             f" {uncut_name}/{upper_end_inserted['name']}"
@@ -685,6 +697,7 @@ class PressureVessel:
         )
         print(copymat_lower_p)
 
+        # whole filling water
         fill_comb_p = (
             f"comb  {fill_name}"
             f" u {lower_end_inserted['group']}/{lower_end_inserted['filled']}"
@@ -701,12 +714,16 @@ class PressureVessel:
             f"copymat {lower_end_inserted['group']}/{lower_end_inserted['filled']} "
             f"{fill_name}/{lower_end_inserted['filled']}"
         )
+        print(f"kill {upper_end_inserted['group']} {lower_end_inserted['group']}")
         pmater(fill_name, "cyan", tr=0.5)
 
+        ## creating nozzles
+        # TODO: implementing radial end nozzles
         for nzl_name, nzl_data in self.nozzles.items():
             nzl_name = self.name + "-" + nzl_name
             group = nzl_data["grp"]
             nzl_length = 200
+            # CHECK: **0.50 should moved to outer parentheisis :CHECKD 7
             nzl_sub = (
                 self.diameter / 2
                 - ((self.diameter / 2) ** 2 - (nzl_data["dn"] / 2) ** 2) ** 0.50
@@ -758,7 +775,9 @@ class PressureVessel:
                     print("keypoint 0 0 0")
                     orot([0, 0, nzl_data["theta"]])
             accept()
+
             # TODO: undict all formated strings
+
             comb_p = (
                 f"comb {punch_name}"
                 f" u {nzl_inserted['name']}/"
@@ -766,14 +785,21 @@ class PressureVessel:
                 f"{nzl_inserted['pipe']['outer']}"
             )
             print(comb_p)
+
             copy_mat_p = (
                 f"copymat {nzl_inserted['name']}/"
                 f"{nzl_inserted['pipe']['name']} "
                 f"{punch_name}/{nzl_inserted['pipe']['outer']}"
             )
             print(copy_mat_p)
+
+            # cutting nozzle pipe by filling woter body
             print(f"c {nzl_trimmrd} {nzl_inserted['name']} - {fill_name}")
+
+            # adding trimmed nozzle to group of nozzles
             print(f"comb {trim_name} u {nzl_trimmrd}")
+
+            # collecting connection end data
             desk_path = (
                 f"{long_name}/"
                 f"{trim_name}/"
@@ -783,19 +809,27 @@ class PressureVessel:
                 f"{nzl_inserted['flange']['desk']}"
             )
             nozzles.append(desk_path)
+
+        # final eq combination uncut_body - punch_holes u trim_name(trimmed nozzles group)
         print(f"c {long_name} {uncut_name} - {punch_name} u {trim_name}")
+        region_name = long_name[:-2] + ".r"
+        print(f"r  {region_name} u {long_name}")
 
         ## handling sections
         # TODO: tobe abstracted and separated
+        bb_name = f"bb-{long_name[:-2]}.s"
+        group_name = long_name[:-2] + ".g"
+        print(f"bb -c {bb_name} {long_name}")
+        print(f"g {group_name} {long_name} {region_name} {bb_name}")
         for index, direction in enumerate(["x", "y", "z"]):
             vector = [1.0, 1.0, 1.0]
             # sign should be renamed to sign factor
-            bb_name = f"bb-{long_name[:-2]}-{direction}.s"
-            bb_name_comb = bb_name[:-2] + ".c"
-            bb_name_comb_mir = bb_name[:-2] + "-mir" + ".c"
+            # bb_name = f"bb-{long_name[:-2]}-{direction}.s"
+            bb_name_comb = bb_name[:-2] + f"-{direction}.c"
+            bb_name_comb_mir = bb_name[:-2] + "-mir" + f"-{direction}.c"
             sec_name = "sec-" + bb_name_comb
             sec_name_mir = "sec-" + bb_name_comb_mir
-            print(f"bb -c {bb_name} {long_name}")
+            # print(f"bb -c {bb_name} {long_name}")
             print(f"c {bb_name_comb} {bb_name}")
             blast(bb_name_comb)
             print(f"oed / {bb_name_comb}/{bb_name}")
@@ -806,6 +840,9 @@ class PressureVessel:
             print(f"c {bb_name_comb_mir} {bb_name} - {bb_name_comb}")
             print(f"c {sec_name} {long_name} + {bb_name_comb}")
             print(f"c {sec_name_mir} {long_name} + {fill_name} + {bb_name_comb_mir}")
+            print(
+                f"g {group_name} {bb_name_comb} {bb_name_comb_mir} {sec_name} {sec_name_mir}"
+            )
 
         # exit()
 
