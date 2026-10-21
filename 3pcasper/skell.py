@@ -39,10 +39,10 @@ def main():
     # tsh=ToriSphEnd('d',3000,15)
     # tsh.insert()
 
-    pvn = yaml.safe_load(pv_sample)
-    # pp(pv)
-    pv = PressureVessel("n", 2000, 3000, 15, nozzles=pvn["nozzles"])
-    pv.insert()
+    ###pvn = yaml.safe_load(pv_sample)
+    #### pp(pv)
+    ###pv = PressureVessel("n", 2000, 3000, 15, nozzles=pvn["nozzles"])
+    ###pv.insert()
 
     # pp(pipes)
     # pp(flanges)
@@ -65,6 +65,9 @@ def main():
 
     # nz = Nozzle("z", 200)
     # nz.insert()
+
+    c = IBeam("c", 1000, 100, 20, 10, 50, shape="i")
+    c.insert()
     get_rccs_data(nozzles)
 
 
@@ -261,7 +264,13 @@ length: 2500
 thick: -12
 end1_thick: -12
 end2_thick: -12
-supports: {type: pipe ,dn: 100 ,number: 4 , start_at: 0 ,heght: 1000}
+supports:
+    type: c
+    designation: {web_th: 
+    number: 4
+    start_at: 0
+    heght: 1000
+    plate: {thick: 10, length: 200, width: 200}
 nozzles:
     discharge: {grp: lower, dn: 100,x: 0 ,y: 0 }
     drain1: {grp: lower, dn: 50,r: 500  ,theta: 0 }
@@ -970,15 +979,29 @@ class IBeam:
         location=[0, 0, 0],
         rotation=[0, 0, 0],
         handle="cen",
+        shape="i",
         **kargs,
     ):
-        """--- --- ---"""
+        """--- --- ---
+        TODO: changing and raising undescriptive names
+        """
+
+        if shape == "c":
+            flange_min_x = 0
+            flange_max_x = flange_width
+            web_min_x = 0
+            web_max_x = web_thick
+        elif shape == "i":
+            flange_min_x = -flange_width / 2
+            flange_max_x = flange_width / 2
+            web_min_x = -web_thick / 2
+            web_max_x = web_thick / 2
         self.lower_flange = RPP(
             name + "-lflng",
             0,
             length,
-            -flange_width / 2,
-            flange_width / 2,
+            flange_min_x,
+            flange_max_x,
             0,
             flange_thick,
         )
@@ -986,8 +1009,8 @@ class IBeam:
             name + "-web",
             0,
             length,
-            -web_thick / 2,
-            web_thick / 2,
+            web_min_x,
+            web_max_x,
             flange_thick,
             total_height - flange_thick,
         )
@@ -995,8 +1018,8 @@ class IBeam:
             name + "-uflng",
             0,
             length,
-            -flange_width / 2,
-            flange_width / 2,
+            flange_min_x,
+            flange_max_x,
             total_height - flange_thick,
             total_height,
         )
