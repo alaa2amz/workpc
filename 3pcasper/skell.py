@@ -39,10 +39,12 @@ def main():
     # tsh=ToriSphEnd('d',3000,15)
     # tsh.insert()
 
-    ###pvn = yaml.safe_load(pv_sample)
-    #### pp(pv)
-    ###pv = PressureVessel("n", 2000, 3000, 15, nozzles=pvn["nozzles"])
-    ###pv.insert()
+    pvn = yaml.safe_load(pv_sample)
+    # pp(pv)
+    pv = PressureVessel(
+        "n", 2000, 3000, 15, nozzles=pvn["nozzles"], support=pvn["supports"]
+    )
+    pv.insert()
 
     # pp(pipes)
     # pp(flanges)
@@ -66,9 +68,9 @@ def main():
     # nz = Nozzle("z", 200)
     # nz.insert()
 
-    c = IBeam("c", 1000, 100, 20, 10, 50, shape="i")
-    c.insert()
-    get_rccs_data(nozzles)
+    ###c = IBeam("c", 1000, 100, 20, 10, 50, shape="i")
+    ###c.insert()
+    ###get_rccs_data(nozzles)
 
 
 def get_rccs_data(rcc_list, file_name="rccs_data.yaml"):
@@ -265,12 +267,18 @@ thick: -12
 end1_thick: -12
 end2_thick: -12
 supports:
-    type: c
-    designation: {web_th: 
+    type: cchannel
+    heght: 1000
     number: 4
     start_at: 0
-    heght: 1000
-    plate: {thick: 10, length: 200, width: 200}
+    web_height: 100
+    web_thick: 10
+    flange_width: 50
+    flange_thick: 7
+    plate_offset: 100
+    plate_thick: 10
+    foundation_offset: 20
+    foundation_height: 200
 nozzles:
     discharge: {grp: lower, dn: 100,x: 0 ,y: 0 }
     drain1: {grp: lower, dn: 50,r: 500  ,theta: 0 }
@@ -823,6 +831,17 @@ class PressureVessel:
         print(f"c {long_name} {uncut_name} - {punch_name} u {trim_name}")
         region_name = long_name[:-2] + ".r"
         print(f"r  {region_name} u {long_name}")
+
+        ## Supports:
+        print(self.support)
+        for no in range(self.support["number"]):
+            print('#',no)
+            if self.support['type'] == 'cchannel'
+                support = IBeam(self.name+'-support-'+no,
+                                self.support['length'],
+
+
+        input()
 
         ## handling sections
         # TODO: tobe abstracted and separated
