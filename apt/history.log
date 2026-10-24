@@ -125,3 +125,16 @@ Commandline: apt install wbar
 Requested-By: alaad13 (1000)
 Install: wbar:amd64 (2.3.4-13+b1), lxde-icon-theme:amd64 (0.5.2-1, automatic)
 End-Date: 2026-10-20  08:50:06
+
+Start-Date: 2026-10-22  08:25:14
+Commandline: apt install gh
+Requested-By: alaad13 (1000)
+Upgrade: gh:amd64 (2.95.0, 2.102.0)
+End-Date: 2026-10-22  08:25:32
+
+Start-Date: 2026-10-22  08:35:59
+Commandline: apt install font-manager
+Requested-By: alaad13 (1000)
+Install: libjavascriptcoregtk-6.0-1:amd64 (2.54.0-1~deb13u2, automatic), font-manager-common:amd64 (0.9.4-2, automatic), font-manager:amd64 (0.9.4-2), libwebkitgtk-6.0-4:amd64 (2.54.0-1~deb13u2, automatic), font-viewer:amd64 (0.9.4-2, automatic)
+Upgrade: libjavascriptcoregtk-4.1-0:amd64 (2.52.3-2~deb13u1, 2.54.0-1~deb13u2), gir1.2-javascriptcoregtk-4.1:amd64 (2.52.3-2~deb13u1, 2.54.0-1~deb13u2), gir1.2-webkit2-4.1:amd64 (2.52.3-2~deb13u1, 2.54.0-1~deb13u2), libwebkit2gtk-4.1-0:amd64 (2.52.3-2~deb13u1, 2.54.0-1~deb13u2)
+End-Date: 2026-10-22  08:36:29
