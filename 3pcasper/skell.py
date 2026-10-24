@@ -17,6 +17,13 @@ nozzles = []
 
 
 def main():
+    an = isotrig_base_angle(200, 158.8305)
+    print(an)
+    # p1 = angular_distribute(5000, 4)
+    # p2 = angular_distribute(5000, 4, 45)
+    # print(p1)
+    # print(p2)
+    exit()
     # asme pipes and flanges
     load_data()
 
@@ -71,6 +78,12 @@ def main():
     ###c = IBeam("c", 1000, 100, 20, 10, 50, shape="i")
     ###c.insert()
     ###get_rccs_data(nozzles)
+
+
+def isotrig_base_angle(arm, base):
+    base_angel_rad = math.acos(base / 2 / arm)
+    base_angel_deg = math.degrees(base_angel_rad)
+    return base_angel_deg
 
 
 def get_rccs_data(rcc_list, file_name="rccs_data.yaml"):
@@ -286,6 +299,20 @@ nozzles:
     discharge2: {grp: upper, dn: 100,x: 0 ,y: 0 }
     drain3: {grp: upper, dn: 50,r: 500  ,theta: 0 }
 """
+
+
+def angular_distribute(diameter, number, start_angle=0):
+    distributed_points = []
+    step_angle = 360 / number
+    for step in range(number):
+        angle = step * step_angle + start_angle
+        rad = math.radians(angle)
+        x = diameter / 2 * math.cos(rad)
+        y = diameter / 2 * math.sin(rad)
+        data = {"angle": angle, "x": x, "y": y}
+        distributed_points.append(data)
+    return distributed_points
+
 
 ##Skell json data sample
 sample = {
@@ -835,11 +862,11 @@ class PressureVessel:
         ## Supports:
         print(self.support)
         for no in range(self.support["number"]):
-            print('#',no)
-            if self.support['type'] == 'cchannel'
-                support = IBeam(self.name+'-support-'+no,
-                                self.support['length'],
-
+            print("#", no)
+            if self.support["type"] == "cchannel":
+                pass
+                # support = IBeam(self.name+'-support-'+no,
+                #                self.support['length'],
 
         input()
 
