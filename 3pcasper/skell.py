@@ -17,13 +17,12 @@ nozzles = []
 
 
 def main():
-    an = isotrig_base_angle(200, 158.8305)
-    print(an)
+    # an = isotrig_base_angle(200, 158.8305)
+    # print(an)
     # p1 = angular_distribute(5000, 4)
     # p2 = angular_distribute(5000, 4, 45)
     # print(p1)
     # print(p2)
-    exit()
     # asme pipes and flanges
     load_data()
 
@@ -861,12 +860,24 @@ class PressureVessel:
 
         ## Supports:
         print(self.support)
-        for no in range(self.support["number"]):
-            print("#", no)
-            if self.support["type"] == "cchannel":
-                pass
-                # support = IBeam(self.name+'-support-'+no,
-                #                self.support['length'],
+        supports_number = self.support["number"]
+        supports_start_angle = self.support["start_at"]
+        supports_points = angular_distribute(
+            self.diameter, supports_number, supports_start_angle
+        )
+        for no, point_data in enumerate(supports_points):
+            print("#", no, point_data)
+            support = IBeam(
+                self.name + str(no),
+                1000,
+                200,
+                20,
+                10,
+                100,
+                0,
+                [point_data["x"], point_data["y"], 0.0],
+            )
+            support.insert()
 
         input()
 
