@@ -620,7 +620,7 @@ class ToriSphEnd:
             f" - {cutter_inserted}"
             f" u {barrel_inserted['inner']}"
         )
-        pmater(long_name_filled, "cyan", 0.0, 0.0)
+        # pmater(long_name_filled, "cyan", 0.0, 0.0)
         print(f"g {group_name} {long_name} {long_name_filled}")
         return {
             "group": group_name,
@@ -758,7 +758,7 @@ class PressureVessel:
             f"{fill_name}/{lower_end_inserted['filled']}"
         )
         print(f"kill {upper_end_inserted['group']} {lower_end_inserted['group']}")
-        pmater(fill_name, "cyan", tr=0.5)
+        # pmater(fill_name, "cyan", tr=0.5)
 
         ## creating nozzles
         # TODO: implementing radial end nozzles
@@ -782,7 +782,7 @@ class PressureVessel:
             nzl_inserted = nzl.insert()
             nzl_trimmrd = nzl_name + "-trimmed.c"
             blast(nzl_inserted["name"])
-            pmater(nzl_inserted["name"], "green")
+            # pmater(nzl_inserted["name"], "green")
             oed_path = (
                 f"{nzl_inserted['name']}/"
                 f"{nzl_inserted['pipe']['name']}/"
@@ -859,7 +859,7 @@ class PressureVessel:
         print(f"r  {region_name} u {long_name}")
 
         ## Supports:
-        print(self.support)
+        # print(self.support)
         supports_number = self.support["number"]
         supports_start_angle = self.support["start_at"]
         supports_points = angular_distribute(
@@ -874,12 +874,12 @@ class PressureVessel:
                 20,
                 10,
                 100,
-                0,
                 [point_data["x"], point_data["y"], 0.0],
+                [-90, -90, -90],
+                shape="c",
             )
-            support.insert()
-
-        input()
+            support_inserted = support.insert()
+            # blast(support_inserted)
 
         ## handling sections
         # TODO: tobe abstracted and separated
