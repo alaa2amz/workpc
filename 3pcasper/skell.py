@@ -50,7 +50,11 @@ def main():
     pv = PressureVessel(
         "n", 2000, 3000, 15, nozzles=pvn["nozzles"], support=pvn["supports"]
     )
-    pv.insert()
+    inserted_pv = pv.insert()
+    draws.append(inserted_pv)
+    with open("draw.tcl", "w") as f:
+        for i in draws:
+            print("e", i, file=f)
 
     # pp(pipes)
     # pp(flanges)
@@ -868,18 +872,46 @@ class PressureVessel:
         for no, point_data in enumerate(supports_points):
             print("#", no, point_data)
             support = IBeam(
-                self.name + str(no),
+                self.name + "-sup-no-" + str(no),
                 1000,
                 200,
                 20,
                 10,
                 100,
-                [point_data["x"], point_data["y"], 0.0],
-                [-90, -90, -90],
+                # [point_data["x"], point_data["y"], 0.0],
+                [self.diameter / 2 + self.shell_thick, 0.0, 0.0],
+                [0, -90, 0],
                 shape="c",
             )
-            support_inserted = support.insert()
-            # blast(support_inserted)
+            support_inserted_dict = support.insert(api=1)
+            inserted_name = support_inserted_dict["name"]
+            tos = support_inserted_dict["tos"]
+            draws.append(inserted_name)
+            blast(inserted_name)
+            path = f"{inserted_name}/{tos}"
+            oed("/", path)
+            orot([0, 0, 90])
+            print(f"tra 0 {10} 0")
+            print(f"keypoint {self.diameter/2+self.shell_thick} 0 0")
+            angle = isotrig_base_angle(
+                self.diameter / 2 + self.shell_thick, 200 - 2 * 10
+            )
+            half_head_angle = (180 - 2 * angle) / 2
+            print(f"orot 0 0 {angle}")
+
+            accept()
+            oed("/", path)
+            print("keypoint 0 0 0")
+            orot([0, 0, half_head_angle])
+            accept()
+            oed("/", path)
+            print("keypoint 0 0 0")
+            orot([0, 0, point_data["angle"]])
+            accept()
+        return region_name
+
+        # print(
+        # blast(support_inserted)
 
         ## handling sections
         # TODO: tobe abstracted and separated
@@ -1087,13 +1119,17 @@ class IBeam:
         self.location = location
         self.name = name
         self.solids = [self.lower_flange, self.web, self.upper_flange]
+        self.solids_labels = ["lower_flange", "web", "upper_flange"]
         self.guides = [self.orig, self.tos]
+        self.guide_labelss = ["orig", "tos"]
 
-    def insert(self, prefix="", suffix=".c"):
+    def insert(self, prefix="", suffix=".c", api=0):
         long_name = prefix + self.name + suffix
         unions = [i.insert() for i in self.solids]
+        unions_dict = {k: i for k, i in zip(self.solids_labels, unions)}
         unions_u_join = " u ".join(unions)
         addsubs = [i.insert() for i in self.guides]
+        addsubs_dict = {k: i for k, i in zip(self.guide_labelss, addsubs)}
         addsubs_minus = [f"{i} - {i}" for i in addsubs]
         addsubs_u_join = " u ".join(addsubs_minus)
         print(f"comb {long_name} u {unions_u_join} u {addsubs_u_join}")
@@ -1111,8 +1147,15 @@ class IBeam:
         print(f"translate {location_string}")
         print(f"accept")
         bound_box_name = long_name.replace(".c", "-bb.s", 1)
+        inserted_dict = {"name": long_name, "bound_box": bound_box_name}
         print(f"bb -c {bound_box_name} {long_name}")
-        return long_name, bound_box_name
+        if api == 0:
+            return long_name, bound_box_name
+        elif api == 1:
+            return inserted_dict | unions_dict | addsubs_dict
+
+
+# TODO:grouping with bound box to be moved as well :vary important!!!
 
 
 def blast(object):

@@ -5,4 +5,5 @@ set global_compat_mod 0
 #eval e [tops] #this not working
 #e {*}[expand n-pv.c *nzl*.c]
 echo hhhhhh
+source draw.tcl
 
