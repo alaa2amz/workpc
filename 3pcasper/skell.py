@@ -5,6 +5,8 @@ import json
 import csv
 from typing import Self
 import math
+
+from requests.sessions import should_bypass_proxies
 import wc
 import yaml
 from itertools import product, zip_longest
@@ -885,25 +887,37 @@ class PressureVessel:
             )
             support_inserted_dict = support.insert(api=1)
             inserted_name = support_inserted_dict["name"]
-            tos = support_inserted_dict["tos"]
+            orig = support_inserted_dict["orig"]
             draws.append(inserted_name)
             blast(inserted_name)
-            path = f"{inserted_name}/{tos}"
+            path = f"{inserted_name}/{orig}"
+            # oed("/", path)
+            # orot([0, 0, 90])
+            # print(f"tra 0 -{10} 0")
+            # print(f"keypoint {self.diameter/2+self.shell_thick} 0 0")
+            # angle = isotrig_base_angle(
+            #    self.diameter / 2 + self.shell_thick, 200 - 2 * 10
+            # )
+            # half_head_angle = (180 - 2 * angle) / 2
+            # print( f"orot 0 0 {angle}")
+
+            # accept()
+            # oed("/", path)
+            # print("keypoint 0 0 0")
+            # orot([0, 0, half_head_angle])
+            # accept()
+            delta = 100 - (
+                ((self.diameter / 2 + self.shell_thick) ** 2 - (90) ** 2) ** 0.5
+                - (self.diameter / 2 + self.shell_thick)
+            )
             oed("/", path)
             orot([0, 0, 90])
-            print(f"tra 0 {10} 0")
-            print(f"keypoint {self.diameter/2+self.shell_thick} 0 0")
-            angle = isotrig_base_angle(
-                self.diameter / 2 + self.shell_thick, 200 - 2 * 10
-            )
-            half_head_angle = (180 - 2 * angle) / 2
-            print(f"orot 0 0 {angle}")
+            accept()
 
-            accept()
             oed("/", path)
-            print("keypoint 0 0 0")
-            orot([0, 0, half_head_angle])
+            print(f"tra {delta-self.shell_thick} 0 0")
             accept()
+
             oed("/", path)
             print("keypoint 0 0 0")
             orot([0, 0, point_data["angle"]])
