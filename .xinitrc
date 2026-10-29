@@ -28,6 +28,10 @@ export GTK_USE_PORTAL=1
 
 
 
+while xsetroot -name "`date` `uptime | sed 's/.*,//'`"
+do
+  sleep 1
+done &
 
  while true; do  dwm 1>>$HOME/dwm.o 2>>$HOME/dwm.e;done
 

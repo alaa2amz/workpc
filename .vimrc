@@ -81,3 +81,7 @@ autocmd ColorScheme * highlight CocHighlightText     ctermfg=LightMagenta    gui
 hi CocHighlightText ctermbg=yellow
 nmap <silent> <C-f> <Plug>(coc-float-hide)
 highlight SignColumn guibg=darkgrey ctermbg=242
+
+" Or standard signature help trigger:
+nmap <silent> <C-k> <Plug>(coc-signature-help)
+
