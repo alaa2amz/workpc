@@ -6,4 +6,11 @@ set global_compat_mod 0
 #e {*}[expand n-pv.c *nzl*.c]
 echo hhhhhh
 source draw.tcl
+rset g draw 1
+rset g mrv 1
+rset g rv 1000
+rset g rh 1000
+hide [expand *.s] 
+hide [expand *.c]
+
 

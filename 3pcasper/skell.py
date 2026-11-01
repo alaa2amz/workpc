@@ -53,6 +53,7 @@ def main():
         "n", 2000, 3000, 15, nozzles=pvn["nozzles"], support=pvn["supports"]
     )
     inserted_pv = pv.insert()
+    draws = []
     draws.append(inserted_pv)
     with open("draw.tcl", "w") as f:
         for i in draws:
@@ -665,27 +666,35 @@ class PressureVessel:
         self.sph_z = 0
 
     def insert(self, prefix="", suffix="-pv.c"):
+        """uncut punch trim fill sec.g"""
         uncut_name = self.name + "-uncut.c"
         punch_name = self.name + "-punch.c"
         trim_name = self.name + "-trim.c"
         long_name = prefix + self.name + suffix
-        fill_name = long_name[:-2] + "fill.c"
+        fill_name = long_name[:-2] + "-fill.c"
+        group_name = long_name[:-2] + ".g"
+        fill_region_name = long_name[:-2] + "-fill.r"
+        lower_end_name = "-lowerend"
+        section_name = "-section"
+        upper_end_name = "-upperend"
+        supports_name = self.name + "-supports.c"
+
         lower_end = ToriSphEnd(
-            self.name + "-lowerend",
+            self.name + lower_end_name,
             self.diameter,
             self.ends_thick,
         )
 
         # TODO:rename print vars to ..._p
         section = RCC(
-            self.name + "-section",
+            self.name + section_name,
             [0, 0, 0],
             [0, 0, self.length],
             self.diameter / 2,
         )
         section_shell = Shell(section, self.shell_thick)
         upper_end = ToriSphEnd(
-            self.name + "-upperend",
+            self.name + upper_end_name,
             self.diameter,
             self.ends_thick,
         )
@@ -764,7 +773,8 @@ class PressureVessel:
             f"{fill_name}/{lower_end_inserted['filled']}"
         )
         print(f"kill {upper_end_inserted['group']} {lower_end_inserted['group']}")
-        # pmater(fill_name, "cyan", tr=0.5)
+        print(f"r {fill_region_name} u {fill_name}")
+        pmater(fill_region_name, "cyan", tr=0.5)
 
         ## creating nozzles
         # TODO: implementing radial end nozzles
@@ -862,7 +872,6 @@ class PressureVessel:
         # final eq combination uncut_body - punch_holes u trim_name(trimmed nozzles group)
         print(f"c {long_name} {uncut_name} - {punch_name} u {trim_name}")
         region_name = long_name[:-2] + ".r"
-        print(f"r  {region_name} u {long_name}")
 
         ## Supports:
         # print(self.support)
@@ -922,23 +931,29 @@ class PressureVessel:
             print("keypoint 0 0 0")
             orot([0, 0, point_data["angle"]])
             accept()
-        return region_name
+            print(f"comb {supports_name} u {inserted_name}")
+            print(f"#c {supports_name} {inserted_name}")
+        print(f"r  {region_name} u {long_name} u {supports_name}")
 
         # print(
         # blast(support_inserted)
 
         ## handling sections
         # TODO: tobe abstracted and separated
+        boxes_name = self.name + "-boxes"
+        secs_name = self.name + "-secs"
         bb_name = f"bb-{long_name[:-2]}.s"
         group_name = long_name[:-2] + ".g"
+
         print(f"bb -c {bb_name} {long_name}")
-        print(f"g {group_name} {long_name} {region_name} {bb_name}")
+        print(f"g {boxes_name} {bb_name}")
         for index, direction in enumerate(["x", "y", "z"]):
             vector = [1.0, 1.0, 1.0]
             # sign should be renamed to sign factor
             # bb_name = f"bb-{long_name[:-2]}-{direction}.s"
             bb_name_comb = bb_name[:-2] + f"-{direction}.c"
             bb_name_comb_mir = bb_name[:-2] + "-mir" + f"-{direction}.c"
+
             sec_name = "sec-" + bb_name_comb
             sec_name_mir = "sec-" + bb_name_comb_mir
             # print(f"bb -c {bb_name} {long_name}")
@@ -950,11 +965,18 @@ class PressureVessel:
             print(f"sca {vector_string}")
             accept()
             print(f"c {bb_name_comb_mir} {bb_name} - {bb_name_comb}")
-            print(f"c {sec_name} {long_name} + {bb_name_comb}")
-            print(f"c {sec_name_mir} {long_name} + {fill_name} + {bb_name_comb_mir}")
+            print(f"g {boxes_name} {bb_name_comb} {bb_name_comb_mir}")
             print(
-                f"g {group_name} {bb_name_comb} {bb_name_comb_mir} {sec_name} {sec_name_mir}"
+                f"c {sec_name} ( {region_name} u {fill_region_name} ) + {bb_name_comb}"
             )
+            print(
+                f"c {sec_name_mir} ( {region_name}  u {fill_region_name} ) + {bb_name_comb_mir}"
+            )
+            print(f"g {secs_name} {sec_name} {sec_name_mir}")
+        print(
+            f"g {group_name} {region_name} {fill_region_name} {secs_name} {boxes_name}"
+        )
+        return region_name
 
         # exit()
 
