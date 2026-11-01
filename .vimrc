@@ -85,3 +85,4 @@ highlight SignColumn guibg=darkgrey ctermbg=242
 " Or standard signature help trigger:
 nmap <silent> <C-k> <Plug>(coc-signature-help)
 
+vmap f "ay<Esc>:!dict <C-r>a<CR>
