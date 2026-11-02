@@ -10,7 +10,7 @@ rset g draw 1
 rset g mrv 1
 rset g rv 1000
 rset g rh 1000
-hide [expand *.s] 
-hide [expand *.c]
+hide {*}[expand *.s] 
+hide {*}[expand *.c]
 
 

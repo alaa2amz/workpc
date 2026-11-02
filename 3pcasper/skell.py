@@ -678,6 +678,7 @@ class PressureVessel:
         section_name = "-section"
         upper_end_name = "-upperend"
         supports_name = self.name + "-supports.c"
+        supports_region_name = supports_name[:-2] + ".r"
 
         lower_end = ToriSphEnd(
             self.name + lower_end_name,
@@ -933,19 +934,23 @@ class PressureVessel:
             accept()
             print(f"comb {supports_name} u {inserted_name}")
             print(f"#c {supports_name} {inserted_name}")
-        print(f"r  {region_name} u {long_name} u {supports_name}")
+        print(f"comb {supports_name} - {long_name}")
+        print(f"r  {region_name} u {long_name}")
+        print(f"r  {supports_region_name} u {supports_name}")
 
         # print(
         # blast(support_inserted)
+        display_name = self.name + "-display.g"
+        print(f"g {display_name}  {region_name} {supports_region_name}")
 
         ## handling sections
         # TODO: tobe abstracted and separated
-        boxes_name = self.name + "-boxes"
-        secs_name = self.name + "-secs"
+        boxes_name = self.name + "-boxes.g"
+        secs_name = self.name + "-secs.g"
         bb_name = f"bb-{long_name[:-2]}.s"
         group_name = long_name[:-2] + ".g"
 
-        print(f"bb -c {bb_name} {long_name}")
+        print(f"bb -c {bb_name} {display_name}")
         print(f"g {boxes_name} {bb_name}")
         for index, direction in enumerate(["x", "y", "z"]):
             vector = [1.0, 1.0, 1.0]
@@ -967,16 +972,16 @@ class PressureVessel:
             print(f"c {bb_name_comb_mir} {bb_name} - {bb_name_comb}")
             print(f"g {boxes_name} {bb_name_comb} {bb_name_comb_mir}")
             print(
-                f"c {sec_name} ( {region_name} u {fill_region_name} ) + {bb_name_comb}"
+                f"c {sec_name} ( {display_name} u {fill_region_name} ) + {bb_name_comb}"
             )
             print(
-                f"c {sec_name_mir} ( {region_name}  u {fill_region_name} ) + {bb_name_comb_mir}"
+                f"c {sec_name_mir} ( {display_name}  u {fill_region_name} ) + {bb_name_comb_mir}"
             )
             print(f"g {secs_name} {sec_name} {sec_name_mir}")
         print(
-            f"g {group_name} {region_name} {fill_region_name} {secs_name} {boxes_name}"
+            f"g {group_name} {display_name} {fill_region_name} {secs_name} {boxes_name}"
         )
-        return region_name
+        return display_name
 
         # exit()
 
