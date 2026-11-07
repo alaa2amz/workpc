@@ -86,3 +86,4 @@ highlight SignColumn guibg=darkgrey ctermbg=242
 nmap <silent> <C-k> <Plug>(coc-signature-help)
 
 vmap f "ay<Esc>:!dict <C-r>a<CR>
+set autoindent

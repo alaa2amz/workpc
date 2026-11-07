@@ -16,3 +16,9 @@ Commandline: apt install plotutils
 Requested-By: alaad13 (1000)
 Install: plotutils:amd64 (2.6-14+b3), libplot2c2:amd64 (2.6-14+b3, automatic)
 End-Date: 2026-11-01  10:36:03
+
+Start-Date: 2026-11-02  14:05:30
+Commandline: apt install latex-cjk-japanese
+Requested-By: alaad13 (1000)
+Install: latex-cjk-japanese-wadalab:amd64 (0.20050817-20, automatic), texlive-font-utils:amd64 (2024.20250309-2, automatic), latex-cjk-japanese:amd64 (4.8.5-1), ps2eps:amd64 (1.70-1+b1, automatic), latex-cjk-common:amd64 (4.8.5-1, automatic)
+End-Date: 2026-11-02  14:05:58
