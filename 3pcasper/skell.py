@@ -1,17 +1,19 @@
 # from glob import translate
-from os import name
-from pprint import pp
+import math
 import json
 import csv
-from typing import Self
-import math
-import densties
-
-from requests.sessions import should_bypass_proxies
-import wc
 import yaml
 from itertools import product, zip_longest
 from copy import deepcopy
+
+import wc
+
+from requests.sessions import should_bypass_proxies
+from typing import Self
+
+# import densties
+from pprint import pp
+from os import name
 
 # yaml sample
 ys = {}
@@ -277,6 +279,8 @@ beams:
 margin: 5000
 floor_depth: 2000
 """
+
+# PV
 pv_sample = """#yaml
 name: test
 location: [0,0,0] #or cen of 0-1, 
@@ -288,9 +292,9 @@ end1_thick: -12
 end2_thick: -12
 supports:
     type: cchannel
-    heght: 1000
+    height: 1000
     number: 4
-    start_at: 0
+    start_at: 45
     web_height: 100
     web_thick: 10
     flange_width: 50
@@ -879,19 +883,21 @@ class PressureVessel:
         # print(self.support)
         supports_number = self.support["number"]
         supports_start_angle = self.support["start_at"]
+        # TODO: Handle thickness in below linw
         supports_points = angular_distribute(
             self.diameter, supports_number, supports_start_angle
         )
         for no, point_data in enumerate(supports_points):
             print("#", no, point_data)
             support = IBeam(
-                self.name + "-sup-no-" + str(no),
-                1000,
-                200,
-                20,
-                10,
-                100,
+                self.name + "-sup-" + str(no),
+                self.support["height"],
+                self.support["web_height"],
+                self.support["web_thick"],
+                self.support["flange_thick"],
+                self.support["flange_width"],
                 # [point_data["x"], point_data["y"], 0.0],
+                # TODO: Handle thicl below
                 [self.diameter / 2 + self.shell_thick, 0.0, 0.0],
                 [0, -90, 0],
                 shape="c",
@@ -935,6 +941,25 @@ class PressureVessel:
             accept()
             print(f"comb {supports_name} u {inserted_name}")
             print(f"#c {supports_name} {inserted_name}")
+            # Plate
+            sup = self.support
+            dia = (sup["web_height"] ** 2 + sup["flange_width"] ** 2) ** 0.5
+            totaloff = dia / 2 + sup["plate_offset"]
+            x = point_data["x"]
+            y = point_data["y"]
+            z = sup["height"]
+            plate = RPP(
+                self.name + "-plt-" + str(no),
+                x - totaloff,
+                x + totaloff,
+                y - totaloff,
+                y + totaloff,
+                -z - sup["plate_thick"],
+                -z,
+            )
+            inserted_plate = plate.insert()
+            print(f"comb {supports_name} u {inserted_plate}")
+
         print(f"comb {supports_name} - {long_name}")
         print(f"r  {region_name} u {long_name}")
         print(f"r  {supports_region_name} u {supports_name}")
