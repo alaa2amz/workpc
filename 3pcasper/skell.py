@@ -923,7 +923,8 @@ class PressureVessel:
             # print("keypoint 0 0 0")
             # orot([0, 0, half_head_angle])
             # accept()
-            delta = 100 - (
+            # delta = 100 - (
+            delta = self.support["flange_width"] - (
                 ((self.diameter / 2 + self.shell_thick) ** 2 - (90) ** 2) ** 0.5
                 - (self.diameter / 2 + self.shell_thick)
             )
