@@ -79,11 +79,11 @@ augroup END
 autocmd ColorScheme * highlight CocHighlightText     ctermfg=LightMagenta    guifg=LightMagenta
 
 hi CocHighlightText ctermbg=yellow
-nmap <silent> <C-f> <Plug>(coc-float-hide)
 highlight SignColumn guibg=darkgrey ctermbg=242
 
 " Or standard signature help trigger:
-nmap <silent> <C-k> <Plug>(coc-signature-help)
+"nmap <silent> <C-k> <Plug>(coc-signature-help)
+"nmap <silent> <C-f> <Plug>(coc-float-hide)
 
 vmap f "ay<Esc>:!dict <C-r>a<CR>
 set autoindent

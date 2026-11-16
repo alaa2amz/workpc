@@ -23,6 +23,7 @@ export PATH=$HOME/.local/bin/:$PATH
 export PATH=$HOME/.local/J/bin/:$PATH
 export myrepo=https://github.com/alaa2amz
 export esc=`printf '\033'`
+export BROWSER=lynx
 
 wd() { echo $PWD > /tmp/cwd ; }
 rd() { cd $(cat /tmp/cwd) ; }

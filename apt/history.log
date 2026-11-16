@@ -22,3 +22,27 @@ Commandline: apt install latex-cjk-japanese
 Requested-By: alaad13 (1000)
 Install: latex-cjk-japanese-wadalab:amd64 (0.20050817-20, automatic), texlive-font-utils:amd64 (2024.20250309-2, automatic), latex-cjk-japanese:amd64 (4.8.5-1), ps2eps:amd64 (1.70-1+b1, automatic), latex-cjk-common:amd64 (4.8.5-1, automatic)
 End-Date: 2026-11-02  14:05:58
+
+Start-Date: 2026-11-08  09:53:22
+Commandline: apt install abiword
+Requested-By: alaad13 (1000)
+Install: libwv-1.2-4t64:amd64 (1.2.9-8+b1, automatic), abiword-plugin-grammar:amd64 (3.0.6~dfsg-1, automatic), abiword:amd64 (3.0.6~dfsg-1), liblink-grammar5t64:amd64 (5.12.5~dfsg-1+b3, automatic), evolution-data-server-common:amd64 (3.56.2-0+deb13u1, automatic), libgoffice-0.10-10-common:amd64 (0.10.57-2, automatic), libedataserver-1.2-27t64:amd64 (3.56.2-0+deb13u1, automatic), libwmf-0.2-7:amd64 (0.2.13-1.1+b3, automatic), libtidy58:amd64 (2:5.8.0-2, automatic), libgoffice-0.10-10t64:amd64 (0.10.57-2, automatic), abiword-common:amd64 (3.0.6~dfsg-1, automatic), libcamel-1.2-64t64:amd64 (3.56.2-0+deb13u1, automatic), libphonenumber8:amd64 (8.13.51+ds-4.2, automatic), libebook-contacts-1.2-4t64:amd64 (3.56.2-0+deb13u1, automatic), minisat:amd64 (1:2.2.1-8, automatic), libabiword-3.0:amd64 (3.0.6~dfsg-1, automatic), libots0:amd64 (0.5.0-9+b1, automatic), libical3t64:amd64 (3.0.20-1+b1, automatic), link-grammar-dictionaries-en:amd64 (5.12.5~dfsg-1, automatic)
+End-Date: 2026-11-08  09:54:06
+
+Start-Date: 2026-11-11  08:11:32
+Commandline: apt install ddgr
+Requested-By: alaad13 (1000)
+Install: ddgr:amd64 (2.2-1)
+End-Date: 2026-11-11  08:11:42
+
+Start-Date: 2026-11-11  10:48:34
+Commandline: apt install goldendict
+Requested-By: alaad13 (1000)
+Install: libxapian30:amd64 (1.4.29-3+deb13u1, automatic), libmarisa0:amd64 (0.2.6-19, automatic), libopencc1.1:amd64 (1.1.9+ds1-1+deb13u1, automatic), goldendict:amd64 (1.5.0+git20250409+rm-2), libqt6multimedia6:amd64 (6.8.2-8, automatic), goldendict-ng:amd64 (25.06.0-2, automatic), libqt6xml6:amd64 (6.8.2+dfsg-9+deb13u2, automatic), libeb16t64:amd64 (4.4.3-14.3, automatic), libqt6core5compat6:amd64 (6.8.2-3+b1, automatic), libzim9:amd64 (9.2.3-1.1+b1, automatic), libtomlplusplus3t64:amd64 (3.4.0+ds-0.2+b1, automatic), libopencc-data:amd64 (1.1.9+ds1-1+deb13u1, automatic)
+End-Date: 2026-11-11  10:48:52
+
+Start-Date: 2026-11-14  08:15:49
+Commandline: apt install dict-jargon
+Requested-By: alaad13 (1000)
+Install: dict-jargon:amd64 (4.4.7-3.1)
+End-Date: 2026-11-14  08:15:51
