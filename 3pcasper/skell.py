@@ -11,7 +11,7 @@ import wc
 from requests.sessions import should_bypass_proxies
 from typing import Self
 
-# import densties
+import densties
 from pprint import pp
 from os import name
 
@@ -62,6 +62,7 @@ def main():
         for i in draws:
             print("e", i, file=f)
 
+    # print("mater -d EXAMPLE_DENSITIES")
     # pp(pipes)
     # pp(flanges)
 
@@ -171,8 +172,8 @@ def pmater(name, clr="grey", tr=0.0, re=0.0):
     - tranparency tr
     - reflection re
     """
-    color_code = color(clr)
-    s = f'mater  {name} "plastic {{ tr {tr} re {re} }}" {color_code} 0'
+    # color_code = color(clr)
+    s = f'mater  {name} "plastic {{ tr {tr} re {re} }}" {clr} 0'
     print(s)
     # mater region1 "plastic {tr 0.5 re 0.2}" 210 100 100 0
 
@@ -684,6 +685,9 @@ class PressureVessel:
         upper_end_name = "-upperend"
         supports_name = self.name + "-supports.c"
         supports_region_name = supports_name[:-2] + ".r"
+        foundations_name = self.name + "-foundations.c"
+        foundations_region_name = foundations_name[:-2] + ".r"
+        placing_name = self.name + "-placing.c"
 
         lower_end = ToriSphEnd(
             self.name + lower_end_name,
@@ -780,7 +784,8 @@ class PressureVessel:
         )
         print(f"kill {upper_end_inserted['group']} {lower_end_inserted['group']}")
         print(f"r {fill_region_name} u {fill_name}")
-        pmater(fill_region_name, "cyan", tr=0.5)
+        print(f"remat {fill_region_name} {densties.Water_Liquid}")
+        pmater(fill_region_name, color("cyan"), tr=0.5)
 
         ## creating nozzles
         # TODO: implementing radial end nozzles
@@ -960,15 +965,45 @@ class PressureVessel:
             )
             inserted_plate = plate.insert()
             print(f"comb {supports_name} u {inserted_plate}")
+            # Foundation
+            found_offset = totaloff + sup["foundation_offset"]
+            z = z + sup["plate_thick"]
+            found = RPP(
+                self.name + "-fnd-" + str(no),
+                x - found_offset,
+                x + found_offset,
+                y - found_offset,
+                y + found_offset,
+                -z - sup["foundation_height"],
+                -z,
+            )
+            inserted_found = found.insert()
+            print(f"comb {foundations_name} u {inserted_found}")
+        base_center_ref = Sph(
+            self.name + "base-center", [0, 0, -z - sup["foundation_height"]], 50
+        )
+        inserted_base_cen_ref = base_center_ref.insert()
+        print(f"comb {placing_name} u {inserted_base_cen_ref}")
 
         print(f"comb {supports_name} - {long_name}")
         print(f"r  {region_name} u {long_name}")
+        print(f"remat  {region_name} {densties.Stainless_Steel_AISI_304}")
+        pmater(region_name, "153 163 163", re=0.1)
         print(f"r  {supports_region_name} u {supports_name}")
+        print(
+            f"remat  {supports_region_name} {densties.steel_carbon_type_1020_0_2_0_6_c}"
+        )
+        pmater(supports_region_name, "88 94 94")
+        print(f"r  {foundations_region_name} u {foundations_name}")
+        print(f"remat  {foundations_region_name} {densties.Concrete_Portland}")
+        pmater(foundations_region_name, "242 242 242")
 
         # print(
         # blast(support_inserted)
         display_name = self.name + "-display.g"
-        print(f"g {display_name}  {region_name} {supports_region_name}")
+        print(
+            f"g {display_name}  {region_name} {supports_region_name} {foundations_region_name}"
+        )
 
         ## handling sections
         # TODO: tobe abstracted and separated
@@ -1006,7 +1041,7 @@ class PressureVessel:
             )
             print(f"g {secs_name} {sec_name} {sec_name_mir}")
         print(
-            f"g {group_name} {display_name} {fill_region_name} {secs_name} {boxes_name}"
+            f"g {group_name} {display_name} {fill_region_name} {secs_name} {boxes_name} {placing_name}"
         )
         return display_name
 
