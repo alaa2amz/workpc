@@ -55,9 +55,18 @@ def main():
     pv = PressureVessel(
         "n", 2000, 3000, 15, nozzles=pvn["nozzles"], support=pvn["supports"]
     )
+    pv2 = PressureVessel(
+        "n2", 2000, 3000, 15, nozzles=pvn["nozzles"], support=pvn["supports"]
+    )
     inserted_pv = pv.insert()
-    draws = []
-    draws.append(inserted_pv)
+    inserted_pv2 = pv2.insert()
+
+    print(f"B {inserted_pv2}")
+    print(f"oed / {inserted_pv2}")
+    translate([7000, 0, 0])
+    accept()
+    # draws = []
+    # draws.append(inserted_pv,ins)
     with open("draw.tcl", "w") as f:
         for i in draws:
             print("e", i, file=f)
@@ -1043,9 +1052,12 @@ class PressureVessel:
         print(
             f"g {group_name} {display_name} {fill_region_name} {secs_name} {boxes_name} {placing_name}"
         )
-        return display_name
+        #        return display_name
+        return f"{group_name}/{placing_name}/{inserted_base_cen_ref}"
 
-        # exit()
+
+#    def getDefaultPath():
+# exit()
 
 
 class Pipe:
@@ -1491,15 +1503,20 @@ class Skell:
             self.sec_crosses.append(cross_name)
 
     def insert(self):
+        #: v absolute dimensions of columns, rows, and plans
         sequences = self.get_sequences()
+        #: v count of levels on all of columns, rows, and plans
         ranges = self.get_ranges()
+        #: v nodes and centerlines
         self.nodes = []
         self.vaxs = []
         self.caxs = []
         self.laxs = []
+        #: v beams
         self.posts = []
         self.cbeams = []
         self.lbeams = []
+        #: v loop over ranges indicies
         for i, j, k in product(*ranges):
             print("#", i, j, k)
             self.insert_function(i, j, k, *sequences)
