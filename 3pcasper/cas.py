@@ -2,18 +2,24 @@
 import math
 import json
 import csv
-import yaml
 from itertools import product, zip_longest
 from copy import deepcopy
-
-import wc
-
-from requests.sessions import should_bypass_proxies
-from typing import Self
-
-import densties
 from pprint import pp
-from os import name
+
+import yaml
+
+from lib import wc, densties
+
+## constants
+# TODO:use libpath
+lib_path = "lib/"
+pipes_data_file = lib_path + "pipes.json"
+pipes_data_file2 = lib_path + "pipes.csv"
+flanges_data_file = lib_path + "f150.csv"
+draw_tcl_file = "draw.tcl"
+pipes = {}
+pipes2 = {}
+flanges = []
 
 # yaml sample
 ys = {}
@@ -67,9 +73,10 @@ def main():
     accept()
     # draws = []
     # draws.append(inserted_pv,ins)
-    with open("draw.tcl", "w") as f:
-        for i in draws:
-            print("e", i, file=f)
+
+    # with open(draw_tcl_file, "w") as f:
+    #    for i in draws:
+    #        print("e", i, file=f)
 
     # print("mater -d EXAMPLE_DENSITIES")
     # pp(pipes)
@@ -130,25 +137,6 @@ def lkv(list, key, val):
     return [i for i in list if i[key] == val][0]
 
 
-## constants
-pipes_data_file = "pipes.json"
-pipes_data_file2 = "pipes.csv"
-pipes = {}
-pipes2 = {}
-flanges_data_file = "f150.csv"
-flanges = []
-### colors
-blue = [0, 0, 255]
-electric_indigo = [100, 0, 255]
-blue_ribbon = [0, 100, 255]
-alone_in_the_dark = [0, 0, 100]
-# https://colordesigner.io/color-name-finder
-
-### transparency
-low_transparency = 0.3
-zero_transparency = 0.0
-
-
 def load_data():
     global pipes, pipes2, flanges
     with open(pipes_data_file) as f:
@@ -195,14 +183,6 @@ def orot(angles):
 def translate(point):
     point_string = " ".join(map(str, point))
     print(f"translate {point_string}")
-
-
-### materials
-vertical_column_mater = mater_plastic(blue, low_transparency)
-long_beam_mater = mater_plastic(electric_indigo, low_transparency)
-cross_beam_mater = mater_plastic(alone_in_the_dark, zero_transparency)
-base_mater = mater_plastic(alone_in_the_dark, low_transparency)
-boundary_box_color = mater_plastic(alone_in_the_dark, zero_transparency)
 
 
 def get_vector(from_point, to_point):
@@ -919,7 +899,7 @@ class PressureVessel:
             support_inserted_dict = support.insert(api=1)
             inserted_name = support_inserted_dict["name"]
             orig = support_inserted_dict["orig"]
-            draws.append(inserted_name)
+            # draws.append(inserted_name)
             blast(inserted_name)
             path = f"{inserted_name}/{orig}"
             # oed("/", path)
@@ -1562,20 +1542,3 @@ class Skell:
 
 if __name__ == "__main__":
     main()
-
-    # copy_mat = f"copymat {nzl_inserted['name']}/{nzl_inserted['pipe']['name']}/{nzl_inserted['pipe']['outer']} {long_name}/{nzl_inserted['name']}/{nzl_inserted['pipe']['name']}/{nzl_inserted['pipe']['outer']}"
-    #####oed('/',f'{lower_end_inserted[0]}/{lower_end_inserted[1][1]}')
-    # [ print(f'''set n [db get {i}]
-    #       puts $con_file [dict get $n H]''') for i in nozzles ]
-    # print(f"comb {self.name}-filled-knuckil.c u {torus_inserted['inner']}")
-    # print(f"comb {self.name}-filled-knuckil.c u {torus_inserted['inner']} - {con_cutter_inserted} - {cutter_inserted}")
-    # if self.nozzles != None:
-    #    self.insert_nozzles()
-    # print(f"c {punch_name}")
-
-    # def insert_nozzles(self):
-    # z = self.diameter - self.sph_z
-    # nzl = Nozzle(self.name + nzl_name, nzl_data["dn"], length=z + 200)
-
-    # nzl = Nozzle(self.name + nzl_name, nzl_data["dn"], length=nzl_length)
-    # f"{nzl_inserted['name']}/{nzl_inserted['pipe']['name']}/{nzl_inserted['pipe']['inner']}"

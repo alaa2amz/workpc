@@ -1,0 +1,15 @@
+#!/bin/sh
+rt -M \
+ -o iwanugahana.view.pix\
+ $*\
+ 'a.g'\
+ 'n-display.g' \
+ 2>> iwanugahana.view.log\
+ <<EOF
+viewsize 2.85311439987267e+03;
+orientation 9.56961338388642e-02 7.82703385834459e-02 3.72486324925805e-03 9.92321585707024e-01;
+eye_pt 2.18938794418684e+03 -2.65641492169515e+03 1.51010313913284e+04;
+start 0; clean;
+end;
+
+EOF
