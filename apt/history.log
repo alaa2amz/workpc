@@ -46,3 +46,15 @@ Commandline: apt install dict-jargon
 Requested-By: alaad13 (1000)
 Install: dict-jargon:amd64 (4.4.7-3.1)
 End-Date: 2026-11-14  08:15:51
+
+Start-Date: 2026-11-21  08:13:06
+Commandline: apt install apt-file
+Requested-By: alaad13 (1000)
+Install: apt-file:amd64 (3.3), libregexp-assemble-perl:amd64 (0.38-2, automatic), libapt-pkg-perl:amd64 (0.1.42, automatic)
+End-Date: 2026-11-21  08:13:22
+
+Start-Date: 2026-11-23  12:33:20
+Commandline: apt install mc
+Requested-By: alaad13 (1000)
+Install: mc-data:amd64 (3:4.8.33-1+deb13u1, automatic), mc:amd64 (3:4.8.33-1+deb13u1)
+End-Date: 2026-11-23  12:33:48
