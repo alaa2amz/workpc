@@ -58,3 +58,10 @@ Commandline: apt install mc
 Requested-By: alaad13 (1000)
 Install: mc-data:amd64 (3:4.8.33-1+deb13u1, automatic), mc:amd64 (3:4.8.33-1+deb13u1)
 End-Date: 2026-11-23  12:33:48
+
+Start-Date: 2026-11-24  09:22:57
+Commandline: apt install sqlite3*
+Requested-By: alaad13 (1000)
+Install: sqlite3-doc:amd64 (3.46.1-7+deb13u2), sqlite3-tools:amd64 (3.46.1-7+deb13u2), sqlite3:amd64 (3.46.1-7+deb13u2)
+Upgrade: libsqlite3-0:amd64 (3.46.1-7+deb13u1, 3.46.1-7+deb13u2), libsqlite3-0:i386 (3.46.1-7+deb13u1, 3.46.1-7+deb13u2)
+End-Date: 2026-11-24  09:23:09
