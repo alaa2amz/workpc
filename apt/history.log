@@ -65,3 +65,15 @@ Requested-By: alaad13 (1000)
 Install: sqlite3-doc:amd64 (3.46.1-7+deb13u2), sqlite3-tools:amd64 (3.46.1-7+deb13u2), sqlite3:amd64 (3.46.1-7+deb13u2)
 Upgrade: libsqlite3-0:amd64 (3.46.1-7+deb13u1, 3.46.1-7+deb13u2), libsqlite3-0:i386 (3.46.1-7+deb13u1, 3.46.1-7+deb13u2)
 End-Date: 2026-11-24  09:23:09
+
+Start-Date: 2026-11-24  13:55:22
+Commandline: apt install rsync
+Requested-By: alaad13 (1000)
+Install: rsync:amd64 (3.5.0+ds1-0+deb13u1)
+End-Date: 2026-11-24  13:55:42
+
+Start-Date: 2026-11-25  08:48:41
+Commandline: apt install geeqie
+Requested-By: alaad13 (1000)
+Install: exiv2:amd64 (0.28.5+dfsg-1, automatic), webp-pixbuf-loader:amd64 (0.2.7-1+b1, automatic), cups-bsd:amd64 (2.4.10-3+deb13u2, automatic), geeqie-common:amd64 (1:2.5-8, automatic), libffmpegthumbnailer4v5:amd64 (2.2.3-2, automatic), zenity-common:amd64 (4.1.90-1, automatic), zenity:amd64 (4.1.90-1, automatic), exiftran:amd64 (2.14-1, automatic), geeqie:amd64 (1:2.5-8)
+End-Date: 2026-11-25  08:49:13
