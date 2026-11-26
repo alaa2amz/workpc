@@ -1,3 +1,4 @@
+#!/bin/python3
 # from glob import translate
 import math
 import json
@@ -38,11 +39,12 @@ def main():
     load_data()
 
     ###Skell
-    # global ys
-    # ys = yaml.safe_load(yaml_sample)
-    # sample = ys
-    # s = Skell(sample)
-    # s.insert()
+    print("making skell")
+    global ys
+    ys = yaml.safe_load(yaml_sample)
+    sample = ys
+    s = Skell(sample)
+    s.insert()
 
     # print(s.get_sequences())
 
@@ -56,6 +58,8 @@ def main():
     # tsh=ToriSphEnd('d',3000,15)
     # tsh.insert()
 
+
+"""
     pvn = yaml.safe_load(pv_sample)
     # pp(pv)
     pv = PressureVessel(
@@ -71,39 +75,40 @@ def main():
     print(f"oed / {inserted_pv2}")
     translate([7000, 0, 0])
     accept()
-    # draws = []
-    # draws.append(inserted_pv,ins)
+    """
+# draws = []
+# draws.append(inserted_pv,ins)
 
-    # with open(draw_tcl_file, "w") as f:
-    #    for i in draws:
-    #        print("e", i, file=f)
+# with open(draw_tcl_file, "w") as f:
+#    for i in draws:
+#        print("e", i, file=f)
 
-    # print("mater -d EXAMPLE_DENSITIES")
-    # pp(pipes)
-    # pp(flanges)
+# print("mater -d EXAMPLE_DENSITIES")
+# pp(pipes)
+# pp(flanges)
 
-    # p=Pipe('ddd', 300, 30)
-    # p.insert()
-    # f=Flange('z',500,300,50)
-    # f.insert()
-    # q = Pipe.dn("rrr", 100)
-    # qq = Pipe.dn("RRR", 300)
-    # q.insert()
-    # qq.insert()
-    # f = Flange.dn("ff", 500)
-    # f.insert()
+# p=Pipe('ddd', 300, 30)
+# p.insert()
+# f=Flange('z',500,300,50)
+# f.insert()
+# q = Pipe.dn("rrr", 100)
+# qq = Pipe.dn("RRR", 300)
+# q.insert()
+# qq.insert()
+# f = Flange.dn("ff", 500)
+# f.insert()
 
-    # v=lkv(pipes2,'DN',str(100))
-    # vv=lkv(flanges,'MM',str(100))
-    # pp(v)
-    # pp(vv)
+# v=lkv(pipes2,'DN',str(100))
+# vv=lkv(flanges,'MM',str(100))
+# pp(v)
+# pp(vv)
 
-    # nz = Nozzle("z", 200)
-    # nz.insert()
+# nz = Nozzle("z", 200)
+# nz.insert()
 
-    ###c = IBeam("c", 1000, 100, 20, 10, 50, shape="i")
-    ###c.insert()
-    ###get_rccs_data(nozzles)
+###c = IBeam("c", 1000, 100, 20, 10, 50, shape="i")
+###c.insert()
+###get_rccs_data(nozzles)
 
 
 def isotrig_base_angle(arm, base):
@@ -1267,6 +1272,7 @@ def accept():
 
 class Skell:
     # TODO handle live setter updates
+    # vvv used in base slap and sections
     extension = 5000
 
     def __init__(self, data):
@@ -1288,16 +1294,47 @@ class Skell:
         self.vaxs = []
         self.caxs = []
         self.laxs = []
+        #===================
         self.posts = []
-        self.bb_posts = []
-        self.cbeams = []
-        self.bb_cbeams = []
         self.lbeams = []
+        self.cbeams = []
+        #==================
+        self.bb_posts = []
+        self.bb_cbeams = []
         self.bb_lbeams = []
+        #===================
         self.sec_plans = []
         self.sec_elevs = []
         self.sec_crosses = []
+        #==================
+        self.sec_crosses = []
+        self.whole_box = ""
+        names_dict = {            
+        "nodes.c":self.nodes ,
+        "vaxs.c":self.vaxs ,
+        "caxs.c":self.caxs ,
+        "laxs.c":self.laxs ,
+        #,
+        "posts.c":self.posts ,
+        "lbeams.c":self.lbeams ,
+        "cbeams.c":self.cbeams ,
+        #,
+        "bb_posts.c":self.bb_posts ,
+        "":self.bb_cbeams ,
+        "":self.bb_lbeams ,
+        #,
+        "":self.sec_plans ,
+        "":self.sec_elevs ,
+        "":self.sec_crosses ,
+        #==================
+        "":self.sec_crosses = []
+        "":self.whole_box = ""
+        }
 
+
+
+
+        '''
         self.nodes = []
         self.vaxs = []
         self.caxs = []
@@ -1310,9 +1347,7 @@ class Skell:
         self.bb_lbeams = []
         self.sec_plans = []
         self.sec_elevs = []
-        self.sec_crosses = []
-        self.all_sections = []
-        self.whole_box = ""
+        '''
 
     def get_sequences(self):
         return [i.get_squence() for i in self.descriptors]
@@ -1522,6 +1557,7 @@ class Skell:
         all_sec_c = "all-sec.g"
         groups = {
             nodes_group: self.nodes,
+            sec_cross_group: self.sec_crosses,
             sec_cross_group: self.sec_crosses,
         }
         for key, alist in groups.items():
