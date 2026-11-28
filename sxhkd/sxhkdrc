@@ -49,4 +49,7 @@ super + 3
 super + n
 	xfce4-terminal -e "vim $HOME/scratch-`date -I`.txt"
 
- 
+super + shift + @s
+	xdotool key --clearmodifiers --delay 250 ctrl+d Return sleep 2 ctrl+s sleep 2 Return
+
+
