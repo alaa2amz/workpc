@@ -1289,52 +1289,29 @@ class Skell:
         self.long_beam = data["long_beam"]
         self.cross_beam = data["cross_beam"]
         self.beams = data["beams"]
+        self.all_sections = []
 
         self.nodes = []
         self.vaxs = []
         self.caxs = []
         self.laxs = []
-        #===================
+        # ===================
         self.posts = []
         self.lbeams = []
         self.cbeams = []
-        #==================
+        # ==================
         self.bb_posts = []
         self.bb_cbeams = []
         self.bb_lbeams = []
-        #===================
+        # ===================
         self.sec_plans = []
         self.sec_elevs = []
         self.sec_crosses = []
-        #==================
+        # ==================
         self.sec_crosses = []
         self.whole_box = ""
-        names_dict = {            
-        "nodes.c":self.nodes ,
-        "vaxs.c":self.vaxs ,
-        "caxs.c":self.caxs ,
-        "laxs.c":self.laxs ,
-        #,
-        "posts.c":self.posts ,
-        "lbeams.c":self.lbeams ,
-        "cbeams.c":self.cbeams ,
-        #,
-        "bb_posts.c":self.bb_posts ,
-        "":self.bb_cbeams ,
-        "":self.bb_lbeams ,
-        #,
-        "":self.sec_plans ,
-        "":self.sec_elevs ,
-        "":self.sec_crosses ,
-        #==================
-        "":self.sec_crosses = []
-        "":self.whole_box = ""
-        }
 
-
-
-
-        '''
+        """
         self.nodes = []
         self.vaxs = []
         self.caxs = []
@@ -1347,7 +1324,7 @@ class Skell:
         self.bb_lbeams = []
         self.sec_plans = []
         self.sec_elevs = []
-        '''
+        """
 
     def get_sequences(self):
         return [i.get_squence() for i in self.descriptors]
@@ -1549,23 +1526,60 @@ class Skell:
         lbeam_group = "lbeam.g"
         bb_lbeam_group = "bb-lbeam.g"
         ax_group = "ax.g"
-        skell_region = "skell.r"
+        beams_group = "beams.g"
+        beams_reigion = "beams.r"
         all_group = "all-skell.g"
         sec_plan_group = "sec-plan.g"
         sec_elev_group = "sec-elev.g"
         sec_cross_group = "sec-cross.g"
+        sec_rpps_all = "sec_rpps.s"
         all_sec_c = "all-sec.g"
-        groups = {
+        bb_group = "bb.g"
+        skell_group = "skell.g"
+        root_groop = "root.g"
+        self.names_dict = {
             nodes_group: self.nodes,
+            vax_group: self.vaxs,
+            cax_group: self.caxs,
+            lax_group: self.laxs,
+            # ,
+            post_group: self.posts,
+            lbeam_group: self.lbeams,
+            cbeam_group: self.cbeams,
+            # ,
+            bb_post_group: self.bb_posts,
+            bb_cbeam_group: self.bb_cbeams,
+            bb_lbeam_group: self.bb_lbeams,
+            # ,
+            sec_plan_group: self.sec_plans,
+            sec_elev_group: self.sec_elevs,
             sec_cross_group: self.sec_crosses,
-            sec_cross_group: self.sec_crosses,
+            beams_group: [post_group, lbeam_group, cbeam_group],
+            beams_reigion: [beams_group],
+            ax_group: [nodes_group, vax_group, lax_group, cax_group],
+            sec_rpps_all: [sec_plan_group, sec_elev_group, sec_cross_group],
+            bb_group: [bb_post_group, bb_lbeam_group, bb_cbeam_group],
+            skell_group: [ax_group, sec_rpps_all, bb_group, beams_reigion],
+            root_groop: [beams_reigion],
+            # TODO^^^^must print copy mat command
+            # "whole": self.whole_box,
+        }
+        groups = {
+            **self.names_dict
+            # sec_cross_group: self.sec_crosses,
         }
         for key, alist in groups.items():
+            if key == beams_reigion:
+                print(f"r {beams_reigion} u {beams_group}")
+                continue
             concated = " ".join(alist)
             print(f"g {key} {concated}")
-        print(f"c -r {skell_region}")
-        blue = color("blue")
-        print(f'mater {skell_region} "plastic" {blue} 0')
+        print(f"remat  {beams_reigion} {densties.steel_carbon_type_1020_0_2_0_6_c}")
+        # TODO:correcting pmater wrong default value
+        pmater(beams_reigion, color("cyan"))
+        ###blue = color("blue")
+        ###print(f'mater {skell_region} "plastic" {blue} 0')
+        """#
         all_sections = self.sec_plans + self.sec_elevs + self.sec_crosses
         for secrpp in all_sections:
             sec_name = secrpp[:-2] + ".c"
@@ -1574,6 +1588,17 @@ class Skell:
             self.all_sections.append(sec_name)
         concated = " ".join(self.all_sections)
         print(f"g {all_sec_c} {concated}")
+        #"""
+        #
+        all_sections = self.sec_plans + self.sec_elevs + self.sec_crosses
+        for secrpp in all_sections:
+            sec_name = secrpp[:-2] + ".c"
+            # print(f'comb {sec_name} u {secrpp} + {all_group}')
+            print(f"comb {sec_name} u {root_groop} + {secrpp}")
+            self.all_sections.append(sec_name)
+        concated = " ".join(self.all_sections)
+        print(f"g {all_sec_c} {concated}")
+        #
 
 
 if __name__ == "__main__":
